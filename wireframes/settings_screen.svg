@@ -1,0 +1,94 @@
+<svg width="375" height="812" viewBox="0 0 375 812" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="375" height="812" fill="#FAFAFA"/>
+
+  <!-- Status Bar -->
+  <rect x="16" y="16" width="343" height="44" fill="#000000"/>
+  <text x="36" y="46" font-size="14" fill="#FFFFFF">9:41</text>
+  <text x="340" y="46" font-size="14" fill="#FFFFFF">100%</text>
+
+  <!-- App Bar -->
+  <rect x="16" y="76" width="343" height="60" rx="8" fill="#FFFFFF" stroke="#E5E5E5"/>
+  <text x="36" y="112" font-size="18" font-weight="600" fill="#000000">Settings</text>
+
+  <!-- Settings List -->
+  <g transform="translate(36, 156)">
+    <!-- Recording Preferences -->
+    <text x="0" y="0" font-size="12" font-weight="600" fill="#8E8E93">Recording</text>
+
+    <g transform="translate(0, 12)">
+      <rect x="0" y="0" width="303" height="44" rx="8" fill="#FFFFFF" stroke="#E5E5E5"/>
+      <text x="14" y="28" font-size="14" fill="#000000">Video Quality</text>
+      <text x="288" y="28" font-size="14" fill="#8E8E93" text-anchor="end">1080p</text>
+    </g>
+
+    <g transform="translate(0, 64)">
+      <rect x="0" y="0" width="303" height="44" rx="8" fill="#FFFFFF" stroke="#E5E5E5"/>
+      <text x="14" y="28" font-size="14" fill="#000000">Audio Input</text>
+      <text x="288" y="28" font-size="14" fill="#8E8E93" text-anchor="end">Mic (phone)</text>
+    </g>
+
+    <g transform="translate(0, 116)">
+      <rect x="0" y="0" width="303" height="44" rx="8" fill="#FFFFFF" stroke="#E5E5E5"/>
+      <text x="14" y="28" font-size="14" fill="#000000">Max Duration</text>
+      <text x="288" y="28" font-size="14" fill="#8E8E93" text-anchor="end">30 min</text>
+    </g>
+
+    <!-- Privacy/Security -->
+    <g transform="translate(0, 180)">
+      <text x="0" y="0" font-size="12" font-weight="600" fill="#8E8E93">Privacy & Security</text>
+    </g>
+
+    <g transform="translate(0, 196)">
+      <rect x="0" y="0" width="303" height="44" rx="8" fill="#FFFFFF" stroke="#E5E5E5"/>
+      <text x="14" y="28" font-size="14" fill="#000000">Require Biometrics</text>
+      <rect x="248" y="10" width="45" height="24" rx="12" fill="#34C759"/>
+      <circle cx="272" cy="22" r="10" fill="#FFFFFF"/>
+    </g>
+
+    <g transform="translate(0, 248)">
+      <rect x="0" y="0" width="303" height="44" rx="8" fill="#FFFFFF" stroke="#E5E5E5"/>
+      <text x="14" y="28" font-size="14" fill="#000000">Auto-lock App</text>
+      <text x="288" y="28" font-size="14" fill="#8E8E93" text-anchor="end">After 1 min</text>
+    </g>
+
+    <g transform="translate(0, 300)">
+      <rect x="0" y="0" width="303" height="44" rx="8" fill="#FFFFFF" stroke="#E5E5E5"/>
+      <text x="14" y="28" font-size="14" fill="#000000">Auto-delete after Upload</text>
+      <rect x="248" y="10" width="45" height="24" rx="12" fill="#E5E5EA"/>
+      <circle cx="260" cy="22" r="10" fill="#FFFFFF"/>
+    </g>
+
+    <!-- Storage -->
+    <g transform="translate(0, 364)">
+      <text x="0" y="0" font-size="12" font-weight="600" fill="#8E8E93">Storage</text>
+    </g>
+
+    <g transform="translate(0, 380)">
+      <rect x="0" y="0" width="303" height="44" rx="8" fill="#FFFFFF" stroke="#E5E5E5"/>
+      <text x="14" y="28" font-size="14" fill="#000000">Manage Storage</text>
+      <text x="288" y="28" font-size="14" fill="#8E8E93" text-anchor="end">2.1 GB</text>
+    </g>
+
+  </g>
+
+  <!-- Bottom Navigation -->
+  <rect x="16" y="728" width="343" height="84" fill="#FFFFFF" stroke="#E5E5E5"/>
+  <g transform="translate(0, 738)">
+    <g transform="translate(46.875, 10)">
+      <circle cx="15" cy="15" r="8" fill="#8E8E93"/>
+      <text x="15" y="35" font-size="10" fill="#8E8E93" text-anchor="middle">Record</text>
+    </g>
+    <g transform="translate(140.625, 10)">
+      <rect x="7" y="7" width="16" height="16" rx="2" fill="#8E8E93"/>
+      <text x="15" y="35" font-size="10" fill="#8E8E93" text-anchor="middle">Live</text>
+    </g>
+    <g transform="translate(234.375, 10)">
+      <rect x="7" y="7" width="16" height="16" rx="2" fill="#8E8E93"/>
+      <text x="15" y="35" font-size="10" fill="#8E8E93" text-anchor="middle">Sessions</text>
+    </g>
+    <g transform="translate(328.125, 10)">
+      <circle cx="15" cy="15" r="8" fill="#FF3B30"/>
+      <text x="15" y="35" font-size="10" fill="#FF3B30" text-anchor="middle">Settings</text>
+    </g>
+  </g>
+</svg>

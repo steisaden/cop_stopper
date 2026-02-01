@@ -1,0 +1,4 @@
+enum SessionType {
+  privateGroup,
+  spectator,
+}

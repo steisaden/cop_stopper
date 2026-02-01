@@ -1,0 +1,20 @@
+# Use a specific version of the Flutter SDK
+FROM cirrusci/flutter:3.3.10
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the application source
+COPY . .
+
+# Install dependencies
+RUN cd mobile && flutter pub get
+
+# Expose the port for the web server
+EXPOSE 8080
+
+# Expose the port for the Dart observatory
+EXPOSE 8181
+
+# Start the application
+CMD ["flutter", "run", "-d", "web-server", "--web-hostname", "0.0.0.0", "--web-port", "8080"]

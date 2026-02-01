@@ -1,0 +1,266 @@
+<svg width="375" height="812" viewBox="0 0 375 812" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Enhanced Glassmorphism filters -->
+    <filter id="glass-depth" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="4" stdDeviation="12" flood-color="rgba(0,0,0,0.1)"/>
+      <feDropShadow dx="0" dy="8" stdDeviation="24" flood-color="rgba(0,0,0,0.15)"/>
+      <feDropShadow dx="0" dy="-2" stdDeviation="6" flood-color="rgba(255,255,255,0.6)"/>
+    </filter>
+
+    <filter id="glass-surface" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="6" stdDeviation="16" flood-color="rgba(0,0,0,0.08)"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="8" flood-color="rgba(0,0,0,0.12)"/>
+      <feDropShadow dx="0" dy="-1" stdDeviation="4" flood-color="rgba(255,255,255,0.4)"/>
+    </filter>
+
+    <filter id="glass-button" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="3" stdDeviation="10" flood-color="rgba(0,0,0,0.15)"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="4" flood-color="rgba(0,0,0,0.2)"/>
+      <feDropShadow dx="0" dy="-1" stdDeviation="3" flood-color="rgba(255,255,255,0.7)"/>
+    </filter>
+
+    <!-- Enhanced gradients -->
+    <linearGradient id="pastel-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F0F9FF;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#F8FBFF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFFBEB;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="glass-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.35);stop-opacity:1" />
+      <stop offset="40%" style="stop-color:rgba(255,255,255,0.2);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgba(255,255,255,0.08);stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="glass-highlight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.6);stop-opacity:1" />
+      <stop offset="50%" style="stop-color:rgba(255,255,255,0.2);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgba(255,255,255,0.05);stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="blue-glass" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgba(99,179,237,0.9);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgba(59,130,246,0.7);stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Deep Glass Filters -->
+    <filter id="deep-aurora" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="8" stdDeviation="40" flood-color="rgba(0,0,0,0.25)"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="15" flood-color="rgba(255,255,255,0.5)"/>
+      <feGaussianBlur stdDeviation="30" result="blur"/>
+    </filter>
+
+    <filter id="deep-frosted" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="6" stdDeviation="25" flood-color="rgba(0,0,0,0.2)"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="20" flood-color="rgba(255,255,255,0.3)"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="40" flood-color="rgba(0,0,0,0.05)"/>
+      <feGaussianBlur stdDeviation="20" result="blur"/>
+    </filter>
+
+    <filter id="deep-neon" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="0" stdDeviation="40" flood-color="rgba(0,255,200,0.3)"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="80" flood-color="rgba(0,200,255,0.25)"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="20" flood-color="rgba(255,255,255,0.2)"/>
+      <feGaussianBlur stdDeviation="25" result="blur"/>
+    </filter>
+
+    <filter id="deep-dark" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="10" stdDeviation="40" flood-color="rgba(0,0,0,0.5)"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="12" flood-color="rgba(0,0,0,0.6)"/>
+      <feGaussianBlur stdDeviation="28" result="blur"/>
+    </filter>
+
+    <filter id="deep-metallic" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="5" stdDeviation="30" flood-color="rgba(0,0,0,0.4)"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="20" flood-color="rgba(255,255,255,0.25)"/>
+      <feGaussianBlur stdDeviation="22" result="blur"/>
+    </filter>
+
+    <filter id="deep-crystal" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="12" stdDeviation="50" flood-color="rgba(0,0,0,0.25)"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="25" flood-color="rgba(255,255,255,0.35)"/>
+      <feGaussianBlur stdDeviation="40" result="blur"/>
+    </filter>
+
+    <filter id="deep-holographic" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="10" stdDeviation="40" flood-color="rgba(0,0,0,0.25)"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="20" flood-color="rgba(255,255,255,0.25)"/>
+      <feGaussianBlur stdDeviation="30" result="blur"/>
+    </filter>
+
+    <!-- Deep Glass Gradients -->
+    <linearGradient id="deep-aurora-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.1);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgba(255,255,255,0.1);stop-opacity:1" />
+    </linearGradient>
+
+    <radialGradient id="deep-aurora-bg" cx="50%" cy="50%" r="100%">
+      <stop offset="0%" style="stop-color:rgba(255,0,150,0.2);stop-opacity:1" />
+      <stop offset="30%" style="stop-color:rgba(0,200,255,0.2);stop-opacity:1" />
+      <stop offset="70%" style="stop-color:rgba(0,255,150,0.2);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgba(255,0,150,0.2);stop-opacity:1" />
+    </radialGradient>
+
+    <linearGradient id="deep-frosted-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.12);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgba(255,255,255,0.12);stop-opacity:1" />
+    </linearGradient>
+
+    <radialGradient id="deep-frosted-glow" cx="80%" cy="20%" r="150%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.25);stop-opacity:1" />
+      <stop offset="70%" style="stop-color:rgba(255,255,255,0);stop-opacity:0" />
+    </radialGradient>
+
+    <linearGradient id="deep-neon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgba(20,20,20,0.2);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgba(20,20,20,0.2);stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="deep-neon-border" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f0f;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="deep-dark-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgba(15,15,15,0.35);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgba(15,15,15,0.35);stop-opacity:1" />
+    </linearGradient>
+
+    <radialGradient id="deep-dark-glow" cx="90%" cy="10%" r="120%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.1);stop-opacity:1" />
+      <stop offset="70%" style="stop-color:rgba(255,255,255,0);stop-opacity:0" />
+    </radialGradient>
+
+    <linearGradient id="deep-metallic-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgba(40,40,40,0.25);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgba(40,40,40,0.25);stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="deep-metallic-shine" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.3);stop-opacity:1" />
+      <stop offset="70%" style="stop-color:rgba(255,255,255,0);stop-opacity:0" />
+    </linearGradient>
+
+    <linearGradient id="deep-crystal-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.08);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgba(255,255,255,0.08);stop-opacity:1" />
+    </linearGradient>
+
+    <radialGradient id="deep-crystal-glow" cx="20%" cy="20%" r="140%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.5);stop-opacity:1" />
+      <stop offset="70%" style="stop-color:rgba(255,255,255,0);stop-opacity:0" />
+    </radialGradient>
+
+    <linearGradient id="deep-holographic-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.1);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgba(255,255,255,0.1);stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="deep-holographic-rainbow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgba(255,0,150,0.25);stop-opacity:1" />
+      <stop offset="50%" style="stop-color:rgba(0,255,200,0.25);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgba(0,150,255,0.25);stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <rect width="375" height="812" fill="url(#pastel-bg)"/>
+
+  <!-- Status Bar -->
+  <rect x="16" y="16" width="343" height="28" rx="14" fill="rgba(30,58,138,0.9)"/>
+  <text x="28" y="35" font-size="13" fill="#FFFFFF">9:41</text>
+  <text x="332" y="35" font-size="13" fill="#FFFFFF">100%</text>
+
+  <!-- App Bar with deep aurora glass -->
+  <g id="appbar-aurora">
+    <rect x="16" y="56" width="343" height="48" rx="18" fill="url(#deep-aurora-gradient)" filter="url(#deep-aurora)"/>
+    <rect x="16" y="56" width="343" height="48" rx="18" fill="url(#deep-aurora-bg)" opacity="0.65"/>
+    <text x="32" y="86" font-size="18" font-weight="800" fill="#0F172A">Sessions</text>
+  </g>
+
+  <!-- Search Bar with deep frosted glass -->
+  <g id="search-frosted" transform="translate(16, 116)">
+    <rect x="0" y="0" width="343" height="40" rx="14" fill="url(#deep-frosted-gradient)" filter="url(#deep-frosted)"/>
+    <rect x="-10" y="-16" width="363" height="72" rx="20" fill="url(#deep-frosted-glow)" opacity="0.35"/>
+    <text x="16" y="25" font-size="12" fill="#475569">Search sessions...</text>
+  </g>
+
+  <!-- Session Cards with deep frosted glass -->
+  <g transform="translate(16, 168)">
+    <g transform="translate(0, 0)">
+      <!-- Deep frosted card -->
+      <rect x="0" y="0" width="343" height="80" rx="18" fill="url(#deep-frosted-gradient)" filter="url(#deep-frosted)"/>
+      <rect x="-10" y="-16" width="363" height="112" rx="24" fill="url(#deep-frosted-glow)" opacity="0.35"/>
+      <text x="16" y="30" font-size="14" font-weight="800" fill="#0F172A">Traffic Stop - 2025-08-10</text>
+      <text x="16" y="54" font-size="12" fill="#334155">15 min • 321 MB • 2 notes</text>
+      <!-- Metallic Open button -->
+      <g>
+        <rect x="263" y="22" width="64" height="28" rx="10" fill="url(#deep-metallic-gradient)" filter="url(#deep-metallic)"/>
+        <rect x="263" y="22" width="64" height="28" rx="10" fill="url(#deep-metallic-shine)" opacity="0.6"/>
+      </g>
+      <text x="295" y="40" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">Open</text>
+      <!-- Neon LIVE badge -->
+      <g transform="translate(188, 18)">
+        <rect x="0" y="0" width="60" height="20" rx="10" fill="url(#deep-neon-gradient)" filter="url(#deep-neon)"/>
+        <rect x="0" y="0" width="60" height="20" rx="10" fill="url(#deep-neon-border)" opacity="0.5"/>
+        <text x="30" y="14" font-size="10" font-weight="800" fill="#E0FFFF" text-anchor="middle">LIVE</text>
+      </g>
+    </g>
+
+    <g transform="translate(0, 96)">
+      <!-- Deep frosted card -->
+      <rect x="0" y="0" width="343" height="80" rx="18" fill="url(#deep-frosted-gradient)" filter="url(#deep-frosted)"/>
+      <rect x="-10" y="-16" width="363" height="112" rx="24" fill="url(#deep-frosted-glow)" opacity="0.35"/>
+      <text x="16" y="30" font-size="14" font-weight="800" fill="#0F172A">Live Assist - 2025-08-05</text>
+      <text x="16" y="54" font-size="12" fill="#334155">8 min • 156 MB • 1 tip</text>
+      <!-- Metallic Open button -->
+      <g>
+        <rect x="263" y="22" width="64" height="28" rx="10" fill="url(#deep-metallic-gradient)" filter="url(#deep-metallic)"/>
+        <rect x="263" y="22" width="64" height="28" rx="10" fill="url(#deep-metallic-shine)" opacity="0.6"/>
+      </g>
+      <text x="295" y="40" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">Open</text>
+    </g>
+
+    <g transform="translate(0, 192)">
+      <!-- Deep frosted card -->
+      <rect x="0" y="0" width="343" height="80" rx="18" fill="url(#deep-frosted-gradient)" filter="url(#deep-frosted)"/>
+      <rect x="-10" y="-16" width="363" height="112" rx="24" fill="url(#deep-frosted-glow)" opacity="0.35"/>
+      <text x="16" y="30" font-size="14" font-weight="800" fill="#0F172A">Interview - 2025-07-28</text>
+      <text x="16" y="54" font-size="12" fill="#334155">42 min • 1.2 GB • 5 notes</text>
+      <!-- Metallic Open button -->
+      <g>
+        <rect x="263" y="22" width="64" height="28" rx="10" fill="url(#deep-metallic-gradient)" filter="url(#deep-metallic)"/>
+        <rect x="263" y="22" width="64" height="28" rx="10" fill="url(#deep-metallic-shine)" opacity="0.6"/>
+      </g>
+      <text x="295" y="40" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">Open</text>
+    </g>
+  </g>
+
+  <!-- Bottom Navigation with deep dark glass -->
+  <g id="bottomnav-dark">
+    <rect x="16" y="728" width="343" height="68" rx="18" fill="url(#deep-dark-gradient)" filter="url(#deep-dark)"/>
+    <rect x="6" y="708" width="363" height="108" rx="24" fill="url(#deep-dark-glow)" opacity="0.35"/>
+    <g transform="translate(0, 748)">
+      <g transform="translate(37.5, 8)">
+        <circle cx="15" cy="15" r="12" fill="rgba(100,116,139,0.7)" filter="url(#glass-surface)"/>
+        <circle cx="15" cy="15" r="6" fill="#FFFFFF"/>
+        <text x="15" y="42" font-size="11" font-weight="600" fill="#94A3B8" text-anchor="middle">Record</text>
+      </g>
+      <g transform="translate(112.5, 8)">
+        <rect x="7" y="7" width="16" height="16" rx="4" fill="rgba(100,116,139,0.7)" filter="url(#glass-surface)"/>
+        <text x="15" y="42" font-size="11" font-weight="600" fill="#94A3B8" text-anchor="middle">Live</text>
+      </g>
+      <g transform="translate(187.5, 8)">
+        <rect x="7" y="7" width="16" height="16" rx="4" fill="url(#blue-glass)" filter="url(#glass-button)"/>
+        <text x="15" y="42" font-size="11" font-weight="800" fill="#E2E8F0" text-anchor="middle">Sessions</text>
+      </g>
+      <g transform="translate(262.5, 8)">
+        <rect x="7" y="7" width="16" height="16" rx="4" fill="rgba(100,116,139,0.7)" filter="url(#glass-surface)"/>
+        <text x="15" y="42" font-size="11" font-weight="600" fill="#94A3B8" text-anchor="middle">Files</text>
+      </g>
+      <g transform="translate(337.5, 8)">
+        <circle cx="15" cy="15" r="12" fill="rgba(100,116,139,0.7)" filter="url(#glass-surface)"/>
+        <text x="15" y="42" font-size="11" font-weight="600" fill="#94A3B8" text-anchor="middle">Settings</text>
+      </g>
+    </g>
+  </g>
+</svg>

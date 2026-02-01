@@ -1,0 +1,72 @@
+<svg width="375" height="812" viewBox="0 0 375 812" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="375" height="812" fill="#FAFAFA"/>
+  
+  <!-- Status Bar -->
+  <rect x="16" y="16" width="343" height="44" rx="8" fill="#000000"/>
+  <text x="36" y="46" font-size="14" fill="#FFFFFF">9:41</text>
+  <text x="340" y="46" font-size="14" fill="#FFFFFF">100%</text>
+  
+  <!-- App Bar -->
+  <rect x="16" y="76" width="343" height="60" rx="8" fill="#FFFFFF" stroke="#E5E5E5"/>
+  <text x="36" y="112" font-size="18" font-weight="600" fill="#000000">Live Assist</text>
+  <circle cx="320" cy="106" r="6" fill="#FF3B30"/>
+  <text x="285" y="111" font-size="12" fill="#FF3B30">LIVE</text>
+
+  <!-- Transcript and Highlights -->
+  <g transform="translate(36, 156)">
+    <rect x="0" y="0" width="303" height="360" rx="12" fill="#FFFFFF" stroke="#E5E5E5"/>
+    <text x="16" y="30" font-size="14" fill="#8E8E93">[00:00] Officer: Please step out of the car.</text>
+    <text x="16" y="60" font-size="14" fill="#000000">[00:02] You: May I know the reason for the stop?</text>
+    <rect x="16" y="70" width="271" height="24" rx="6" fill="#FFF5E5" stroke="#FFD993"/>
+    <text x="24" y="86" font-size="12" fill="#FF9500">Key Phrase: Consent to search requested</text>
+
+    <text x="16" y="120" font-size="14" fill="#000000">[00:10] Officer: Do you consent to a search?</text>
+    <rect x="16" y="130" width="271" height="24" rx="6" fill="#E5FFF4" stroke="#9EE8C9"/>
+    <text x="24" y="146" font-size="12" fill="#34C759">Best Practice: You may decline consent</text>
+
+    <text x="16" y="190" font-size="14" fill="#000000">[00:16] You: I do not consent to searches.</text>
+  </g>
+
+  <!-- Quick Actions -->
+  <g transform="translate(36, 536)">
+    <rect x="0" y="0" width="303" height="80" rx="12" fill="#F2F2F7" stroke="#E5E5E5"/>
+    <g transform="translate(10, 16)">
+      <rect x="0" y="0" width="87" height="48" rx="8" fill="#007AFF"/>
+      <text x="47.5" y="30" font-size="12" fill="#FFFFFF" text-anchor="middle">Bookmark</text>
+      
+      <rect x="102" y="0" width="87" height="48" rx="8" fill="#34C759"/>
+      <text x="145.5" y="30" font-size="12" fill="#FFFFFF" text-anchor="middle">Note</text>
+      
+      <rect x="204" y="0" width="87" height="48" rx="8" fill="#8E8E93"/>
+      <text x="247.5" y="30" font-size="12" fill="#FFFFFF" text-anchor="middle">Assign</text>
+    </g>
+  </g>
+
+  <!-- Tips Panel -->
+  <g transform="translate(36, 636)">
+    <rect x="0" y="0" width="303" height="100" rx="12" fill="#FFFFFF" stroke="#E5E5E5"/>
+    <text x="16" y="30" font-size="14" font-weight="600" fill="#000000">Contextual Tips</text>
+    <text x="20" y="55" font-size="12" fill="#8E8E93">If you do not consent to a search, clearly state so and ask if you are free to leave.</text>
+  </g>
+
+  <!-- Bottom Navigation -->
+  <rect x="16" y="728" width="343" height="84" fill="#FFFFFF" stroke="#E5E5E5"/>
+  <g transform="translate(0, 738)">
+    <g transform="translate(46.875, 10)">
+      <circle cx="15" cy="15" r="8" fill="#8E8E93"/>
+      <text x="15" y="35" font-size="10" fill="#8E8E93" text-anchor="middle">Record</text>
+    </g>
+    <g transform="translate(140.625, 10)">
+      <rect x="7" y="7" width="16" height="16" rx="2" fill="#FF3B30"/>
+      <text x="15" y="35" font-size="10" fill="#FF3B30" text-anchor="middle">Live</text>
+    </g>
+    <g transform="translate(234.375, 10)">
+      <rect x="7" y="7" width="16" height="16" rx="2" fill="#8E8E93"/>
+      <text x="15" y="35" font-size="10" fill="#8E8E93" text-anchor="middle">Sessions</text>
+    </g>
+    <g transform="translate(328.125, 10)">
+      <circle cx="15" cy="15" r="8" fill="#8E8E93"/>
+      <text x="15" y="35" font-size="10" fill="#8E8E93" text-anchor="middle">Settings</text>
+    </g>
+  </g>
+</svg>
