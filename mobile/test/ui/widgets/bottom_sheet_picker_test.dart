@@ -6,19 +6,19 @@ import '../../test_helpers.dart';
 void main() {
   group('BottomSheetPicker Widget Tests', () {
     final testItems = [
-      BottomSheetPickerItem<String>(
+      const BottomSheetPickerItem<String>(
         value: 'option1',
         title: 'Option 1',
         subtitle: 'First option',
         icon: Icons.star,
       ),
-      BottomSheetPickerItem<String>(
+      const BottomSheetPickerItem<String>(
         value: 'option2',
         title: 'Option 2',
         subtitle: 'Second option',
         icon: Icons.favorite,
       ),
-      BottomSheetPickerItem<String>(
+      const BottomSheetPickerItem<String>(
         value: 'option3',
         title: 'Option 3',
       ),
@@ -187,7 +187,7 @@ void main() {
                     context: context,
                     title: 'Test',
                     items: [
-                      BottomSheetPickerItem<String>(
+                      const BottomSheetPickerItem<String>(
                         value: 'test',
                         title: 'Test Item',
                       ),
@@ -195,7 +195,7 @@ void main() {
                   );
                   // Handle result if needed
                 },
-                child: Text('Show Picker'),
+                child: const Text('Show Picker'),
               );
             },
           ),

@@ -4,7 +4,7 @@ import 'package:mobile/src/collaborative_monitoring/models/privacy_settings.dart
 void main() {
   group('PrivacySettings', () {
     test('can be instantiated', () {
-      final settings = PrivacySettings(
+      const settings = PrivacySettings(
         anonymizeParticipants: true,
         restrictToProAccounts: false,
       );

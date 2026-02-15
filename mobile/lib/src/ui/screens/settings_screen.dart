@@ -76,11 +76,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(AppSpacing.md),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white, // White header from Figma
                 border: Border(
                   bottom: BorderSide(
-                    color: const Color(0xFFE5E7EB), // Light border from Figma
+                    color: Color(0xFFE5E7EB), // Light border from Figma
                     width: 1,
                   ),
                 ),

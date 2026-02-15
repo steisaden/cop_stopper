@@ -12,6 +12,7 @@ import '../components/shadcn_card.dart';
 import '../components/figma_badge.dart';
 import '../components/shadcn_button.dart';
 import 'session_detail_screen.dart';
+import 'media_player_screen.dart';
 import '../../blocs/navigation/navigation_bloc.dart';
 import '../../blocs/navigation/navigation_event.dart';
 import '../../blocs/navigation/navigation_state.dart';
@@ -34,11 +35,27 @@ class _HistoryScreenState extends State<HistoryScreen> {
   ];
   List<Recording> _recordings = [];
   bool _isLoading = true;
+  bool _hasLoadedOnce = false;
 
   @override
   void initState() {
     super.initState();
     _loadHistory();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Reload history every time we come back to this screen
+    // (but not on the very first build, which is handled by initState)
+    if (_hasLoadedOnce && mounted) {
+      _loadHistory();
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   Future<void> _loadHistory() async {
@@ -47,16 +64,26 @@ class _HistoryScreenState extends State<HistoryScreen> {
     });
 
     try {
+      debugPrint('📂 Loading recording history...');
       final historyService = locator<HistoryService>();
       final recordings = await historyService.getRecordingHistory();
+      debugPrint('📂 Loaded ${recordings.length} recordings from history');
+
+      if (recordings.isNotEmpty) {
+        debugPrint(
+            '📂 First recording: ${recordings.first.id}, path: ${recordings.first.filePath}');
+      }
+
       setState(() {
         _recordings = recordings;
         _isLoading = false;
+        _hasLoadedOnce = true;
       });
     } catch (e) {
-      print('Error loading history: $e');
+      debugPrint('❌ Error loading history: $e');
       setState(() {
         _isLoading = false;
+        _hasLoadedOnce = true;
       });
     }
   }
@@ -211,7 +238,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
+          const Icon(
             Icons.history,
             size: 80,
             color: AppColors.mutedForeground,
@@ -299,7 +326,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   ),
                 ),
                 const SizedBox(width: AppSpacing.sm),
-                Icon(
+                const Icon(
                   Icons.access_time,
                   size: 16,
                   color: AppColors.mutedForeground,
@@ -316,7 +343,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             const SizedBox(height: AppSpacing.xs),
             Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.calendar_today,
                   size: 16,
                   color: AppColors.mutedForeground,
@@ -352,7 +379,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   String _formatDuration(Duration duration) {
     final minutes = duration.inMinutes;
     final seconds = duration.inSeconds.remainder(60);
-    return '${minutes}:${seconds.toString().padLeft(2, '0')}';
+    return '$minutes:${seconds.toString().padLeft(2, '0')}';
   }
 
   String _formatDate(DateTime date) {
@@ -371,6 +398,18 @@ class _HistoryScreenState extends State<HistoryScreen> {
     } else {
       return '${date.day}/${date.month}/${date.year}';
     }
+  }
+
+  void _playRecording(Recording recording) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MediaPlayerScreen(
+          recording: recording,
+          transcriptionSegments: const [], // TODO: Load actual transcription segments
+        ),
+      ),
+    );
   }
 
   void _showHistoryItemDetails(Recording recording) {
@@ -393,8 +432,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
           type: type,
           status: 'Completed',
           location: null, // Location not stored with recording currently
-          transcriptSegments: [], // Will be loaded from actual transcription later
-          notes: [], // Initially empty, will be loaded in actual implementation
+          transcriptSegments: const [], // Will be loaded from actual transcription later
+          notes: const [], // Initially empty, will be loaded in actual implementation
         ),
       ),
     );

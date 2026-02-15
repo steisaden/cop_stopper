@@ -26,7 +26,7 @@ class SettingsCard extends StatelessWidget {
     
     return Card(
       elevation: AppSpacing.elevationLow,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: AppSpacing.cardBorderRadius,
       ),
       child: InkWell(

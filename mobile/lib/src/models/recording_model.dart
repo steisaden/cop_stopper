@@ -1,4 +1,3 @@
-
 enum RecordingFileType {
   audio,
   video,
@@ -12,6 +11,10 @@ class Recording {
   final int durationSeconds;
   final String? transcriptionId; // Link to TranscriptionResult
   final RecordingFileType fileType;
+  final String? transcriptionFilePath;
+  final int transcriptionSegmentCount;
+  final bool hasTranscription;
+  final bool isFlagged;
 
   Recording({
     required this.id,
@@ -20,6 +23,10 @@ class Recording {
     required this.durationSeconds,
     required this.fileType,
     this.transcriptionId,
+    this.transcriptionFilePath,
+    this.transcriptionSegmentCount = 0,
+    this.hasTranscription = false,
+    this.isFlagged = false,
   });
 
   factory Recording.fromJson(Map<String, dynamic> json) {
@@ -31,6 +38,10 @@ class Recording {
       fileType: RecordingFileType.values.firstWhere(
           (e) => e.toString() == 'RecordingFileType.${json['fileType']}'),
       transcriptionId: json['transcriptionId'] as String?,
+      transcriptionFilePath: json['transcriptionFilePath'] as String?,
+      transcriptionSegmentCount: json['transcriptionSegmentCount'] as int? ?? 0,
+      hasTranscription: json['hasTranscription'] as bool? ?? false,
+      isFlagged: json['isFlagged'] as bool? ?? false,
     );
   }
 
@@ -42,6 +53,10 @@ class Recording {
       'durationSeconds': durationSeconds,
       'fileType': fileType.toString().split('.').last,
       'transcriptionId': transcriptionId,
+      'transcriptionFilePath': transcriptionFilePath,
+      'transcriptionSegmentCount': transcriptionSegmentCount,
+      'hasTranscription': hasTranscription,
+      'isFlagged': isFlagged,
     };
   }
 

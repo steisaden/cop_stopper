@@ -19,7 +19,7 @@ void main() {
             status: ParticipantStatus.connected,
           ),
         ],
-        privacySettings: PrivacySettings(
+        privacySettings: const PrivacySettings(
           anonymizeParticipants: true,
           restrictToProAccounts: false,
         ),

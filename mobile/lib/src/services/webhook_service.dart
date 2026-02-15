@@ -236,7 +236,7 @@ class WebhookService {
 
   /// Start heartbeat to keep connection alive
   void _startHeartbeat() {
-    _heartbeatTimer = Timer.periodic(Duration(seconds: 30), (timer) {
+    _heartbeatTimer = Timer.periodic(const Duration(seconds: 30), (timer) {
       if (_isConnected) {
         _sendMessage({
           'type': 'heartbeat',

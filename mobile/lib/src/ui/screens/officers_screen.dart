@@ -139,7 +139,7 @@ class _OfficersScreenState extends State<OfficersScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: theme.colorScheme.background,
+      backgroundColor: theme.colorScheme.surface,
       body: SafeArea(
         child: Column(
           children: [
@@ -278,7 +278,7 @@ class _OfficersScreenState extends State<OfficersScreen> {
                         children: [
                           Row(
                             children: [
-                              Icon(Icons.warning_amber_rounded, color: AppColors.warning, size: 20),
+                              const Icon(Icons.warning_amber_rounded, color: AppColors.warning, size: 20),
                               const SizedBox(width: AppSpacing.xs),
                               Text(
                                 'Important Disclaimer',
@@ -291,8 +291,7 @@ class _OfficersScreenState extends State<OfficersScreen> {
                           ),
                           const SizedBox(height: AppSpacing.xs),
                           Text(
-                            'Information provided is for transparency purposes only. ' +
-                            'This data is compiled from public records and may not be complete.',
+                            'Information provided is for transparency purposes only. ' 'This data is compiled from public records and may not be complete.',
                             style: AppTextStyles.bodySmall.copyWith(color: AppColors.warning),
                           ),
                         ],

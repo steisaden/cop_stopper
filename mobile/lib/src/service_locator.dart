@@ -16,6 +16,7 @@ import 'package:mobile/src/services/transcription_service.dart';
 import 'package:mobile/src/services/transcription_service_interface.dart';
 import 'package:mobile/src/services/api_service.dart';
 import 'package:mobile/src/services/history_service.dart';
+import 'package:mobile/src/services/transcription_storage_service.dart';
 
 import 'package:mobile/src/collaborative_monitoring/interfaces/screen_sharing_service.dart';
 import 'package:mobile/src/collaborative_monitoring/interfaces/session_management_service.dart';
@@ -60,6 +61,10 @@ void setupLocator(SharedPreferences prefs) {
   locator.registerLazySingleton<StorageService>(() => StorageService());
   locator.registerLazySingleton(() => ApiService());
 
+  // Register TranscriptionStorageService
+  locator.registerLazySingleton<TranscriptionStorageService>(
+      () => TranscriptionStorageService());
+
   // Register HistoryService with dependencies
   locator.registerLazySingleton<HistoryService>(
       () => HistoryService(locator<StorageService>()));
@@ -87,6 +92,7 @@ void setupLocator(SharedPreferences prefs) {
       () => TranscriptionService(
             locator<ApiService>(),
             locator<RecordingService>(),
+            locator<TranscriptionStorageService>(),
           ));
 
   // Register police conduct database service

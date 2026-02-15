@@ -132,8 +132,8 @@ void main() {
                 BlocProvider<EmergencyBloc>.value(value: mockEmergencyBloc),
                 BlocProvider<RecordingBloc>.value(value: mockRecordingBloc),
               ],
-              child: Stack(
-                children: const [
+              child: const Stack(
+                children: [
                   GlobalEmergencyButton(),
                   EmergencyStatusIndicator(),
                 ],

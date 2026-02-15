@@ -120,20 +120,20 @@ class _NavigationItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    
+
     return Expanded(
       child: InkWell(
         onTap: () {
           // Provide haptic feedback
           HapticFeedback.selectionClick();
-          
+
           // Dispatch navigation event
           context.read<NavigationBloc>().add(NavigationTabChanged(tab));
         },
         borderRadius: BorderRadius.circular(AppSpacing.sm),
         child: Container(
           padding: const EdgeInsets.symmetric(
-            vertical: AppSpacing.sm,
+            vertical: 4.0,
             horizontal: AppSpacing.xs,
           ),
           child: Column(
@@ -148,7 +148,7 @@ class _NavigationItem extends StatelessWidget {
                     child: Icon(
                       isActive ? activeIcon : icon,
                       key: ValueKey(isActive),
-                      size: AppSpacing.tabIconSize,
+                      size: 20,
                       color: isActive
                           ? colorScheme.primary
                           : colorScheme.onSurfaceVariant.withOpacity(0.6),
@@ -177,20 +177,23 @@ class _NavigationItem extends StatelessWidget {
                     ),
                 ],
               ),
-              AppSpacing.verticalSpaceXS,
-              AnimatedDefaultTextStyle(
-                duration: AppSpacing.animationDurationShort,
-                style: AppTextStyles.navigationLabel.copyWith(
-                  color: isActive
-                      ? colorScheme.primary
-                      : colorScheme.onSurfaceVariant.withOpacity(0.6),
-                  fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
-                ),
-                child: Text(
-                  label,
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+              const SizedBox(height: 2),
+              Flexible(
+                child: AnimatedDefaultTextStyle(
+                  duration: AppSpacing.animationDurationShort,
+                  style: AppTextStyles.navigationLabel.copyWith(
+                    fontSize: 10,
+                    color: isActive
+                        ? colorScheme.primary
+                        : colorScheme.onSurfaceVariant.withOpacity(0.6),
+                    fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
+                  ),
+                  child: Text(
+                    label,
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ),
             ],

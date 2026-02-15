@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Collaborative Monitoring</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#197fe6",
+                        "background-dark": "#0a0a0f", // Updated background color
+                        "surface-dark": "#1c242e",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    boxShadow: {
+                        'glow-primary': '0 0 20px rgba(25, 127, 230, 0.4)',
+                        'glass-inset': 'inset 0 2px 4px rgba(0, 0, 0, 0.5)',
+                        'glass-base': '0 4px 30px rgba(0, 0, 0, 0.1)',
+                        'glass-float': '0 8px 32px 0 rgba(0, 0, 0, 0.3)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+        }
+        .glass-base {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-inset {
+            background: rgba(0, 0, 0, 0.3);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glass-floating {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
+        }
+    </style>
+<style>
+        body {
+          min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-dark font-display text-white antialiased selection:bg-primary/30 min-h-screen flex justify-center">
+<div class="relative w-full max-w-md h-full min-h-screen bg-background-dark overflow-hidden flex flex-col shadow-2xl">
+<div class="fixed top-[-10%] right-[-10%] w-[300px] h-[300px] bg-primary/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+<div class="fixed bottom-[10%] left-[-20%] w-[250px] h-[250px] bg-blue-900/10 rounded-full blur-[80px] pointer-events-none z-0"></div>
+<header class="relative z-20 px-4 py-4 pt-6 flex items-center justify-between bg-background-dark/70 backdrop-blur-md border-b border-white/10 sticky top-0">
+<button class="flex items-center justify-center w-10 h-10 rounded-full text-white/80 hover:text-white hover:bg-white/5 transition-colors">
+<span class="material-symbols-outlined text-[24px]">arrow_back_ios_new</span>
+</button>
+<div class="flex flex-col items-center">
+<h1 class="text-base font-semibold tracking-wide">Collaborative Monitoring</h1>
+</div>
+<button class="flex items-center justify-center w-10 h-10 rounded-full text-white/80 hover:text-white hover:bg-white/5 transition-colors">
+<span class="material-symbols-outlined text-[24px]">settings</span>
+</button>
+</header>
+<main class="relative z-10 flex-1 overflow-y-auto px-4 pt-6 pb-40 space-y-6">
+<section class="w-full glass-base rounded-3xl p-8 flex flex-col items-center justify-center gap-5 relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-tr from-transparent via-primary/5 to-transparent opacity-50"></div>
+<div class="relative z-10 flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-500/10 border border-green-500/20 backdrop-blur-sm">
+<span class="relative flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+</span>
+<span class="text-[11px] font-bold tracking-widest text-green-400 uppercase">Live Session</span>
+</div>
+<div class="relative z-10 text-center">
+<h2 class="text-6xl font-light tracking-tighter tabular-nums text-white drop-shadow-lg">00:12:43</h2>
+<div class="flex items-center justify-center gap-2 mt-3 text-white/60">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+<span class="text-sm font-medium">3 Active Viewers</span>
+</div>
+</div>
+</section>
+<section>
+<h3 class="text-xs font-bold text-white/50 uppercase tracking-widest mb-3 pl-1">Trusted Contacts</h3>
+<div class="flex flex-col gap-3">
+<div class="glass-inset rounded-xl p-3 pr-4 flex items-center justify-between transition-transform active:scale-[0.99]">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="w-10 h-10 rounded-full bg-center bg-cover ring-2 ring-white/5" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC67IxtcirhYjw9n_uNbYxVID8YDGN5p6KThmJvgg7pZ3SS_sSF0iiX18p1DRDhCn8jxs8RknRfWQuGjPisYR2CR7D_YDCftlkeUYEveL7MzQTu_B7MBdChhxbsn4MWCvORf5jh3QJ_hSdjMTMBPiqoZ1o98HxhzkQuAEoTd6DdJSOc2DyP0V9iCTLvA3VuaL0AiU6_awhwMAaC5YXZFawiwsFYZGY5qM_DNfyobTaVm1h7PsTvjKHZuHHUpzAsc3S35Q93QMXXGsOp');"></div>
+<div class="absolute -bottom-1 -right-1 bg-background-dark rounded-full p-0.5">
+<span class="block w-2.5 h-2.5 bg-green-500 rounded-full shadow-[0_0_8px_rgba(34,197,94,0.8)]"></span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-white">Attorney Smith</span>
+<span class="text-[11px] text-green-400/90 font-medium">Watching Now</span>
+</div>
+</div>
+<div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-white/60 text-[18px]">videocam</span>
+</div>
+</div>
+<div class="glass-inset rounded-xl p-3 pr-4 flex items-center justify-between transition-transform active:scale-[0.99]">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="w-10 h-10 rounded-full bg-center bg-cover ring-2 ring-white/5 grayscale opacity-70" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAIrYrRO-AvG2d4EQlNBTxNAH2JMke07Wsx7y2PkRvM72RX7BJH58eiEt8rTesCmiAfB98cuQBD-IaIndUvZiVAuPOkxik6BJP-nAH0ATmxDyLzKzpKm5MpEvwa9pI_xBDiA0eOi-tbd25rd9ecC44Q6NnQKZ9WAGokczLCfNpg9JzIU_ps2ztDKyQKDkuY_Epp9X0q7rC-qq4sj01sts89_Oh6y79c3w6yheM_65kIOayyKq6yJMu_uRL82y7UrSYr-yjTq8F11CQW');"></div>
+<div class="absolute -bottom-1 -right-1 bg-background-dark rounded-full p-0.5">
+<span class="block w-2.5 h-2.5 bg-yellow-500 rounded-full"></span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-white/80">Sarah (Sister)</span>
+<span class="text-[11px] text-yellow-500/80 font-medium">Invited • Pending</span>
+</div>
+</div>
+<button class="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-[10px] font-medium text-white/60 border border-white/5 transition-colors">
+                            Resend
+                        </button>
+</div>
+<div class="glass-inset rounded-xl p-3 pr-4 flex items-center justify-between transition-transform active:scale-[0.99]">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="w-10 h-10 rounded-full bg-surface-dark ring-2 ring-white/5 flex items-center justify-center text-white/70">
+<span class="material-symbols-outlined text-[20px]">local_police</span>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-background-dark rounded-full p-0.5">
+<span class="block w-2.5 h-2.5 bg-blue-500 rounded-full shadow-[0_0_8px_rgba(59,130,246,0.8)]"></span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-white">HQ Dispatch</span>
+<span class="text-[11px] text-blue-400/90 font-medium">Backup Recording</span>
+</div>
+</div>
+<div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-white/60 text-[18px]">cloud_upload</span>
+</div>
+</div>
+</div>
+</section>
+<section class="glass-base rounded-2xl p-4 flex gap-4 items-center">
+<div class="flex-1 min-w-0">
+<label class="block text-[10px] uppercase font-bold text-white/40 tracking-wider mb-2">Invite via Link</label>
+<div class="flex gap-2">
+<div class="flex-1 bg-black/30 rounded-lg border border-white/5 px-3 py-2.5 flex items-center">
+<span class="text-xs text-white/70 truncate">copstopper.com/live/892-alpha</span>
+</div>
+<button class="w-10 flex-shrink-0 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 flex items-center justify-center text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+</div>
+</div>
+<div class="glass-floating w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 group cursor-pointer hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-3xl text-white group-hover:scale-110 transition-transform">qr_code_2</span>
+</div>
+</section>
+<section class="glass-inset rounded-2xl p-5 space-y-5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="p-1.5 rounded-lg bg-white/5 text-white/70">
+<span class="material-symbols-outlined text-[18px]">share_location</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-medium text-white">Auto-share Location</span>
+<span class="text-[10px] text-white/40">Update contacts on movement</span>
+</div>
+</div>
+<button class="w-11 h-6 bg-primary rounded-full relative transition-colors shadow-glow-primary">
+<span class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full shadow-sm"></span>
+</button>
+</div>
+<div class="w-full h-px bg-white/5"></div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="p-1.5 rounded-lg bg-white/5 text-white/70">
+<span class="material-symbols-outlined text-[18px]">mic</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-medium text-white">Include Audio</span>
+<span class="text-[10px] text-white/40">Stream microphone input</span>
+</div>
+</div>
+<button class="w-11 h-6 bg-white/10 rounded-full relative transition-colors">
+<span class="absolute left-1 top-1 w-4 h-4 bg-white/50 rounded-full shadow-sm"></span>
+</button>
+</div>
+</section>
+</main>
+<div class="absolute bottom-0 left-0 w-full px-4 py-6 bg-gradient-to-t from-background-dark via-background-dark to-transparent z-30">
+<button class="glass-floating w-full py-4 rounded-2xl bg-primary/90 hover:bg-primary border border-white/20 shadow-glow-primary text-white flex items-center justify-center gap-2 group transition-all active:scale-[0.98]">
+<div class="p-1 rounded-full bg-white/20 group-hover:animate-ping absolute opacity-0 group-hover:opacity-100"></div>
+<span class="material-symbols-outlined text-[24px]">notifications_active</span>
+<span class="font-bold text-lg tracking-wide">Alert All Contacts</span>
+</button>
+</div>
+</div>
+
+</body></html>

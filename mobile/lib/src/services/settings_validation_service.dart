@@ -28,7 +28,7 @@ class SettingsValidationService {
 
     // Validate video quality vs storage implications
     if (videoQuality == '4K' && audioBitrate > 256.0) {
-      warnings.add(SettingsWarning(
+      warnings.add(const SettingsWarning(
         type: WarningType.performance,
         message: '4K video with high audio bitrate will create very large files',
         affectedSetting: 'videoQuality',
@@ -39,7 +39,7 @@ class SettingsValidationService {
 
     // Validate file format compatibility
     if (fileFormat == 'AVI' && videoQuality == '4K') {
-      warnings.add(SettingsWarning(
+      warnings.add(const SettingsWarning(
         type: WarningType.compatibility,
         message: 'AVI format may have compatibility issues with 4K recording',
         affectedSetting: 'fileFormat',
@@ -70,7 +70,7 @@ class SettingsValidationService {
 
     // Validate encryption requirement for cloud backup
     if (cloudBackup && !encryptionEnabled) {
-      conflicts.add(SettingsConflict(
+      conflicts.add(const SettingsConflict(
         type: ConflictType.security,
         message: 'Cloud backup requires encryption to be enabled for security',
         affectedSetting: 'encryptionEnabled',
@@ -82,7 +82,7 @@ class SettingsValidationService {
 
     // Validate data sharing consistency
     if (!dataSharing && analyticsSharing) {
-      warnings.add(SettingsWarning(
+      warnings.add(const SettingsWarning(
         type: WarningType.consistency,
         message: 'Analytics sharing is enabled but general data sharing is disabled',
         affectedSetting: 'analyticsSharing',
@@ -93,7 +93,7 @@ class SettingsValidationService {
 
     // Validate auto-delete with cloud backup
     if (cloudBackup && autoDeleteDays > 0 && autoDeleteDays < 30) {
-      warnings.add(SettingsWarning(
+      warnings.add(const SettingsWarning(
         type: WarningType.dataLoss,
         message: 'Short auto-delete timer may delete files before cloud backup completes',
         affectedSetting: 'autoDeleteDays',
@@ -125,7 +125,7 @@ class SettingsValidationService {
 
     // Validate text size extremes
     if (textSize > 1.8) {
-      warnings.add(SettingsWarning(
+      warnings.add(const SettingsWarning(
         type: WarningType.usability,
         message: 'Very large text size may cause layout issues on small screens',
         affectedSetting: 'textSize',
@@ -136,7 +136,7 @@ class SettingsValidationService {
 
     // Validate voice commands with screen reader
     if (voiceCommands && screenReaderSupport) {
-      warnings.add(SettingsWarning(
+      warnings.add(const SettingsWarning(
         type: WarningType.compatibility,
         message: 'Voice commands may interfere with screen reader functionality',
         affectedSetting: 'voiceCommands',
@@ -147,7 +147,7 @@ class SettingsValidationService {
 
     // Validate reduced motion with haptic feedback
     if (reducedMotion && hapticFeedback) {
-      warnings.add(SettingsWarning(
+      warnings.add(const SettingsWarning(
         type: WarningType.consistency,
         message: 'Haptic feedback may be distracting when reduced motion is enabled',
         affectedSetting: 'hapticFeedback',
@@ -174,14 +174,14 @@ class SettingsValidationService {
     final List<PermissionRequirement> permissions = [];
 
     // Camera permission always required
-    permissions.add(PermissionRequirement(
+    permissions.add(const PermissionRequirement(
       permission: 'camera',
       reason: 'Required to record video during police interactions',
       required: true,
     ));
 
     // Microphone permission always required
-    permissions.add(PermissionRequirement(
+    permissions.add(const PermissionRequirement(
       permission: 'microphone',
       reason: 'Required to record audio during police interactions',
       required: true,
@@ -189,7 +189,7 @@ class SettingsValidationService {
 
     // Location permission for jurisdiction detection
     if (jurisdiction == 'Auto-detect') {
-      permissions.add(PermissionRequirement(
+      permissions.add(const PermissionRequirement(
         permission: 'location',
         reason: 'Required to automatically detect your jurisdiction for legal guidance',
         required: false,
@@ -198,7 +198,7 @@ class SettingsValidationService {
 
     // Storage permission for high-quality recording
     if (videoQuality == '4K') {
-      permissions.add(PermissionRequirement(
+      permissions.add(const PermissionRequirement(
         permission: 'storage',
         reason: 'Required for 4K video recording which creates large files',
         required: true,
@@ -207,7 +207,7 @@ class SettingsValidationService {
 
     // Network permission for cloud backup
     if (cloudBackup) {
-      permissions.add(PermissionRequirement(
+      permissions.add(const PermissionRequirement(
         permission: 'internet',
         reason: 'Required to backup recordings to secure cloud storage',
         required: false,
@@ -216,7 +216,7 @@ class SettingsValidationService {
 
     // Microphone permission for voice commands
     if (voiceCommands) {
-      permissions.add(PermissionRequirement(
+      permissions.add(const PermissionRequirement(
         permission: 'microphone_always',
         reason: 'Required for voice commands to work when app is in background',
         required: false,
@@ -312,7 +312,7 @@ class SettingsValidationService {
 
     // Check video quality support
     if (videoQuality == '4K' && !capabilities.supports4K) {
-      conflicts.add(SettingsConflict(
+      conflicts.add(const SettingsConflict(
         type: ConflictType.compatibility,
         message: 'Your device does not support 4K video recording',
         affectedSetting: 'videoQuality',
@@ -324,7 +324,7 @@ class SettingsValidationService {
 
     // Check storage capacity
     if (capabilities.availableStorageGB < 2.0) {
-      warnings.add(SettingsWarning(
+      warnings.add(const SettingsWarning(
         type: WarningType.performance,
         message: 'Low storage space may limit recording duration',
         affectedSetting: 'videoQuality',
@@ -335,7 +335,7 @@ class SettingsValidationService {
 
     // Check RAM for high-quality recording
     if (videoQuality == '4K' && capabilities.ramGB < 4.0) {
-      warnings.add(SettingsWarning(
+      warnings.add(const SettingsWarning(
         type: WarningType.performance,
         message: '4K recording may cause performance issues on devices with limited RAM',
         affectedSetting: 'videoQuality',
@@ -346,7 +346,7 @@ class SettingsValidationService {
 
     // Check microphone quality for high bitrate audio
     if (audioBitrate > 256.0 && !capabilities.hasHighQualityMicrophone) {
-      warnings.add(SettingsWarning(
+      warnings.add(const SettingsWarning(
         type: WarningType.compatibility,
         message: 'High audio bitrate may not provide better quality on this device',
         affectedSetting: 'audioBitrate',
@@ -380,7 +380,7 @@ class SettingsValidationService {
 
     // High quality recording with cloud backup warning
     if (videoQuality == '4K' && cloudBackup) {
-      warnings.add(SettingsWarning(
+      warnings.add(const SettingsWarning(
         type: WarningType.performance,
         message: '4K recordings with cloud backup will use significant bandwidth and storage',
         affectedSetting: 'cloudBackup',
@@ -391,7 +391,7 @@ class SettingsValidationService {
 
     // Voice commands with consent recording
     if (voiceCommands && !consentRecording) {
-      warnings.add(SettingsWarning(
+      warnings.add(const SettingsWarning(
         type: WarningType.consistency,
         message: 'Voice commands are enabled but consent recording is disabled',
         affectedSetting: 'consentRecording',

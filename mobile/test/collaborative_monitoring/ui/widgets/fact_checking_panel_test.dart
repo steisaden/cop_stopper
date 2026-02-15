@@ -4,7 +4,7 @@ import 'package:mobile/src/collaborative_monitoring/ui/widgets/fact_checking_pan
 
 void main() {
   testWidgets('FactCheckingPanel has a message', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: FactCheckingPanel()));
+    await tester.pumpWidget(const MaterialApp(home: FactCheckingPanel()));
     final messageFinder = find.text('Fact Checking Panel');
     expect(messageFinder, findsOneWidget);
   });

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Session Summary - Cop Stopper</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3b82f6",
+                        "background-dark": "#0a0a0f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "xl": "12px",
+                        "2xl": "16px", 
+                        "3xl": "24px"
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #0a0a0f;
+            color: #e2e8f0;
+        }.glass-base {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+        .glass-inset {
+            background: rgba(0, 0, 0, 0.4);
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glass-floating {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .glass-nav {
+            background: rgba(10, 10, 15, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 12px;
+            width: 12px;
+            border-radius: 50%;
+            background: #ffffff;
+            cursor: pointer;
+            margin-top: -5px;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 2px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.2);
+            border-radius: 2px;
+        }::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 2px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display antialiased min-h-screen relative overflow-x-hidden selection:bg-blue-500/30 pb-28">
+<div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+<div class="absolute top-[-10%] right-[-20%] w-[80%] h-[60%] rounded-full bg-blue-600/10 blur-[120px]"></div>
+<div class="absolute bottom-[10%] left-[-10%] w-[60%] h-[40%] rounded-full bg-indigo-600/5 blur-[100px]"></div>
+</div>
+<header class="glass-nav fixed top-0 left-0 right-0 z-50 px-4 h-16 flex items-center justify-between">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/5 transition-colors text-white/80">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="text-white font-semibold text-lg tracking-tight">Session Summary</h1>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/5 transition-colors text-white/80">
+<span class="material-symbols-outlined" style="font-size: 20px;">share</span>
+</button>
+</header>
+<main class="relative z-10 w-full max-w-md mx-auto pt-20 px-4 flex flex-col gap-5">
+<div class="glass-base rounded-3xl p-6 flex flex-col items-center justify-center relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-50 pointer-events-none"></div>
+<div class="w-full flex justify-between items-start mb-6 text-sm font-medium text-slate-400">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-slate-500" style="font-size: 16px;">calendar_today</span>
+<span>Oct 24, 2023</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-slate-500" style="font-size: 16px;">schedule</span>
+<span>11:42 PM</span>
+</div>
+</div>
+<div class="text-center mb-6">
+<span class="text-xs font-bold uppercase tracking-widest text-blue-400/80 mb-1 block">Recording Duration</span>
+<div class="text-5xl font-bold text-white tracking-tighter drop-shadow-xl">
+                    14<span class="text-2xl text-slate-500 font-medium mx-1">m</span>20<span class="text-2xl text-slate-500 font-medium mx-1">s</span>
+</div>
+</div>
+<div class="w-full pt-4 border-t border-white/5 flex items-center justify-center gap-2 text-slate-300">
+<span class="material-symbols-outlined text-red-400" style="font-size: 18px;">location_on</span>
+<span class="text-sm font-medium">Downtown Metro Area • Hwy 101</span>
+</div>
+</div>
+<div class="space-y-2">
+<h2 class="text-xs font-bold uppercase tracking-widest text-slate-500 ml-2">Key Moments</h2>
+<div class="glass-inset rounded-2xl p-4">
+<div class="relative pl-4 space-y-6 before:absolute before:left-[7px] before:top-2 before:bottom-2 before:w-[2px] before:bg-white/10">
+<div class="relative flex items-start gap-3">
+<div class="absolute -left-[13px] mt-1 w-3 h-3 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)] border border-background-dark"></div>
+<span class="text-xs font-mono text-blue-400 pt-0.5 w-10 shrink-0">02:14</span>
+<div>
+<p class="text-sm font-semibold text-white">Miranda Rights Read</p>
+<p class="text-xs text-slate-500">Officer initiated formal warning.</p>
+</div>
+</div>
+<div class="relative flex items-start gap-3">
+<div class="absolute -left-[13px] mt-1 w-3 h-3 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.5)] border border-background-dark"></div>
+<span class="text-xs font-mono text-amber-400 pt-0.5 w-10 shrink-0">05:30</span>
+<div>
+<p class="text-sm font-semibold text-white">Search Denied</p>
+<p class="text-xs text-slate-500">Explicit non-consent recorded.</p>
+</div>
+</div>
+<div class="relative flex items-start gap-3">
+<div class="absolute -left-[13px] mt-1 w-3 h-3 rounded-full bg-slate-600 border border-background-dark"></div>
+<span class="text-xs font-mono text-slate-400 pt-0.5 w-10 shrink-0">14:20</span>
+<div>
+<p class="text-sm font-semibold text-slate-400">Recording Ended</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="glass-base rounded-3xl overflow-hidden flex flex-col h-[400px]">
+<div class="px-5 py-4 border-b border-white/5 flex justify-between items-center bg-white/[0.02]">
+<h2 class="text-sm font-bold text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-400" style="font-size: 18px;">description</span>
+                    Transcript
+                </h2>
+<span class="text-[10px] bg-white/10 px-2 py-1 rounded text-slate-400 font-medium">Auto-Generated</span>
+</div>
+<div class="flex-1 overflow-y-auto p-4 space-y-5">
+<div class="flex gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-700 bg-cover bg-center shrink-0 border border-white/10 shadow-sm" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAcpVbOL3nJJ3-gNkABHsLa4TF-134vmVy9IVCfXfgtXWNha9d-LBT0oMDDoVXmnQbLApJiYPhptfNiCVfyM4tBq5Q-pQUFok3lxBRKtHMfVET5ldxYmhV9kcwud8B05uNbyPwsfuXBcuOS8bp7zoCtdVM60eJJC7nwMDJjq_LQaZkT7n6YUPntBYW59lITNRPzNgjNDZ2uscHnZUB6jSnpAwIF5fLdd4pfnck9VK327Kc2g_5_Q9O679rJUPuYsH8raBFaLs42px26');"></div>
+<div class="flex-1 space-y-1">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold text-slate-300">Officer Doe</span>
+<span class="text-[10px] text-slate-500">00:05</span>
+</div>
+<p class="text-sm text-slate-200 leading-relaxed">Step out of the vehicle, sir. I need to check your registration.</p>
+</div>
+</div>
+<div class="flex gap-3">
+<div class="w-8 h-8 rounded-full bg-blue-600/20 flex items-center justify-center shrink-0 border border-blue-500/30 text-blue-400 text-xs font-bold">ME</div>
+<div class="flex-1 space-y-1">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold text-blue-400">You</span>
+<span class="text-[10px] text-slate-500">00:12</span>
+</div>
+<p class="text-sm text-slate-200 leading-relaxed">
+<span class="bg-amber-500/20 text-amber-200 px-1 py-0.5 rounded border border-amber-500/20 shadow-[0_0_10px_rgba(245,158,11,0.1)]">I am not consenting to any searches.</span>
+                             Is that clear?
+                        </p>
+</div>
+</div>
+<div class="flex gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-700 bg-cover bg-center shrink-0 border border-white/10 shadow-sm" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAcpVbOL3nJJ3-gNkABHsLa4TF-134vmVy9IVCfXfgtXWNha9d-LBT0oMDDoVXmnQbLApJiYPhptfNiCVfyM4tBq5Q-pQUFok3lxBRKtHMfVET5ldxYmhV9kcwud8B05uNbyPwsfuXBcuOS8bp7zoCtdVM60eJJC7nwMDJjq_LQaZkT7n6YUPntBYW59lITNRPzNgjNDZ2uscHnZUB6jSnpAwIF5fLdd4pfnck9VK327Kc2g_5_Q9O679rJUPuYsH8raBFaLs42px26');"></div>
+<div class="flex-1 space-y-1">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold text-slate-300">Officer Doe</span>
+<span class="text-[10px] text-slate-500">00:15</span>
+</div>
+<p class="text-sm text-slate-200 leading-relaxed">I understand. Just keep your hands where I can see them.</p>
+</div>
+</div>
+<div class="flex gap-3">
+<div class="w-8 h-8 rounded-full bg-blue-600/20 flex items-center justify-center shrink-0 border border-blue-500/30 text-blue-400 text-xs font-bold">ME</div>
+<div class="flex-1 space-y-1">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold text-blue-400">You</span>
+<span class="text-[10px] text-slate-500">02:10</span>
+</div>
+<p class="text-sm text-slate-200 leading-relaxed">Am I being detained or am I free to go?</p>
+</div>
+</div>
+</div>
+<div class="h-6 bg-gradient-to-t from-black/20 to-transparent shrink-0"></div>
+</div>
+<div class="flex gap-3 overflow-x-auto pb-4 pt-1 snap-x scrollbar-hide -mx-4 px-4">
+<button class="snap-start glass-floating rounded-full px-5 py-2.5 flex items-center gap-2 shrink-0 hover:bg-white/10 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-red-400" style="font-size: 18px;">picture_as_pdf</span>
+<span class="text-sm font-medium text-white">Export PDF</span>
+</button>
+<button class="snap-start glass-floating rounded-full px-5 py-2.5 flex items-center gap-2 shrink-0 hover:bg-white/10 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-blue-400" style="font-size: 18px;">lock</span>
+<span class="text-sm font-medium text-white">Share Securely</span>
+</button>
+<button class="snap-start glass-floating rounded-full px-5 py-2.5 flex items-center gap-2 shrink-0 hover:bg-white/10 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-emerald-400" style="font-size: 18px;">gavel</span>
+<span class="text-sm font-medium text-white">Find Lawyer</span>
+</button>
+</div>
+</main>
+<div class="fixed bottom-0 left-0 right-0 z-50 p-4 pb-6 bg-[#0a0a0f]/80 backdrop-blur-xl border-t border-white/5">
+<div class="glass-inset rounded-2xl p-3 pl-4 flex items-center gap-4 max-w-md mx-auto">
+<button class="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shrink-0 hover:scale-105 active:scale-95 transition-all shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+<span class="material-symbols-outlined" style="font-size: 24px;">play_arrow</span>
+</button>
+<div class="flex-1 flex flex-col justify-center gap-1.5">
+<div class="flex justify-between items-end text-[10px] font-mono text-slate-400 px-0.5">
+<span>00:12</span>
+<span>14:20</span>
+</div>
+<div class="relative w-full h-2 flex items-center">
+<input class="w-full h-full z-10 opacity-0 absolute inset-0 cursor-pointer" max="100" min="0" type="range" value="15"/>
+<div class="w-full h-[3px] bg-white/10 rounded-full overflow-hidden relative">
+<div class="h-full w-[15%] bg-blue-500 absolute top-0 left-0"></div>
+</div>
+<div class="w-3 h-3 bg-white rounded-full absolute left-[15%] ml-[-6px] shadow shadow-black/50 pointer-events-none"></div>
+</div>
+</div>
+<button class="text-slate-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">speed</span>
+</button>
+</div>
+</div>
+
+</body></html>

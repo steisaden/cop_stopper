@@ -205,7 +205,7 @@ class PowerSavingService {
   /// Enable critical power saving for very low battery
   Future<void> _enableCriticalPowerSaving() async {
     try {
-      final criticalConfig = PowerSavingConfig(
+      const criticalConfig = PowerSavingConfig(
         reducedFrameRate: true,
         disableAnimations: true,
         reducedVideoQuality: true,

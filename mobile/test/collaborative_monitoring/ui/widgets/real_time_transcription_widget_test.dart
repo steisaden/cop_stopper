@@ -4,7 +4,7 @@ import 'package:mobile/src/collaborative_monitoring/ui/widgets/real_time_transcr
 
 void main() {
   testWidgets('RealTimeTranscriptionWidget has a message', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: RealTimeTranscriptionWidget()));
+    await tester.pumpWidget(const MaterialApp(home: RealTimeTranscriptionWidget()));
     final messageFinder = find.text('Real Time Transcription Widget');
     expect(messageFinder, findsOneWidget);
   });

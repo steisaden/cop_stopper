@@ -14,17 +14,21 @@ import '../../services/location_service.dart';
 import '../../service_locator.dart'
     if (dart.library.html) '../../service_locator_web.dart';
 import '../widgets/bottom_navigation_component.dart';
+import '../widgets/glass_bottom_nav.dart';
+import '../widgets/glass_scaffold.dart';
 import '../widgets/emergency_mode_interface.dart';
 import '../widgets/emergency_stop_confirmation_dialog.dart';
 import '../widgets/emergency_button.dart';
 import '../widgets/global_emergency_button.dart';
 import '../widgets/global_recording_indicator.dart';
-import 'record_screen.dart';
-import 'monitor_screen.dart';
-import 'officers_screen.dart';
-import 'documents_screen.dart';
-import 'history_screen.dart';
-import 'settings_screen.dart';
+import '../app_colors.dart';
+// Glass screens - new glassmorphism design
+import 'glass_home_screen.dart';
+import 'glass_monitor_screen.dart';
+import 'glass_officer_search_screen.dart';
+import 'glass_documents_screen.dart';
+import 'glass_history_screen.dart';
+import 'glass_settings_screen.dart';
 
 /// Main navigation wrapper that manages tab switching and screen display
 class NavigationWrapper extends StatefulWidget {
@@ -61,17 +65,17 @@ class _NavigationWrapperState extends State<NavigationWrapper> {
   Widget _getScreenForTab(NavigationTab tab) {
     switch (tab) {
       case NavigationTab.record:
-        return const RecordScreen();
+        return const GlassHomeScreen(); // New glassmorphism design
       case NavigationTab.monitor:
-        return const MonitorScreen();
+        return const GlassMonitorScreen();
       case NavigationTab.officers:
-        return const OfficersScreen();
+        return const GlassOfficerSearchScreen();
       case NavigationTab.documents:
-        return const DocumentsScreen();
+        return const GlassDocumentsScreen();
       case NavigationTab.history:
-        return const HistoryScreen();
+        return const GlassHistoryScreen();
       case NavigationTab.settings:
-        return const SettingsScreen();
+        return const GlassSettingsScreen();
     }
   }
 

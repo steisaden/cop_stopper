@@ -401,7 +401,7 @@ class ProductionOfficerRecordsService implements OfficerRecordsService {
         complaintRecords: [],
         disciplinaryActions: [],
         commendations: [],
-        careerTimeline: CareerTimeline(events: []),
+        careerTimeline: const CareerTimeline(events: []),
         communityRating: CommunityRating(
           officerId: 'temp-id',
           averageRating: 0.0, 

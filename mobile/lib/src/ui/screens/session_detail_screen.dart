@@ -39,7 +39,7 @@ class SessionDetailScreen extends StatefulWidget {
 }
 
 class _SessionDetailScreenState extends State<SessionDetailScreen> {
-  bool _showFullTranscript = false;
+  final bool _showFullTranscript = false;
   late List<TranscriptionSegment> _transcriptSegments;
   late List<TranscriptionSegment> _filteredTranscriptSegments;
   String _selectedFilter = 'All';
@@ -442,7 +442,7 @@ class _SessionDetailScreenState extends State<SessionDetailScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
+          const Icon(
             Icons.transcribe,
             size: 80,
             color: AppColors.mutedForeground,
@@ -551,7 +551,7 @@ class _SessionDetailScreenState extends State<SessionDetailScreen> {
   String _formatDuration(Duration duration) {
     final minutes = duration.inMinutes;
     final seconds = duration.inSeconds.remainder(60);
-    return '${minutes}:${seconds.toString().padLeft(2, '0')}';
+    return '$minutes:${seconds.toString().padLeft(2, '0')}';
   }
 
   String _formatDate(DateTime date) {

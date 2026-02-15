@@ -7,17 +7,26 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:mobile/src/services/recording_service_interface.dart';
 import 'package:mobile/src/services/storage_service.dart';
 import 'package:mobile/src/services/history_service.dart';
+import 'package:mobile/src/services/transcription_storage_service.dart';
 import 'package:mobile/src/models/recording_model.dart';
+import 'package:mobile/src/models/transcription_segment_model.dart';
 import 'package:mobile/src/service_locator.dart'
     if (dart.library.html) 'package:mobile/src/service_locator_web.dart';
 import 'recording_event.dart';
 import 'recording_state.dart';
+import 'package:mobile/src/services/transcription_service_interface.dart';
 
 /// BLoC for managing camera controller and recording state
 class RecordingBloc extends Bloc<RecordingEvent, RecordingState> {
   final RecordingService _recordingService;
   final StorageService _storageService;
   final HistoryService _historyService;
+  final TranscriptionStorageService _transcriptionStorageService;
+  final TranscriptionServiceInterface _transcriptionService;
+
+  // Track transcription segments during recording
+  final List<TranscriptionSegment> _currentTranscriptionSegments = [];
+  StreamSubscription<TranscriptionSegment>? _transcriptionSubscription;
 
   Timer? _durationTimer;
   Timer? _storageMonitorTimer;
@@ -30,6 +39,8 @@ class RecordingBloc extends Bloc<RecordingEvent, RecordingState> {
       : _recordingService = locator<RecordingService>(),
         _storageService = locator<StorageService>(),
         _historyService = locator<HistoryService>(),
+        _transcriptionStorageService = locator<TranscriptionStorageService>(),
+        _transcriptionService = locator<TranscriptionServiceInterface>(),
         super(const RecordingState.initial()) {
     // Register event handlers
     on<CameraInitializeRequested>(_onCameraInitializeRequested);
@@ -208,11 +219,15 @@ class RecordingBloc extends Bloc<RecordingEvent, RecordingState> {
         return;
       }
 
+      // Generate recording ID
+      final recordingId = DateTime.now().millisecondsSinceEpoch.toString();
+      debugPrint('RecordingBloc: Generated recording ID: $recordingId');
+
       debugPrint(
           'RecordingBloc: Calling _recordingService.startAudioVideoRecording (audioOnly=${state.isAudioOnly})');
       // Start recording based on mode
       if (state.isAudioOnly) {
-        await _recordingService.startAudioRecording();
+        await _recordingService.startAudioRecording(recordingId: recordingId);
       } else {
         // Ensure service has the latest controller if we have one
         if (state.cameraController != null) {
@@ -220,7 +235,8 @@ class RecordingBloc extends Bloc<RecordingEvent, RecordingState> {
               'RecordingBloc: Re-asserting camera controller before start');
           _recordingService.setCameraController(state.cameraController);
         }
-        await _recordingService.startAudioVideoRecording();
+        await _recordingService.startAudioVideoRecording(
+            recordingId: recordingId);
       }
 
       debugPrint('RecordingBloc: Recording started successfully in service');
@@ -233,11 +249,19 @@ class RecordingBloc extends Bloc<RecordingEvent, RecordingState> {
         status: RecordingStatus.recording,
         recordingDuration: Duration.zero,
         clearError: true,
+        recordingId: recordingId, // Store ID in state
       ));
 
       // Start duration timer
       _startDurationTimer();
       _startAudioLevelMonitoring();
+
+      // Start transcription with the generated ID
+      debugPrint('RecordingBloc: Starting transcription with ID: $recordingId');
+      _transcriptionService.startTranscription(recordingId);
+
+      // Subscribe to transcription stream to collect segments
+      _subscribeToTranscriptionStream();
     } catch (e, stackTrace) {
       debugPrint('RecordingBloc: Error starting recording: $e');
       debugPrint('RecordingBloc: StackTrace: $stackTrace');
@@ -276,6 +300,10 @@ class RecordingBloc extends Bloc<RecordingEvent, RecordingState> {
         savedPath = await _recordingService.stopAudioVideoRecording();
       }
 
+      // Stop transcription
+      debugPrint('RecordingBloc: Stopping transcription...');
+      await _transcriptionService.stopTranscription();
+
       debugPrint('RecordingBloc: Recording stopped, saved path: $savedPath');
 
       // Reset timing variables
@@ -290,6 +318,7 @@ class RecordingBloc extends Bloc<RecordingEvent, RecordingState> {
         lastSavedAudioPath: state.isAudioOnly ? savedPath : null,
         audioLevel: 0.0,
         clearError: true,
+        // Keep recordingId in state for save step
       ));
 
       debugPrint(
@@ -524,20 +553,77 @@ class RecordingBloc extends Bloc<RecordingEvent, RecordingState> {
         // Determine file path to use
         String? filePath = event.videoPath ?? event.audioPath;
         if (filePath != null) {
-          // Create a new Recording instance
+          // Use stored recordingId, or fallback to new one if missing (shouldn't happen in normal flow)
+          final recordingId = state.recordingId ??
+              DateTime.now().millisecondsSinceEpoch.toString();
+          debugPrint('RecordingBloc: Saving recording with ID: $recordingId');
+
+          // Save transcription segments if any were captured
+          String? transcriptionFilePath;
+          int transcriptionSegmentCount = 0;
+          bool hasTranscription = false;
+
+          debugPrint(
+              '📝 Checking transcription segments: ${_currentTranscriptionSegments.length} collected');
+
+          // Also check storage service for existing file (WhisperTranscriptionService saves it)
+          final storedTranscriptionPath = await _transcriptionStorageService
+              .getTranscriptionFilePath(recordingId);
+          final bool storageHasFile =
+              await File(storedTranscriptionPath).exists();
+
+          if (storageHasFile) {
+            debugPrint(
+                '✅ Found existing transcription file at $storedTranscriptionPath');
+            transcriptionFilePath = storedTranscriptionPath;
+            hasTranscription = true;
+            // We could load count, but maybe not strictly necessary for the model count field right now
+            // Or we can trust _currentTranscriptionSegments if we were listening?
+          }
+
+          // If we have segments in memory but no file (e.g. storage save failed?), try saving again?
+          // WhisperTranscriptionService should have saved it.
+          // But if we have segments here, we can try to ensure it's saved.
+          if (_currentTranscriptionSegments.isNotEmpty) {
+            transcriptionSegmentCount = _currentTranscriptionSegments.length;
+            if (!hasTranscription) {
+              try {
+                debugPrint(
+                    '💾 Saving ${_currentTranscriptionSegments.length} transcription segments (fallback)...');
+                await _transcriptionStorageService.saveTranscription(
+                  recordingId,
+                  _currentTranscriptionSegments,
+                );
+                transcriptionFilePath = await _transcriptionStorageService
+                    .getTranscriptionFilePath(recordingId);
+                hasTranscription = true;
+                debugPrint('✅ Saved transcription segments (fallback)');
+              } catch (e) {
+                debugPrint('⚠️ Failed to save transcription (fallback): $e');
+              }
+            }
+          }
+
+          // Create a new Recording instance with transcription metadata
           final recording = Recording(
-            id: DateTime.now().millisecondsSinceEpoch.toString(),
+            id: recordingId,
             filePath: filePath,
             timestamp: DateTime.now(),
             durationSeconds: state.recordingDuration.inSeconds,
             fileType: event.videoPath != null
                 ? RecordingFileType.video
                 : RecordingFileType.audio,
+            transcriptionFilePath: transcriptionFilePath,
+            transcriptionSegmentCount: transcriptionSegmentCount,
+            hasTranscription: hasTranscription,
           );
 
           // Save to history service
           await _historyService.saveRecordingToHistory(recording);
           debugPrint('Recording saved to history: ${recording.id}');
+
+          // Clear transcription segments for next recording
+          _currentTranscriptionSegments.clear();
         }
       } catch (e) {
         debugPrint('Failed to save recording to history: $e');
@@ -681,14 +767,39 @@ class RecordingBloc extends Bloc<RecordingEvent, RecordingState> {
     _storageMonitorTimer?.cancel();
     _audioLevelTimer?.cancel();
     await _recordingEventsSubscription?.cancel();
+    await _transcriptionSubscription?.cancel();
 
     // Reset timing variables
-    _recordingStartTime = null;
     _pausedDuration = Duration.zero;
 
     // Dispose camera controller
     await state.cameraController?.dispose();
 
     return super.close();
+  }
+
+  /// Subscribe to transcription stream to collect segments during recording
+  void _subscribeToTranscriptionStream() {
+    try {
+      debugPrint('🎤 Attempting to subscribe to transcription stream...');
+      _transcriptionSubscription?.cancel();
+      _currentTranscriptionSegments.clear();
+
+      _transcriptionSubscription =
+          _transcriptionService.transcriptionStream.listen(
+        (segment) {
+          debugPrint(
+              '📝 Collected transcription segment: "${segment.text}" (total: ${_currentTranscriptionSegments.length + 1})');
+          _currentTranscriptionSegments.add(segment);
+        },
+        onError: (error) {
+          debugPrint('⚠️ Transcription stream error: $error');
+        },
+      );
+
+      debugPrint('✅ Transcription subscription initialized');
+    } catch (e) {
+      debugPrint('⚠️ Could not subscribe to transcription stream: $e');
+    }
   }
 }

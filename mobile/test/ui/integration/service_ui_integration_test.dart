@@ -25,7 +25,7 @@ void main() {
       when(mockRecordingService.stopRecording()).thenAnswer((_) async => true);
 
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: RecordScreen(),
         ),
       );
@@ -43,7 +43,7 @@ void main() {
 
     testWidgets('monitoring interface should integrate with transcription service', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: MonitorScreen(),
         ),
       );
@@ -55,7 +55,7 @@ void main() {
 
     testWidgets('settings interface should integrate with validation service', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: SettingsScreen(),
         ),
       );
@@ -91,7 +91,7 @@ void main() {
           .thenThrow(Exception('Camera permission denied'));
 
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: RecordScreen(),
         ),
       );
@@ -113,7 +113,7 @@ void main() {
       });
 
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: RecordScreen(),
         ),
       );
@@ -128,7 +128,7 @@ void main() {
 
     testWidgets('should handle concurrent service operations', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: MonitorScreen(),
         ),
       );
@@ -148,7 +148,7 @@ void main() {
 
     testWidgets('should update UI when service state changes', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: RecordScreen(),
         ),
       );

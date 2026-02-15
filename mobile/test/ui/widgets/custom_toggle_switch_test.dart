@@ -8,7 +8,7 @@ void main() {
     testWidgets('renders with default state', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: CustomToggleSwitch(
+          child: const CustomToggleSwitch(
             value: false,
           ),
         ),
@@ -20,7 +20,7 @@ void main() {
     testWidgets('renders with enabled state', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: CustomToggleSwitch(
+          child: const CustomToggleSwitch(
             value: true,
           ),
         ),
@@ -100,7 +100,7 @@ void main() {
     testWidgets('uses custom colors when provided', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: CustomToggleSwitch(
+          child: const CustomToggleSwitch(
             value: true,
             activeColor: Colors.red,
             inactiveColor: Colors.blue,

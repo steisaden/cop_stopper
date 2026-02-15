@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 class SessionControlsWidget extends StatelessWidget {
+  const SessionControlsWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text('Session Controls Widget'),
+      child: const Text('Session Controls Widget'),
     );
   }
 }

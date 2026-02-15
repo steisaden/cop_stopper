@@ -280,10 +280,10 @@ void main() {
 
     testWidgets('Floating emergency button can be positioned', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
             body: Stack(
-              children: const [
+              children: [
                 Center(child: Text('Main Content')),
                 FloatingEmergencyButton(
                   alignment: Alignment.bottomLeft,

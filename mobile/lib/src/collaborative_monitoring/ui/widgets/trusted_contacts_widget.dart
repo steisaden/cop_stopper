@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 class TrustedContactsWidget extends StatelessWidget {
+  const TrustedContactsWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text('Trusted Contacts Widget'),
+      child: const Text('Trusted Contacts Widget'),
     );
   }
 }

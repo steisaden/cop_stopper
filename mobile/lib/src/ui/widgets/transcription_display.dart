@@ -86,8 +86,9 @@ class _TranscriptionDisplayState extends State<TranscriptionDisplay> {
   }
 
   Color _getSpeakerColor(String? speakerId) {
-    if (speakerId == null)
+    if (speakerId == null) {
       return Theme.of(context).colorScheme.onSurfaceVariant;
+    }
 
     if (!_speakerColors.containsKey(speakerId)) {
       _speakerColors[speakerId] =
@@ -311,7 +312,7 @@ class _TranscriptionDisplayState extends State<TranscriptionDisplay> {
             onPressed: widget.onToggleAutoScroll,
             backgroundColor: widget.autoScrollEnabled
                 ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.surfaceVariant,
+                : Theme.of(context).colorScheme.surfaceContainerHighest,
             child: Icon(
               widget.autoScrollEnabled ? Icons.lock : Icons.lock_open,
               color: widget.autoScrollEnabled
@@ -330,7 +331,7 @@ class _TranscriptionDisplayState extends State<TranscriptionDisplay> {
       children: [
         Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
               color: Theme.of(context).colorScheme.outline.withOpacity(0.2),

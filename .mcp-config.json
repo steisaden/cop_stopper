@@ -1,0 +1,125 @@
+{
+  "mcpServers": {
+    "fetch": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-fetch"
+      ],
+      "env": {},
+      "disabled": false,
+      "autoApprove": [
+        "fetch"
+      ]
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@iflow-mcp/chrome-devtools-mcp@latest"
+      ],
+      "env": {},
+      "disabled": false,
+      "autoApprove": [
+        "new_page",
+        "new_page",
+        "list_pages",
+        "list_pages",
+        "take_snapshot",
+        "take_snapshot",
+        "fill",
+        "click",
+        "wait_for",
+        "list_console_messages",
+        "list_console_messages",
+        "navigate_page",
+        "navigate_page",
+        "navigate_page",
+        "navigate_page",
+        "evaluate_script",
+        "list_network_requests",
+        "get_network_request",
+        "take_screenshot"
+      ]
+    },
+    "shadcn-ui": {
+      "command": "npx",
+      "args": [
+        "@jpisnice/shadcn-ui-mcp-server"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": ""
+      },
+      "disabled": false,
+      "autoApprove": [
+        "list_components",
+        "get_component"
+      ]
+    },
+    "brave-search": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-brave-search"
+      ],
+      "env": {
+        "BRAVE_API_KEY": "BSApRtT6C6L9jR6yqTJM914fD9AmrA2"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "brave_web_search"
+      ]
+    },
+    "context7": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp@latest"
+      ],
+      "env": {
+        "DEFAULT_MINIMUM_TOKENS": "10000"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "resolve-library-id",
+        "get-library-docs"
+      ]
+    },
+    "Contentful": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@ivotoby/contentful-management-mcp-server"
+      ],
+      "env": {
+        "CONTENTFUL_HOST": "https://api.contentful.com",
+        "CONTENTFUL_MANAGEMENT_ACCESS_TOKEN": ""
+      },
+      "disabled": true,
+      "autoApprove": []
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
+      "disabled": false,
+      "autoApprove": [
+        "sequentialthinking",
+        "sequentialthinking"
+      ]
+    },
+    "Memory": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
+      "env": {
+        "MEMORY_FILE_PATH": "memory.json"
+      },
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}

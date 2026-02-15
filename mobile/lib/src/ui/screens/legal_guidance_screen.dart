@@ -6,6 +6,10 @@ import '../app_colors.dart';
 import '../components/shadcn_card.dart';
 import '../components/figma_badge.dart';
 import '../components/shadcn_button.dart';
+import '../../services/openai_service.dart';
+import '../../config/api_keys.dart';
+import '../../services/location_service.dart';
+import '../../services/gps_location_service.dart';
 
 /// Legal Guidance Screen with organized information
 class LegalGuidanceScreen extends StatefulWidget {
@@ -19,14 +23,19 @@ class _LegalGuidanceScreenState extends State<LegalGuidanceScreen> {
   List<LegalGuidanceItem> _legalGuidanceItems = [];
   String _selectedCategory = 'All';
   bool _isLoading = false;
+  
+  // AI Chatbot state
+  OpenAIService? _openAIService;
+  final List<Map<String, String>> _chatHistory = [];
+  LocationService? _locationService;
+  String? _userState;
 
   // Mock data for legal guidance items
   final List<LegalGuidanceItem> _mockLegalGuidanceItems = [
     LegalGuidanceItem(
       id: '1',
       title: 'Your Right to Remain Silent',
-      content: 'You have the right to remain silent during any police interaction. ' +
-          'Anything you say can be used against you in court. You can invoke this ' +
+      content: 'You have the right to remain silent during any police interaction. ' 'Anything you say can be used against you in court. You can invoke this ' +
           'right at any time by clearly stating, "I wish to remain silent."',
       jurisdiction: 'US Federal',
       tags: ['rights', 'silence', 'arrest'],
@@ -39,8 +48,7 @@ class _LegalGuidanceScreenState extends State<LegalGuidanceScreen> {
     LegalGuidanceItem(
       id: '2',
       title: 'Right to Legal Representation',
-      content: 'You have the right to an attorney during police questioning. ' +
-          'If you cannot afford one, a public defender will be appointed to you. ' +
+      content: 'You have the right to an attorney during police questioning. ' 'If you cannot afford one, a public defender will be appointed to you. ' +
           'Request an attorney immediately and do not answer questions until one is present.',
       jurisdiction: 'US Federal',
       tags: ['rights', 'representation', 'arrest'],
@@ -53,8 +61,7 @@ class _LegalGuidanceScreenState extends State<LegalGuidanceScreen> {
     LegalGuidanceItem(
       id: '3',
       title: 'Consent for Searches',
-      content: 'Police generally need a warrant to search your person, vehicle, or property. ' +
-          'You have the right to refuse consent for searches. Clearly state "I do not consent " +
+      content: 'Police generally need a warrant to search your person, vehicle, or property. ' 'You have the right to refuse consent for searches. Clearly state "I do not consent " +
           'to any search." If they proceed anyway, do not physically resist but make it clear ' +
           'that you do not consent.',
       jurisdiction: 'US Federal',
@@ -73,6 +80,38 @@ class _LegalGuidanceScreenState extends State<LegalGuidanceScreen> {
   void initState() {
     super.initState();
     _loadLegalGuidance();
+    _initializeOpenAI();
+  }
+  
+  void _initializeOpenAI() {
+    try {
+      if (ApiKeys.hasOpenAIKey) {
+        _openAIService = OpenAIService(apiKey: ApiKeys.openAI);
+      }
+      _locationService = GPSLocationService();
+      _getUserLocation();
+    } catch (e) {
+      debugPrint('OpenAI initialization failed: $e');
+    }
+  }
+  
+  Future<void> _getUserLocation() async {
+    try {
+      final locationResult = await _locationService?.getCurrentLocation();
+      if (locationResult != null && mounted) {
+        // For now, we'll use a simple state detection based on coordinates
+        // In production, you'd use reverse geocoding or jurisdiction service
+        final jurisdiction = await _locationService?.getCurrentJurisdiction();
+        if (jurisdiction != null) {
+          setState(() {
+            _userState = jurisdiction.state;
+          });
+          debugPrint('User state detected: $_userState');
+        }
+      }
+    } catch (e) {
+      debugPrint('Failed to get user location: $e');
+    }
   }
 
   void _loadLegalGuidance() {
@@ -191,15 +230,31 @@ class _LegalGuidanceScreenState extends State<LegalGuidanceScreen> {
                       : _buildLegalGuidanceList(),
             ),
 
-            // Emergency legal help button
+            // AI Chat and Emergency buttons
             Container(
               padding: const EdgeInsets.all(AppSpacing.md),
-              child: ShadcnButton.primary(
-                text: 'Emergency Legal Help',
-                leadingIcon: const Icon(Icons.local_police, size: 16),
-                onPressed: () {
-                  // TODO: Implement emergency legal help functionality
-                },
+              child: Row(
+                children: [
+                  Expanded(
+                    child: ShadcnButton(
+                      text: 'Ask AI',
+                      leadingIcon: const Icon(Icons.chat, size: 16),
+                      onPressed: _openAIService != null
+                          ? () => _showAIChatDialog()
+                          : null,
+                    ),
+                  ),
+                  const SizedBox(width: AppSpacing.sm),
+                  Expanded(
+                    child: ShadcnButton.primary(
+                      text: 'Emergency',
+                      leadingIcon: const Icon(Icons.local_police, size: 16),
+                      onPressed: () {
+                        // TODO: Implement emergency legal help
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
@@ -213,7 +268,7 @@ class _LegalGuidanceScreenState extends State<LegalGuidanceScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
+          const Icon(
             Icons.gavel,
             size: 80,
             color: AppColors.mutedForeground,
@@ -300,6 +355,176 @@ class _LegalGuidanceScreenState extends State<LegalGuidanceScreen> {
                     ],
                   ],
                 ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+  
+  /// Show AI chat dialog
+  void _showAIChatDialog() {
+    final messageController = TextEditingController();
+    bool isLoading = false;
+    final localChatHistory = List<Map<String, String>>.from(_chatHistory);
+    
+    showDialog(
+      context: context,
+      builder: (dialogContext) => StatefulBuilder(
+        builder: (context, setDialogState) {
+          return AlertDialog(
+            title: Row(
+              children: [
+                const Icon(Icons.chat, color: AppColors.primary),
+                const SizedBox(width: AppSpacing.sm),
+                const Text('Legal AI Assistant'),
+                const Spacer(),
+                IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ],
+            ),
+            content: SizedBox(
+              width: double.maxFinite,
+              height: 400,
+              child: Column(
+                children: [
+                  // Chat history
+                  Expanded(
+                    child: localChatHistory.isEmpty
+                        ? Center(
+                            child: Text(
+                              'Ask me anything about your legal rights!',
+                              style: AppTextStyles.bodyMedium.copyWith(
+                                color: AppColors.mutedForeground,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          )
+                        : ListView.builder(
+                            itemCount: localChatHistory.length,
+                            itemBuilder: (context, index) {
+                              final message = localChatHistory[index];
+                              final isUser = message['role'] == 'user';
+                              
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+                                child: Align(
+                                  alignment: isUser
+                                      ? Alignment.centerRight
+                                      : Alignment.centerLeft,
+                                  child: Container(
+                                    constraints: BoxConstraints(
+                                      maxWidth: MediaQuery.of(context).size.width * 0.7,
+                                    ),
+                                    padding: const EdgeInsets.all(AppSpacing.sm),
+                                    decoration: BoxDecoration(
+                                      color: isUser
+                                          ? AppColors.primary
+                                          : AppColors.surface,
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: Text(
+                                      message['content'] ?? '',
+                                      style: AppTextStyles.bodySmall.copyWith(
+                                        color: isUser
+                                            ? Colors.white
+                                            : AppColors.onSurface,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                  ),
+                  
+                  if (isLoading)
+                    const Padding(
+                      padding: EdgeInsets.all(AppSpacing.sm),
+                      child: CircularProgressIndicator(),
+                    ),
+                  
+                  const SizedBox(height: AppSpacing.sm),
+                  
+                  // Input field
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: messageController,
+                          decoration: InputDecoration(
+                            hintText: 'Type your question...',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: AppSpacing.sm,
+                              vertical: AppSpacing.xs,
+                            ),
+                          ),
+                          maxLines: null,
+                          enabled: !isLoading,
+                        ),
+                      ),
+                      const SizedBox(width: AppSpacing.sm),
+                      IconButton(
+                        icon: const Icon(Icons.send),
+                        color: AppColors.primary,
+                        onPressed: isLoading
+                            ? null
+                            : () async {
+                                final message = messageController.text.trim();
+                                if (message.isEmpty) return;
+                                
+                                messageController.clear();
+                                
+                                setDialogState(() {
+                                  localChatHistory.add({
+                                    'role': 'user',
+                                    'content': message,
+                                  });
+                                  isLoading = true;
+                                });
+                                
+                                try {
+                                  final response = await _openAIService!.sendChatMessage(
+                                    message: message,
+                                    conversationHistory: localChatHistory
+                                        .where((m) => m['role'] != 'user' || m['content'] != message)
+                                        .toList(),
+                                    userState: _userState, // Pass user's state for location-specific advice
+                                  );
+                                  
+                                  setDialogState(() {
+                                    localChatHistory.add({
+                                      'role': 'assistant',
+                                      'content': response,
+                                    });
+                                    isLoading = false;
+                                  });
+                                  
+                                  // Update main chat history
+                                  setState(() {
+                                    _chatHistory.clear();
+                                    _chatHistory.addAll(localChatHistory);
+                                  });
+                                } catch (e) {
+                                  setDialogState(() {
+                                    localChatHistory.add({
+                                      'role': 'assistant',
+                                      'content': 'Sorry, I encountered an error: ${e.toString()}',
+                                    });
+                                    isLoading = false;
+                                  });
+                                }
+                              },
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           );

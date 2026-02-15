@@ -78,3 +78,4 @@ htmlcov/
 
 # Config files with secrets
 mcp-config.json
+.mcp-config.json

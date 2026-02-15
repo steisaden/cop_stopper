@@ -53,7 +53,7 @@ class SettingsExportService {
       }
 
       if (jsonString == null) {
-        return SettingsImportResult(
+        return const SettingsImportResult(
           success: false,
           error: 'No file selected or file could not be read',
         );
@@ -64,7 +64,7 @@ class SettingsExportService {
 
       // Validate version compatibility
       if (importData.version > _currentVersion) {
-        return SettingsImportResult(
+        return const SettingsImportResult(
           success: false,
           error: 'Settings file is from a newer version of the app. Please update the app to import these settings.',
         );
@@ -189,7 +189,7 @@ class SettingsExportService {
     try {
       final file = File(backupPath);
       if (!await file.exists()) {
-        return SettingsImportResult(
+        return const SettingsImportResult(
           success: false,
           error: 'Backup file not found',
         );

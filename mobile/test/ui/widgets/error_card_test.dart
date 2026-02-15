@@ -34,7 +34,7 @@ void main() {
 
     testWidgets('should display warning severity', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: ErrorCard(
             title: 'Warning',
             message: 'Warning message',
@@ -49,7 +49,7 @@ void main() {
 
     testWidgets('should display info severity', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: ErrorCard(
             title: 'Info',
             message: 'Info message',

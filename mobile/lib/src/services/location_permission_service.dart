@@ -17,7 +17,7 @@ class LocationPermissionService {
     final currentPermission = await Geolocator.checkPermission();
     
     if (currentPermission == LocationPermission.deniedForever) {
-      return LocationPermissionResult(
+      return const LocationPermissionResult(
         granted: false,
         shouldShowRationale: true,
         message: 'Location permission has been permanently denied. Please enable it in Settings.',
@@ -29,7 +29,7 @@ class LocationPermissionService {
       // Show explanation dialog before requesting permission
       final shouldRequest = await _showPermissionExplanationDialog(context);
       if (!shouldRequest) {
-        return LocationPermissionResult(
+        return const LocationPermissionResult(
           granted: false,
           shouldShowRationale: false,
           message: 'Location permission is required for legal guidance.',
@@ -43,13 +43,13 @@ class LocationPermissionService {
     switch (permission) {
       case LocationPermission.always:
       case LocationPermission.whileInUse:
-        return LocationPermissionResult(
+        return const LocationPermissionResult(
           granted: true,
           message: 'Location permission granted successfully.',
         );
         
       case LocationPermission.denied:
-        return LocationPermissionResult(
+        return const LocationPermissionResult(
           granted: false,
           shouldShowRationale: true,
           message: 'Location permission is needed to provide accurate legal guidance based on your jurisdiction.',
@@ -57,7 +57,7 @@ class LocationPermissionService {
         );
         
       case LocationPermission.deniedForever:
-        return LocationPermissionResult(
+        return const LocationPermissionResult(
           granted: false,
           shouldShowRationale: true,
           message: 'Location permission has been permanently denied. Please enable it in Settings to receive jurisdiction-specific legal guidance.',
@@ -65,7 +65,7 @@ class LocationPermissionService {
         );
         
       case LocationPermission.unableToDetermine:
-        return LocationPermissionResult(
+        return const LocationPermissionResult(
           granted: false,
           message: 'Unable to determine location permission status. Please try again.',
           action: LocationPermissionAction.retry,
@@ -81,10 +81,10 @@ class LocationPermissionService {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Location Permission Required'),
-          content: Column(
+          content: const Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text(
                 'Cop Stopper needs access to your location to provide:',
                 style: TextStyle(fontWeight: FontWeight.bold),
@@ -139,9 +139,9 @@ class LocationPermissionService {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Location Services Disabled'),
-          content: Column(
+          content: const Column(
             mainAxisSize: MainAxisSize.min,
-            children: const [
+            children: [
               Icon(
                 Icons.location_off,
                 size: 48,

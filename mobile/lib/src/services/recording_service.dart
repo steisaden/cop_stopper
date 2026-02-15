@@ -8,7 +8,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile/src/services/storage_service.dart';
 import 'package:mobile/src/services/recording_service_interface.dart';
-import 'package:mobile/src/models/recording_model.dart';
 
 /// Exception thrown when recording operations fail
 class RecordingException implements Exception {
@@ -31,6 +30,7 @@ class AudioVideoRecordingService implements RecordingService {
   bool _isRecordingVideo = false;
   String? _currentAudioPath;
   String? _currentVideoPath;
+  String? _currentRecordingId;
 
   // Camera management
   List<CameraDescription>? _cameras;
@@ -75,6 +75,9 @@ class AudioVideoRecordingService implements RecordingService {
 
   /// Recording state notifier for UI updates
   ValueNotifier<bool> get isRecordingNotifier => _isRecordingNotifier;
+
+  /// Get the ID of the current or last recording
+  String? get currentRecordingId => _currentRecordingId;
 
   void _updateRecordingState() {
     final wasRecording = _isRecordingNotifier.value;
@@ -208,7 +211,7 @@ class AudioVideoRecordingService implements RecordingService {
   }
 
   @override
-  Future<void> startAudioRecording() async {
+  Future<void> startAudioRecording({String? recordingId}) async {
     try {
       await _checkPermissions();
 
@@ -217,7 +220,11 @@ class AudioVideoRecordingService implements RecordingService {
       await recordingsDir.create(recursive: true);
 
       final timestamp = DateTime.now().millisecondsSinceEpoch;
-      _currentAudioPath = '${recordingsDir.path}/audio_$timestamp.m4a';
+      // Use provided ID or generate new one
+      _currentRecordingId = recordingId ?? timestamp.toString();
+      // Use provided ID for filename if available, or timestamp
+      final fileId = recordingId ?? timestamp.toString();
+      _currentAudioPath = '${recordingsDir.path}/audio_$fileId.m4a';
 
       await _audioRecorder.start(
         const RecordConfig(
@@ -257,12 +264,19 @@ class AudioVideoRecordingService implements RecordingService {
   Future<String?> stopAudioRecording() async {
     try {
       if (_isRecordingAudio) {
-        final path = await _audioRecorder.stop();
+        String? path = await _audioRecorder.stop();
+
+        // Fallback to current path if stop() returns null
+        if (path == null && _currentAudioPath != null) {
+          path = _currentAudioPath;
+        }
+
         _isRecordingAudio = false;
 
-        // Clear recording start time if no other recording is active
+        // Clear recording start time and ID if no other recording is active
         if (!_isRecordingVideo) {
           _recordingStartTime = null;
+          _currentRecordingId = null;
         }
 
         _updateRecordingState();
@@ -409,7 +423,7 @@ class AudioVideoRecordingService implements RecordingService {
   }
 
   @override
-  Future<void> startAudioVideoRecording() async {
+  Future<void> startAudioVideoRecording({String? recordingId}) async {
     try {
       _updateStatus('Preparing to start recording...');
 
@@ -433,8 +447,13 @@ class AudioVideoRecordingService implements RecordingService {
         }
       }
 
+      // Generate ID if not provided (to share between audio and video if needed)
+      // Note: startAudioRecording will set _currentRecordingId if we pass valid ID
+      final idToUse =
+          recordingId ?? DateTime.now().millisecondsSinceEpoch.toString();
+
       // Start both audio and video recording
-      await startAudioRecording();
+      await startAudioRecording(recordingId: idToUse);
       bool videoStarted = false;
       try {
         await startVideoRecording();
@@ -479,6 +498,13 @@ class AudioVideoRecordingService implements RecordingService {
       debugPrint('RecordingService: Starting to stop audio/video recording...');
       _updateStatus('Stopping recording...');
 
+      // Capture start time for duration calculation BEFORE stopping recorders
+      // because stopAudioRecording might clear _recordingStartTime
+      final startTime = _recordingStartTime;
+      final duration = startTime != null
+          ? DateTime.now().difference(startTime).inSeconds
+          : 0;
+
       // Stop timers
       _segmentationTimer?.cancel();
       _segmentationTimer = null;
@@ -487,7 +513,14 @@ class AudioVideoRecordingService implements RecordingService {
 
       // Stop recordings
       debugPrint('RecordingService: Stopping audio recording...');
-      final audioPath = await stopAudioRecording();
+      String? audioPath = await stopAudioRecording();
+
+      // Fallback: If stop() returned null but we have a stored path, use it
+      if (audioPath == null && _currentAudioPath != null) {
+        debugPrint(
+            'RecordingService: stop() returned null, using cached path: $_currentAudioPath');
+        audioPath = _currentAudioPath;
+      }
       debugPrint('RecordingService: Audio stopped, path: $audioPath');
 
       String? videoPath;
@@ -500,11 +533,6 @@ class AudioVideoRecordingService implements RecordingService {
         // Continue with audio-only recording if video fails
         videoPath = null;
       }
-
-      // Calculate recording duration
-      final duration = _recordingStartTime != null
-          ? DateTime.now().difference(_recordingStartTime!).inSeconds
-          : 0;
 
       _recordingStartTime = null;
       _updateStatus('Recording completed');
@@ -570,6 +598,7 @@ class AudioVideoRecordingService implements RecordingService {
   CameraController? get cameraController => _cameraController;
 
   /// Set camera controller from external source (e.g., from RecordingBloc)
+  @override
   void setCameraController(CameraController? controller) {
     debugPrint(
         'RecordingService: setCameraController called. Controller is null: ${controller == null}');

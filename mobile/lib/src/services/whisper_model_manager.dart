@@ -6,7 +6,7 @@ import 'package:path/path.dart' as path;
 
 /// Manages Whisper model selection and information
 class WhisperModelManager {
-  // Use tiny.en by default for faster downloads and smaller footprint
+  // Use tiny.en for faster inference (~75MB)
   static const String _modelUrl =
       'https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-tiny.en.bin';
   static const String _modelFileName = 'ggml-tiny.en.bin';
@@ -27,37 +27,77 @@ class WhisperModelManager {
     final path = await _modelPath;
     return File(path).exists();
   }
-  
+
   static Future<List<String>> getDownloadedModels() async {
     if (await isModelDownloaded()) {
-      return ['base.en'];
+      return ['tiny.en'];
     }
     return [];
   }
-  
-  static Future<void> downloadModel(String modelName) async {
+
+  static Future<String> recommendModel() async {
+    return 'tiny.en';
+  }
+
+  static Future<void> downloadModel(
+    String modelName, {
+    Function(double)? onProgress,
+    Function(String)? onStatusUpdate,
+  }) async {
     if (await isModelDownloaded()) return;
-    
+
     debugPrint('Downloading Whisper model...');
-    final response = await http.get(Uri.parse(_modelUrl));
-    
-    if (response.statusCode == 200) {
-      final file = File(await _modelPath);
-      await file.writeAsBytes(response.bodyBytes);
-      debugPrint('Whisper model downloaded successfully');
-    } else {
-      throw Exception('Failed to download model: ${response.statusCode}');
+    onStatusUpdate?.call('Starting download...');
+
+    try {
+      final request = http.Request('GET', Uri.parse(_modelUrl));
+      final response = await request.send();
+
+      if (response.statusCode == 200) {
+        final contentLength = response.contentLength ?? 0;
+        final file = File(await _modelPath);
+        final sink = file.openWrite();
+
+        int bytesReceived = 0;
+        int lastProgressUpdate = 0;
+
+        await for (var chunk in response.stream) {
+          sink.add(chunk);
+          bytesReceived += chunk.length;
+
+          if (contentLength > 0 && onProgress != null) {
+            final progress = bytesReceived / contentLength;
+            // Throttle updates to avoid state flooding
+            final now = DateTime.now().millisecondsSinceEpoch;
+            if (now - lastProgressUpdate > 100) {
+              onProgress(progress);
+              lastProgressUpdate = now;
+            }
+          }
+        }
+
+        await sink.close();
+        debugPrint('Whisper model downloaded successfully');
+        onStatusUpdate?.call('Download complete');
+      } else {
+        throw Exception(
+            'Failed to download model: ${response.statusCode} ${response.reasonPhrase}');
+      }
+    } catch (e) {
+      debugPrint('Download error: $e');
+      rethrow;
     }
   }
-  
-  static Future<void> deleteModel(String modelName) async {
+
+  static Future<void> deleteModel() async {
     final filePath = await _modelPath;
     final file = File(filePath);
     if (await file.exists()) {
       await file.delete();
+      debugPrint('Whisper model deleted');
     }
   }
-  
+
   static Future<Map<String, dynamic>> getModelInfo(String modelName) async {
     final filePath = await _modelPath;
     final file = File(filePath);
@@ -65,7 +105,7 @@ class WhisperModelManager {
     if (await file.exists()) {
       size = await file.length();
     }
-    
+
     return {
       'name': modelName,
       'size': size,
@@ -73,7 +113,7 @@ class WhisperModelManager {
       'isDownloaded': size > 0,
     };
   }
-  
+
   static Future<String> getModelPath() async {
     return _modelPath;
   }
@@ -84,7 +124,7 @@ class ModelInfo {
   final String name;
   final int size;
   final String description;
-  
+
   const ModelInfo({
     required this.name,
     required this.size,

@@ -28,7 +28,9 @@ void main() {
       when(mockEmergencyContactService.getEmergencyContacts())
           .thenAnswer((_) async => []);
       when(mockNotificationService.sendEmergencyNotification(any))
-          .thenAnswer((_) async {});
+          .thenAnswer((_) async {
+            return null;
+          });
     });
 
     tearDown(() {
@@ -124,7 +126,7 @@ void main() {
       });
 
       test('should escalate when consensus threshold is met', () async {
-        final config = EmergencyEscalationConfig(
+        const config = EmergencyEscalationConfig(
           consensusThreshold: 2,
           consensusPercentage: 0.5,
         );
@@ -152,7 +154,7 @@ void main() {
         );
 
         // Wait a bit for async escalation
-        await Future.delayed(Duration(milliseconds: 100));
+        await Future.delayed(const Duration(milliseconds: 100));
 
         expect(emergency.triggers.length, equals(2));
 
@@ -165,7 +167,7 @@ void main() {
         await service.reportUnresponsiveBroadcaster(
           sessionId: 'test_session',
           broadcasterId: 'broadcaster_1',
-          unresponsiveDuration: Duration(minutes: 3),
+          unresponsiveDuration: const Duration(minutes: 3),
         );
 
         final emergencyStream = service.onEmergencyEvent;
@@ -217,7 +219,7 @@ void main() {
 
     group('Emergency Escalation', () {
       test('should escalate emergency after delay', () async {
-        final config = EmergencyEscalationConfig(
+        const config = EmergencyEscalationConfig(
           escalationDelay: Duration(milliseconds: 100),
         );
 
@@ -235,7 +237,7 @@ void main() {
         );
 
         // Wait for escalation delay
-        await Future.delayed(Duration(milliseconds: 200));
+        await Future.delayed(const Duration(milliseconds: 200));
 
         // Verify escalation occurred
         expect(serviceWithConfig.onEmergencyEvent, emits(predicate<EmergencyEvent>(
@@ -255,7 +257,7 @@ void main() {
         );
 
         // Wait for escalation
-        await Future.delayed(Duration(milliseconds: 100));
+        await Future.delayed(const Duration(milliseconds: 100));
 
         // Verify emergency notification was sent
         verify(mockNotificationService.sendEmergencyNotification(any)).called(greaterThan(0));
@@ -280,7 +282,7 @@ void main() {
 
     group('Configuration', () {
       test('should use custom configuration', () {
-        final customConfig = EmergencyEscalationConfig(
+        const customConfig = EmergencyEscalationConfig(
           consensusThreshold: 3,
           consensusPercentage: 0.8,
           unresponsiveTimeout: Duration(minutes: 5),

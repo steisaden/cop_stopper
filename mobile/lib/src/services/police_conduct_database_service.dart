@@ -133,7 +133,7 @@ class PoliceConductDatabaseService {
         'limit': limit.toString(),
       });
 
-      final response = await _httpClient.get(uri).timeout(Duration(seconds: 10));
+      final response = await _httpClient.get(uri).timeout(const Duration(seconds: 10));
       
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -168,7 +168,7 @@ class PoliceConductDatabaseService {
         'limit': limit.toString(),
       });
 
-      final response = await _httpClient.get(uri).timeout(Duration(seconds: 10));
+      final response = await _httpClient.get(uri).timeout(const Duration(seconds: 10));
       
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -203,7 +203,7 @@ class PoliceConductDatabaseService {
         'limit': limit.toString(),
       });
 
-      final response = await _httpClient.get(uri).timeout(Duration(seconds: 10));
+      final response = await _httpClient.get(uri).timeout(const Duration(seconds: 10));
       
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -238,7 +238,7 @@ class PoliceConductDatabaseService {
         'limit': limit.toString(),
       });
 
-      final response = await _httpClient.get(uri).timeout(Duration(seconds: 10));
+      final response = await _httpClient.get(uri).timeout(const Duration(seconds: 10));
       
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -269,7 +269,7 @@ class PoliceConductDatabaseService {
         'current_unit__description': department,
       });
 
-      final response = await _httpClient.get(uri).timeout(Duration(seconds: 10));
+      final response = await _httpClient.get(uri).timeout(const Duration(seconds: 10));
       
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -297,7 +297,7 @@ class PoliceConductDatabaseService {
         'department': department,
       });
 
-      final response = await _httpClient.get(uri).timeout(Duration(seconds: 10));
+      final response = await _httpClient.get(uri).timeout(const Duration(seconds: 10));
       
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -321,7 +321,7 @@ class PoliceConductDatabaseService {
         'agency': department,
       });
 
-      final response = await _httpClient.get(uri).timeout(Duration(seconds: 10));
+      final response = await _httpClient.get(uri).timeout(const Duration(seconds: 10));
       
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -345,7 +345,7 @@ class PoliceConductDatabaseService {
         'department': department,
       });
 
-      final response = await _httpClient.get(uri).timeout(Duration(seconds: 10));
+      final response = await _httpClient.get(uri).timeout(const Duration(seconds: 10));
       
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);

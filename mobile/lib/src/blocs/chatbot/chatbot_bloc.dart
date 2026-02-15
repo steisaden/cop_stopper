@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../models/legal_advice_model.dart';
 import '../../services/chatbot_service.dart';
 
 part 'chatbot_event.dart';

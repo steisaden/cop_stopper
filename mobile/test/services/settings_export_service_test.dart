@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-import '../../lib/src/services/settings_export_service.dart';
+import 'package:mobile/src/services/settings_export_service.dart';
 
 // Mock PathProviderPlatform for testing
 class MockPathProviderPlatform extends Fake
@@ -234,7 +234,7 @@ void main() {
 
     group('Result classes', () {
       test('should create export result correctly', () {
-        final successResult = SettingsExportResult(
+        const successResult = SettingsExportResult(
           success: true,
           filePath: '/path/to/export.json',
           fileSize: 2048,
@@ -245,7 +245,7 @@ void main() {
         expect(successResult.fileSize, 2048);
         expect(successResult.error, isNull);
 
-        final errorResult = SettingsExportResult(
+        const errorResult = SettingsExportResult(
           success: false,
           error: 'Export failed',
         );
@@ -276,7 +276,7 @@ void main() {
         expect(successResult.warnings, ['Warning message']);
         expect(successResult.error, isNull);
 
-        final errorResult = SettingsImportResult(
+        const errorResult = SettingsImportResult(
           success: false,
           error: 'Import failed',
         );
@@ -287,7 +287,7 @@ void main() {
       });
 
       test('should create backup result correctly', () {
-        final successResult = SettingsBackupResult(
+        const successResult = SettingsBackupResult(
           success: true,
           backupPath: '/path/to/backup.json',
           backupSize: 1536,
@@ -298,7 +298,7 @@ void main() {
         expect(successResult.backupSize, 1536);
         expect(successResult.error, isNull);
 
-        final errorResult = SettingsBackupResult(
+        const errorResult = SettingsBackupResult(
           success: false,
           error: 'Backup failed',
         );
@@ -312,7 +312,7 @@ void main() {
 
     group('Settings validation result', () {
       test('should create validation result correctly', () {
-        final validResult = SettingsValidationResult(
+        const validResult = SettingsValidationResult(
           isValid: true,
           warnings: ['Warning 1', 'Warning 2'],
         );
@@ -321,7 +321,7 @@ void main() {
         expect(validResult.warnings, ['Warning 1', 'Warning 2']);
         expect(validResult.error, isNull);
 
-        final invalidResult = SettingsValidationResult(
+        const invalidResult = SettingsValidationResult(
           isValid: false,
           error: 'Validation error',
           warnings: ['Warning'],
@@ -336,7 +336,7 @@ void main() {
     group('JSON handling', () {
       test('should handle malformed JSON gracefully', () {
         expect(() {
-          final malformedJson = '{"version": 1, "exportDate": "invalid-date"}';
+          const malformedJson = '{"version": 1, "exportDate": "invalid-date"}';
           final jsonData = jsonDecode(malformedJson) as Map<String, dynamic>;
           SettingsExportData.fromJson(jsonData);
         }, throwsA(isA<FormatException>()));
@@ -344,7 +344,7 @@ void main() {
 
       test('should handle missing required fields', () {
         expect(() {
-          final incompleteJson = '{"version": 1}'; // Missing required fields
+          const incompleteJson = '{"version": 1}'; // Missing required fields
           final jsonData = jsonDecode(incompleteJson) as Map<String, dynamic>;
           SettingsExportData.fromJson(jsonData);
         }, throwsA(isA<TypeError>()));

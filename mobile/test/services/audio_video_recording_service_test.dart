@@ -1,12 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/src/services/recording_service.dart';
-import 'package:mobile/src/services/recording_service_interface.dart';
-import 'package:mobile/src/services/storage_service.dart';
 import '../../test/mocks/mock_storage_service.dart';
 import '../../test/mocks/mock_record.dart';
 import '../../test/mocks/mock_camera.dart';
-import 'package:camera/camera.dart';
-import 'package:record/record.dart';
 import 'package:mockito/mockito.dart';
 
 void main() {

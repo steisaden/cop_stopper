@@ -8,14 +8,11 @@ import '../../blocs/transcription/transcription_bloc.dart';
 import '../../blocs/transcription/transcription_event.dart';
 import '../../blocs/transcription/transcription_state.dart';
 import '../../blocs/emergency/emergency_bloc.dart';
-import '../../blocs/emergency/emergency_event.dart';
+
 import '../../blocs/emergency/emergency_state.dart';
-import '../../blocs/navigation/navigation_bloc.dart';
-import '../../blocs/navigation/navigation_event.dart';
-import '../../blocs/navigation/navigation_state.dart';
-import '../widgets/recording_controls.dart';
+
 import '../widgets/camera_preview_card.dart';
-import '../widgets/emergency_button.dart';
+
 import '../app_spacing.dart';
 import '../app_text_styles.dart';
 import '../app_colors.dart';
@@ -23,7 +20,6 @@ import '../components/shadcn_card.dart';
 import '../components/figma_badge.dart';
 import '../components/shadcn_button.dart';
 import '../widgets/offline_indicator.dart';
-import '../../services/offline_service.dart';
 
 /// Record screen for audio/video recording functionality
 class RecordScreen extends StatefulWidget {
@@ -360,10 +356,10 @@ class _RecordScreenState extends State<RecordScreen> {
                                     Container(
                                       padding:
                                           const EdgeInsets.all(AppSpacing.sm),
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         border: Border(
                                           bottom: BorderSide(
-                                            color: const Color(
+                                            color: Color(
                                                 0xFF404040), // Dark border from Figma
                                             width: 1,
                                           ),
@@ -546,13 +542,11 @@ class _RecordScreenState extends State<RecordScreen> {
                     // Action Buttons - Figma design
                     Container(
                       padding: const EdgeInsets.all(AppSpacing.md),
-                      decoration: BoxDecoration(
-                        color:
-                            const Color(0xFF262626), // Dark surface from Figma
+                      decoration: const BoxDecoration(
+                        color: Color(0xFF262626), // Dark surface from Figma
                         border: Border(
                           top: BorderSide(
-                            color: const Color(
-                                0xFF404040), // Dark border from Figma
+                            color: Color(0xFF404040), // Dark border from Figma
                             width: 1,
                           ),
                         ),

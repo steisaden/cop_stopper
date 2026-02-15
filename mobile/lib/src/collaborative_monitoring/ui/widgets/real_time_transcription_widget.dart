@@ -70,7 +70,7 @@ class _RealTimeTranscriptionWidgetState extends State<RealTimeTranscriptionWidge
       if (_scrollController.hasClients) {
         _scrollController.animateTo(
           _scrollController.position.maxScrollExtent,
-          duration: Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 300),
           curve: Curves.easeOut,
         );
       }
@@ -86,7 +86,7 @@ class _RealTimeTranscriptionWidgetState extends State<RealTimeTranscriptionWidge
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
       height: _isExpanded ? 200 : 80,
       child: Container(
         decoration: BoxDecoration(
@@ -97,16 +97,16 @@ class _RealTimeTranscriptionWidgetState extends State<RealTimeTranscriptionWidge
           children: [
             // Header
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               child: Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.closed_caption,
                     color: Colors.white,
                     size: 16,
                   ),
-                  SizedBox(width: 8),
-                  Text(
+                  const SizedBox(width: 8),
+                  const Text(
                     'Live Transcription',
                     style: TextStyle(
                       color: Colors.white,
@@ -114,15 +114,15 @@ class _RealTimeTranscriptionWidgetState extends State<RealTimeTranscriptionWidge
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   if (_segments.isNotEmpty) ...[
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Text(
+                      child: const Text(
                         'LIVE',
                         style: TextStyle(
                           color: Colors.white,
@@ -131,7 +131,7 @@ class _RealTimeTranscriptionWidgetState extends State<RealTimeTranscriptionWidge
                         ),
                       ),
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                   ],
                   IconButton(
                     icon: Icon(
@@ -145,7 +145,7 @@ class _RealTimeTranscriptionWidgetState extends State<RealTimeTranscriptionWidge
                       });
                     },
                     padding: EdgeInsets.zero,
-                    constraints: BoxConstraints(),
+                    constraints: const BoxConstraints(),
                   ),
                 ],
               ),
@@ -164,7 +164,7 @@ class _RealTimeTranscriptionWidgetState extends State<RealTimeTranscriptionWidge
   }
 
   Widget _buildEmptyState() {
-    return Center(
+    return const Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -189,7 +189,7 @@ class _RealTimeTranscriptionWidgetState extends State<RealTimeTranscriptionWidge
   Widget _buildTranscriptionList() {
     return ListView.builder(
       controller: _scrollController,
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       itemCount: _segments.length,
       itemBuilder: (context, index) {
         final segment = _segments[index];
@@ -200,8 +200,8 @@ class _RealTimeTranscriptionWidgetState extends State<RealTimeTranscriptionWidge
 
   Widget _buildTranscriptionSegment(TranscriptionSegment segment, bool isLatest) {
     return Container(
-      margin: EdgeInsets.only(bottom: 4),
-      padding: EdgeInsets.all(8),
+      margin: const EdgeInsets.only(bottom: 4),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: isLatest ? Colors.blue.withOpacity(0.2) : Colors.transparent,
         borderRadius: BorderRadius.circular(4),
@@ -220,17 +220,17 @@ class _RealTimeTranscriptionWidgetState extends State<RealTimeTranscriptionWidge
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Text(
                   _formatTimestamp(segment.timestamp),
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white54,
                     fontSize: 10,
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 2),
+            const SizedBox(height: 2),
           ],
           Text(
             segment.text,

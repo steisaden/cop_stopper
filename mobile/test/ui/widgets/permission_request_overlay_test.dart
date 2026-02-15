@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import '../../../lib/src/ui/widgets/permission_request_overlay.dart';
-import '../../../lib/src/services/settings_validation_service.dart';
+import 'package:mobile/src/ui/widgets/permission_request_overlay.dart';
+import 'package:mobile/src/services/settings_validation_service.dart';
 
 void main() {
   group('PermissionRequestOverlay', () {
@@ -240,7 +240,7 @@ void main() {
 
     testWidgets('should handle empty permissions list', (WidgetTester tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
             body: PermissionRequestOverlay(
               permissions: [],

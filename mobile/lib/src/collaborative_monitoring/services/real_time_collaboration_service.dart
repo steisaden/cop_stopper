@@ -364,7 +364,7 @@ class RealTimeCollaborationService {
   }
 
   void _startHeartbeat() {
-    _heartbeatTimer = Timer.periodic(Duration(seconds: 30), (timer) async {
+    _heartbeatTimer = Timer.periodic(const Duration(seconds: 30), (timer) async {
       if (_channel != null) {
         try {
           await _sendMessage({

@@ -215,7 +215,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           theme: ThemeData.dark(),
-          home: Scaffold(
+          home: const Scaffold(
             body: Column(
               children: [
                 ErrorCard(
@@ -223,7 +223,7 @@ void main() {
                   message: 'This is how errors look in dark theme.',
                   severity: ErrorSeverity.error,
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16),
                 StorageWarningBanner(
                   usagePercentage: 75.0,
                   availableSpace: '2.5 GB',
@@ -246,7 +246,7 @@ void main() {
           theme: ThemeData(
             colorScheme: const ColorScheme.highContrastLight(),
           ),
-          home: Scaffold(
+          home: const Scaffold(
             body: Column(
               children: [
                 ErrorCard(
@@ -254,7 +254,7 @@ void main() {
                   message: 'This is how errors look in high contrast mode.',
                   severity: ErrorSeverity.error,
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16),
                 StorageWarningBanner(
                   usagePercentage: 90.0,
                   availableSpace: '500 MB',
@@ -303,7 +303,7 @@ void main() {
                           recordingDuration: Duration.zero,
                         ),
                         const SizedBox(height: 16),
-                        Expanded(
+                        const Expanded(
                           child: TranscriptionDisplay(
                             segments: [],
                             isListening: false,

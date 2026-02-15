@@ -1,4 +1,3 @@
-import 'package:http/http.dart' as http;
 import '../models/legal_advice_model.dart';
 import '../models/api_response.dart';
 import '../services/api_service.dart';

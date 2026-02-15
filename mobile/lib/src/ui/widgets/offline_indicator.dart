@@ -30,7 +30,7 @@ class OfflineIndicator extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.cloud_off,
                 color: AppColors.onWarning,
                 size: 16,

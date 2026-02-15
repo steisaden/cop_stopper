@@ -77,7 +77,7 @@ class GPSLocationService implements LocationService {
       final locationData = {
         'longitude': position.longitude,
         'latitude': position.latitude,
-        'timestamp': position.timestamp?.toIso8601String() ?? DateTime.now().toIso8601String(),
+        'timestamp': position.timestamp.toIso8601String() ?? DateTime.now().toIso8601String(),
         'accuracy': position.accuracy,
         'altitude': position.altitude,
         'altitudeAccuracy': position.altitudeAccuracy,

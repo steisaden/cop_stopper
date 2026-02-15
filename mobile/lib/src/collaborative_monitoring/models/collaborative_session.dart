@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'package:mobile/src/collaborative_monitoring/models/participant.dart';
 import 'package:mobile/src/collaborative_monitoring/models/privacy_settings.dart';
 import 'package:mobile/src/collaborative_monitoring/models/session_type.dart';

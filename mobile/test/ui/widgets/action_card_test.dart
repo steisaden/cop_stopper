@@ -163,7 +163,7 @@ void main() {
     testWidgets('handles disabled actions correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: ActionCard(
+          child: const ActionCard(
             title: 'Disabled Action',
             primaryAction: ActionButton(
               label: 'Disabled',

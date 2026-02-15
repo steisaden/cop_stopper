@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../models/document_model.dart';
 import '../../services/secure_document_service.dart';
 
 part 'documents_event.dart';

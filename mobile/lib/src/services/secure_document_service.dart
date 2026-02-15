@@ -14,7 +14,7 @@ class SecureDocumentService {
         _localAuth = LocalAuthentication();
 
   Future<void> writeSecureData(String key, String value) async {
-    final encryptedValue = _encryptionService.encrypt(value);
+    final encryptedValue = await _encryptionService.encrypt(value);
     await _secureStorage.write(key: key, value: encryptedValue);
   }
 
@@ -23,7 +23,7 @@ class SecureDocumentService {
     if (encryptedValue == null) {
       return null;
     }
-    return _encryptionService.decrypt(encryptedValue);
+    return await _encryptionService.decrypt(encryptedValue);
   }
 
   Future<void> deleteSecureData(String key) async {

@@ -30,10 +30,14 @@ class AppSpacing {
   static const double listItemPadding = md; // 16pt
   static const double sectionSpacing = lg; // 24pt
   static const double screenPadding = md; // 16pt
-  
+
   // Figma-specific spacing values - EXACT VALUES
   static const double figmaRadius = 10.0; // EXACT 0.625rem from Figma
   static const double figmaCardPadding = lg; // EXACT 24pt from Figma
+
+  // Design reference border radius values (Tailwind CSS equivalents)
+  static const double radius2XL = 16.0; // rounded-2xl (design ref cards)
+  static const double radiusFull = 999.0; // rounded-full (pills/chips)
 
   // Navigation specific spacing
   static const double bottomNavHeight = _baseUnit * 10.0; // 80pt
@@ -65,13 +69,14 @@ class AppSpacing {
   static const double desktopBreakpoint = 1200.0;
 
   /// Returns responsive spacing based on screen width
-  static double responsive(BuildContext context, {
+  static double responsive(
+    BuildContext context, {
     required double mobile,
     double? tablet,
     double? desktop,
   }) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    
+
     if (screenWidth >= desktopBreakpoint && desktop != null) {
       return desktop;
     } else if (screenWidth >= tabletBreakpoint && tablet != null) {
@@ -85,7 +90,7 @@ class AppSpacing {
   static double scaled(BuildContext context, double spacing) {
     final MediaQueryData mediaQuery = MediaQuery.of(context);
     final double textScaleFactor = mediaQuery.textScaleFactor;
-    
+
     // Scale spacing proportionally with text, but with limits
     final double scaleFactor = (textScaleFactor - 1.0) * 0.5 + 1.0;
     return spacing * scaleFactor.clamp(1.0, 1.5);
@@ -114,17 +119,27 @@ class AppSpacing {
   static const EdgeInsets paddingLG = EdgeInsets.all(lg);
   static const EdgeInsets paddingXL = EdgeInsets.all(xl);
 
-  static const EdgeInsets horizontalPaddingXS = EdgeInsets.symmetric(horizontal: xs);
-  static const EdgeInsets horizontalPaddingSM = EdgeInsets.symmetric(horizontal: sm);
-  static const EdgeInsets horizontalPaddingMD = EdgeInsets.symmetric(horizontal: md);
-  static const EdgeInsets horizontalPaddingLG = EdgeInsets.symmetric(horizontal: lg);
-  static const EdgeInsets horizontalPaddingXL = EdgeInsets.symmetric(horizontal: xl);
+  static const EdgeInsets horizontalPaddingXS =
+      EdgeInsets.symmetric(horizontal: xs);
+  static const EdgeInsets horizontalPaddingSM =
+      EdgeInsets.symmetric(horizontal: sm);
+  static const EdgeInsets horizontalPaddingMD =
+      EdgeInsets.symmetric(horizontal: md);
+  static const EdgeInsets horizontalPaddingLG =
+      EdgeInsets.symmetric(horizontal: lg);
+  static const EdgeInsets horizontalPaddingXL =
+      EdgeInsets.symmetric(horizontal: xl);
 
-  static const EdgeInsets verticalPaddingXS = EdgeInsets.symmetric(vertical: xs);
-  static const EdgeInsets verticalPaddingSM = EdgeInsets.symmetric(vertical: sm);
-  static const EdgeInsets verticalPaddingMD = EdgeInsets.symmetric(vertical: md);
-  static const EdgeInsets verticalPaddingLG = EdgeInsets.symmetric(vertical: lg);
-  static const EdgeInsets verticalPaddingXL = EdgeInsets.symmetric(vertical: xl);
+  static const EdgeInsets verticalPaddingXS =
+      EdgeInsets.symmetric(vertical: xs);
+  static const EdgeInsets verticalPaddingSM =
+      EdgeInsets.symmetric(vertical: sm);
+  static const EdgeInsets verticalPaddingMD =
+      EdgeInsets.symmetric(vertical: md);
+  static const EdgeInsets verticalPaddingLG =
+      EdgeInsets.symmetric(vertical: lg);
+  static const EdgeInsets verticalPaddingXL =
+      EdgeInsets.symmetric(vertical: xl);
 
   /// Screen-specific padding with safe area consideration
   static EdgeInsets screenPaddingWithSafeArea(BuildContext context) {
@@ -164,12 +179,18 @@ class AppSpacing {
   }
 
   /// Border radius values - EXACT Figma design system (all use 10px)
-  static const BorderRadius radiusXS = BorderRadius.all(Radius.circular(figmaRadius)); // Use Figma radius
-  static const BorderRadius radiusSM = BorderRadius.all(Radius.circular(figmaRadius)); // Use Figma radius
-  static const BorderRadius radiusMD = BorderRadius.all(Radius.circular(figmaRadius)); // Use Figma radius
-  static const BorderRadius radiusLG = BorderRadius.all(Radius.circular(figmaRadius)); // Use Figma radius
-  static const BorderRadius radiusXL = BorderRadius.all(Radius.circular(figmaRadius)); // Use Figma radius
-  static const BorderRadius radiusFigma = BorderRadius.all(Radius.circular(figmaRadius)); // EXACT Figma
+  static const BorderRadius radiusXS =
+      BorderRadius.all(Radius.circular(figmaRadius)); // Use Figma radius
+  static const BorderRadius radiusSM =
+      BorderRadius.all(Radius.circular(figmaRadius)); // Use Figma radius
+  static const BorderRadius radiusMD =
+      BorderRadius.all(Radius.circular(figmaRadius)); // Use Figma radius
+  static const BorderRadius radiusLG =
+      BorderRadius.all(Radius.circular(figmaRadius)); // Use Figma radius
+  static const BorderRadius radiusXL =
+      BorderRadius.all(Radius.circular(figmaRadius)); // Use Figma radius
+  static const BorderRadius radiusFigma =
+      BorderRadius.all(Radius.circular(figmaRadius)); // EXACT Figma
 
   /// Card border radius - EXACT Figma design system (10px)
   static const BorderRadius cardBorderRadius = radiusFigma;

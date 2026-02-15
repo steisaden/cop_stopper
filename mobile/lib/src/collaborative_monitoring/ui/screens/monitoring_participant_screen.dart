@@ -50,12 +50,12 @@ class _MonitoringParticipantScreenState extends State<MonitoringParticipantScree
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Monitoring Session'),
+        title: const Text('Monitoring Session'),
         backgroundColor: Colors.red.shade700,
         foregroundColor: Colors.white,
         actions: [
           IconButton(
-            icon: Icon(Icons.emergency),
+            icon: const Icon(Icons.emergency),
             onPressed: _triggerEmergency,
             tooltip: 'Report Emergency',
           ),
@@ -78,7 +78,7 @@ class _MonitoringParticipantScreenState extends State<MonitoringParticipantScree
         ],
       ),
       body: _session == null
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : Column(
               children: [
                 // Session Info Bar
@@ -145,24 +145,24 @@ class _MonitoringParticipantScreenState extends State<MonitoringParticipantScree
 
   Widget _buildSessionInfoBar() {
     return Container(
-      padding: EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
       color: Colors.grey.shade100,
       child: Row(
         children: [
-          Icon(Icons.live_tv, color: Colors.red),
-          SizedBox(width: 8),
-          Text(
+          const Icon(Icons.live_tv, color: Colors.red),
+          const SizedBox(width: 8),
+          const Text(
             'Live Monitoring',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          SizedBox(width: 16),
-          Icon(Icons.people, size: 16),
-          SizedBox(width: 4),
+          const SizedBox(width: 16),
+          const Icon(Icons.people, size: 16),
+          const SizedBox(width: 4),
           Text('${_session?.participants.length ?? 0} participants'),
-          Spacer(),
+          const Spacer(),
           if (_session?.location != null) ...[
             Icon(Icons.location_on, size: 16, color: Colors.grey.shade600),
-            SizedBox(width: 4),
+            const SizedBox(width: 4),
             Text(
               _session!.location!.address ?? 'Location tracked',
               style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
@@ -183,23 +183,23 @@ class _MonitoringParticipantScreenState extends State<MonitoringParticipantScree
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
+                const Icon(
                   Icons.screen_share,
                   size: 64,
                   color: Colors.white54,
                 ),
-                SizedBox(height: 16),
-                Text(
+                const SizedBox(height: 16),
+                const Text(
                   'Broadcaster\'s Screen',
                   style: TextStyle(
                     color: Colors.white54,
                     fontSize: 18,
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Text(
                   'Viewing live screen share from ${_session?.broadcasterId ?? "broadcaster"}',
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white38,
                     fontSize: 14,
                   ),
@@ -219,7 +219,7 @@ class _MonitoringParticipantScreenState extends State<MonitoringParticipantScree
                   onPressed: _toggleFullscreen,
                   tooltip: 'Fullscreen',
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 _buildOverlayButton(
                   icon: Icons.screenshot,
                   onPressed: _takeScreenshot,
@@ -258,7 +258,7 @@ class _MonitoringParticipantScreenState extends State<MonitoringParticipantScree
       children: [
         // Section Header
         Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: Colors.blue.shade50,
             border: Border(bottom: BorderSide(color: Colors.grey.shade300)),
@@ -266,7 +266,7 @@ class _MonitoringParticipantScreenState extends State<MonitoringParticipantScree
           child: Row(
             children: [
               Icon(Icons.fact_check, color: Colors.blue.shade700),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Text(
                 'Fact Check & Legal Advice',
                 style: TextStyle(
@@ -275,7 +275,7 @@ class _MonitoringParticipantScreenState extends State<MonitoringParticipantScree
                   color: Colors.blue.shade700,
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               IconButton(
                 icon: Icon(_isFactCheckingPanelExpanded ? Icons.expand_less : Icons.expand_more),
                 onPressed: () {
@@ -304,7 +304,7 @@ class _MonitoringParticipantScreenState extends State<MonitoringParticipantScree
       children: [
         // Header
         Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: Colors.grey.shade100,
             border: Border(bottom: BorderSide(color: Colors.grey.shade300)),
@@ -312,7 +312,7 @@ class _MonitoringParticipantScreenState extends State<MonitoringParticipantScree
           child: Row(
             children: [
               Icon(Icons.people, color: Colors.grey.shade700),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Text(
                 'Participants',
                 style: TextStyle(
@@ -328,7 +328,7 @@ class _MonitoringParticipantScreenState extends State<MonitoringParticipantScree
         // Participants List
         Expanded(
           child: ListView(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             children: [
               // Broadcaster
               _buildParticipantTile(
@@ -338,7 +338,7 @@ class _MonitoringParticipantScreenState extends State<MonitoringParticipantScree
                 isBroadcaster: true,
               ),
               
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               
               // Other Participants
               ..._session?.participants.map((participant) => _buildParticipantTile(
@@ -361,8 +361,8 @@ class _MonitoringParticipantScreenState extends State<MonitoringParticipantScree
     required bool isBroadcaster,
   }) {
     return Container(
-      margin: EdgeInsets.only(bottom: 8),
-      padding: EdgeInsets.all(12),
+      margin: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: isBroadcaster ? Colors.red.shade50 : Colors.grey.shade50,
         borderRadius: BorderRadius.circular(8),
@@ -379,14 +379,14 @@ class _MonitoringParticipantScreenState extends State<MonitoringParticipantScree
               color: Colors.white,
             ),
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   name,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
                   ),
@@ -416,11 +416,11 @@ class _MonitoringParticipantScreenState extends State<MonitoringParticipantScree
 
   Widget _buildBottomControls() {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border(top: BorderSide(color: Colors.grey.shade300)),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.black12,
             blurRadius: 4,
@@ -439,8 +439,8 @@ class _MonitoringParticipantScreenState extends State<MonitoringParticipantScree
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Report Emergency'),
-        content: Column(
+        title: const Text('Report Emergency'),
+        content: const Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -458,7 +458,7 @@ class _MonitoringParticipantScreenState extends State<MonitoringParticipantScree
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Cancel'),
+            child: const Text('Cancel'),
           ),
           ElevatedButton(
             onPressed: () {
@@ -468,7 +468,7 @@ class _MonitoringParticipantScreenState extends State<MonitoringParticipantScree
                 reason: 'Emergency reported by monitoring participant',
               );
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
+                const SnackBar(
                   content: Text('Emergency reported'),
                   backgroundColor: Colors.red,
                 ),
@@ -478,7 +478,7 @@ class _MonitoringParticipantScreenState extends State<MonitoringParticipantScree
               backgroundColor: Colors.red,
               foregroundColor: Colors.white,
             ),
-            child: Text('Report Emergency'),
+            child: const Text('Report Emergency'),
           ),
         ],
       ),
@@ -488,14 +488,14 @@ class _MonitoringParticipantScreenState extends State<MonitoringParticipantScree
   void _toggleFullscreen() {
     // Implementation for fullscreen toggle
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Fullscreen mode toggled')),
+      const SnackBar(content: Text('Fullscreen mode toggled')),
     );
   }
 
   void _takeScreenshot() {
     // Implementation for taking screenshot
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Screenshot saved')),
+      const SnackBar(content: Text('Screenshot saved')),
     );
   }
 }

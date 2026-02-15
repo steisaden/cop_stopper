@@ -134,19 +134,19 @@ class _MonitorScreenContent extends StatelessWidget {
                     ShadcnButton.primary(
                       text: 'Fact Check Text',
                       onPressed: () {
-                        context.read<MonitoringBloc>().add(FactCheckRequested());
+                        context.read<MonitoringBloc>().add(const FactCheckRequested());
                       },
                       size: ShadcnButtonSize.sm,
                     ),
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 240,
                 child: Padding(
-                  padding: const EdgeInsets.all(AppSpacing.sm),
+                  padding: EdgeInsets.all(AppSpacing.sm),
                   child: TranscriptionDisplay(
-                    segments: const [],
+                    segments: [],
                     autoScrollEnabled: true,
                   ),
                 ),
@@ -205,7 +205,7 @@ class _MonitorScreenContent extends StatelessWidget {
                     ShadcnButton.primary(
                       text: 'Run Fact Check',
                       onPressed: () {
-                        context.read<MonitoringBloc>().add(FactCheckRequested());
+                        context.read<MonitoringBloc>().add(const FactCheckRequested());
                       },
                     ),
                   ],
@@ -246,10 +246,10 @@ class _MonitorScreenContent extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 200,
                 child: Padding(
-                  padding: const EdgeInsets.all(AppSpacing.sm),
+                  padding: EdgeInsets.all(AppSpacing.sm),
                   child: FactCheckPanel(
                     factCheckResults: [],
                     legalAlerts: [],
@@ -288,11 +288,11 @@ class _MonitorScreenContent extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(AppSpacing.md),
-      decoration: BoxDecoration(
-        color: const Color(0xFF262626), // Dark header from Figma
+      decoration: const BoxDecoration(
+        color: Color(0xFF262626), // Dark header from Figma
         border: Border(
           bottom: BorderSide(
-            color: const Color(0xFF404040), // Dark border from Figma
+            color: Color(0xFF404040), // Dark border from Figma
             width: 1,
           ),
         ),
@@ -329,7 +329,7 @@ class _MonitorScreenContent extends StatelessWidget {
               text: 'Start Session',
               leadingIcon: const Icon(Icons.play_arrow, size: 16),
               onPressed: () {
-                context.read<MonitoringBloc>().add(StartMonitoring());
+                context.read<MonitoringBloc>().add(const StartMonitoring());
               },
             ),
           ),
@@ -339,7 +339,7 @@ class _MonitorScreenContent extends StatelessWidget {
               text: 'Stop Session',
               leadingIcon: const Icon(Icons.stop, size: 16),
               onPressed: () {
-                context.read<MonitoringBloc>().add(StopMonitoring());
+                context.read<MonitoringBloc>().add(const StopMonitoring());
               },
             ),
           ),
@@ -358,7 +358,7 @@ class _MonitorScreenContent extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
+              const Text(
                 'Claim:',
                 style: AppTextStyles.titleSmall,
               ),
@@ -367,7 +367,7 @@ class _MonitorScreenContent extends StatelessWidget {
               const SizedBox(height: AppSpacing.md),
               
               if (result.explanation != null) ...[
-                Text(
+                const Text(
                   'Explanation:',
                   style: AppTextStyles.titleSmall,
                 ),
@@ -383,7 +383,7 @@ class _MonitorScreenContent extends StatelessWidget {
               
               if (result.sources.isNotEmpty) ...[
                 const SizedBox(height: AppSpacing.md),
-                Text(
+                const Text(
                   'Sources:',
                   style: AppTextStyles.titleSmall,
                 ),
@@ -444,7 +444,7 @@ class _MonitorScreenContent extends StatelessWidget {
               ),
               const SizedBox(height: AppSpacing.md),
               
-              Text(
+              const Text(
                 'Description:',
                 style: AppTextStyles.titleSmall,
               ),
@@ -452,7 +452,7 @@ class _MonitorScreenContent extends StatelessWidget {
               Text(alert.description),
               const SizedBox(height: AppSpacing.md),
               
-              Text(
+              const Text(
                 'Suggested Response:',
                 style: AppTextStyles.titleSmall,
               ),
@@ -460,7 +460,7 @@ class _MonitorScreenContent extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(AppSpacing.sm),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surfaceVariant,
+                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(alert.suggestedResponse),
@@ -468,7 +468,7 @@ class _MonitorScreenContent extends StatelessWidget {
               
               if (alert.relevantLaws.isNotEmpty) ...[
                 const SizedBox(height: AppSpacing.md),
-                Text(
+                const Text(
                   'Relevant Laws:',
                   style: AppTextStyles.titleSmall,
                 ),

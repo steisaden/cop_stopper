@@ -52,7 +52,7 @@ class _FactCheckingPanelState extends State<FactCheckingPanel> {
       children: [
         // Fact Check Submission Form
         Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: Colors.blue.shade50,
             border: Border(bottom: BorderSide(color: Colors.grey.shade300)),
@@ -80,12 +80,12 @@ class _FactCheckingPanelState extends State<FactCheckingPanel> {
             color: Colors.blue.shade800,
           ),
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         
         // Claim Input
         TextField(
           controller: _claimController,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             labelText: 'Claim to verify',
             hintText: 'e.g., "Officer needs warrant to search"',
             border: OutlineInputBorder(),
@@ -93,12 +93,12 @@ class _FactCheckingPanelState extends State<FactCheckingPanel> {
           ),
           maxLines: 2,
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         
         // Verification Input
         TextField(
           controller: _verificationController,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             labelText: 'Verification',
             hintText: 'True/False with explanation',
             border: OutlineInputBorder(),
@@ -106,24 +106,24 @@ class _FactCheckingPanelState extends State<FactCheckingPanel> {
           ),
           maxLines: 3,
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         
         // Sources Input
         TextField(
           controller: _sourcesController,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             labelText: 'Sources (comma-separated)',
             hintText: 'constitution.gov, aclu.org',
             border: OutlineInputBorder(),
             isDense: true,
           ),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         
         // Confidence Level
         Row(
           children: [
-            Text('Confidence: '),
+            const Text('Confidence: '),
             Expanded(
               child: DropdownButton<ConfidenceLevel>(
                 value: _selectedConfidence,
@@ -145,14 +145,14 @@ class _FactCheckingPanelState extends State<FactCheckingPanel> {
             ),
           ],
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         
         // Submit Button
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
             onPressed: _canSubmit() ? _submitFactCheck : null,
-            child: Text('Submit Fact Check'),
+            child: const Text('Submit Fact Check'),
           ),
         ),
       ],
@@ -170,7 +170,7 @@ class _FactCheckingPanelState extends State<FactCheckingPanel> {
               size: 48,
               color: Colors.grey.shade400,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               'No fact checks yet',
               style: TextStyle(
@@ -178,7 +178,7 @@ class _FactCheckingPanelState extends State<FactCheckingPanel> {
                 fontSize: 16,
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               'Submit the first fact check to help the broadcaster',
               style: TextStyle(
@@ -193,7 +193,7 @@ class _FactCheckingPanelState extends State<FactCheckingPanel> {
     }
 
     return ListView.builder(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       itemCount: _factChecks.length,
       itemBuilder: (context, index) {
         final factCheck = _factChecks[index];
@@ -204,39 +204,39 @@ class _FactCheckingPanelState extends State<FactCheckingPanel> {
 
   Widget _buildFactCheckCard(AggregatedFactCheck factCheck) {
     return Card(
-      margin: EdgeInsets.only(bottom: 12),
+      margin: const EdgeInsets.only(bottom: 12),
       child: Padding(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Claim
             Text(
               factCheck.claim,
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             
             // Consensus
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
                 color: _getConsensusColor(factCheck.consensus),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
                 factCheck.consensus,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             
             // Confidence Score
             Row(
@@ -246,14 +246,14 @@ class _FactCheckingPanelState extends State<FactCheckingPanel> {
                   style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
                 ),
                 _buildConfidenceBar(factCheck.confidenceScore),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Text(
                   '${(factCheck.confidenceScore * 100).round()}%',
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             
             // Contributors
             Text(
@@ -263,19 +263,19 @@ class _FactCheckingPanelState extends State<FactCheckingPanel> {
             
             // Sources (expandable)
             if (factCheck.sources.isNotEmpty) ...[
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               ExpansionTile(
                 title: Text(
                   'Sources (${factCheck.sources.length})',
-                  style: TextStyle(fontSize: 12),
+                  style: const TextStyle(fontSize: 12),
                 ),
                 children: factCheck.sources.map((source) {
                   return ListTile(
                     dense: true,
-                    leading: Icon(Icons.link, size: 16),
+                    leading: const Icon(Icons.link, size: 16),
                     title: Text(
                       source,
-                      style: TextStyle(fontSize: 11),
+                      style: const TextStyle(fontSize: 11),
                     ),
                     onTap: () => _openSource(source),
                   );
@@ -370,7 +370,7 @@ class _FactCheckingPanelState extends State<FactCheckingPanel> {
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Fact check submitted successfully'),
           backgroundColor: Colors.green,
         ),

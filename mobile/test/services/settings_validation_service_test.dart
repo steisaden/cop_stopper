@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import '../../lib/src/services/settings_validation_service.dart';
+import 'package:mobile/src/services/settings_validation_service.dart';
 
 void main() {
   group('SettingsValidationService', () {
@@ -378,7 +378,7 @@ void main() {
           },
         };
 
-        final capabilities = DeviceCapabilities(
+        const capabilities = DeviceCapabilities(
           supports4K: false,
           hasHighQualityMicrophone: true,
           ramGB: 6.0,
@@ -407,7 +407,7 @@ void main() {
           },
         };
 
-        final capabilities = DeviceCapabilities(
+        const capabilities = DeviceCapabilities(
           supports4K: true,
           hasHighQualityMicrophone: true,
           ramGB: 6.0,
@@ -435,7 +435,7 @@ void main() {
           },
         };
 
-        final capabilities = DeviceCapabilities(
+        const capabilities = DeviceCapabilities(
           supports4K: true,
           hasHighQualityMicrophone: true,
           ramGB: 2.0, // Low RAM
@@ -463,7 +463,7 @@ void main() {
           },
         };
 
-        final capabilities = DeviceCapabilities(
+        const capabilities = DeviceCapabilities(
           supports4K: true,
           hasHighQualityMicrophone: false,
           ramGB: 6.0,
@@ -486,7 +486,7 @@ void main() {
 
     group('SettingsValidationResult', () {
       test('should correctly identify highest severity', () {
-        final result = SettingsValidationResult(
+        const result = SettingsValidationResult(
           isValid: false,
           warnings: [
             SettingsWarning(
@@ -515,7 +515,7 @@ void main() {
       });
 
       test('should handle medium severity correctly', () {
-        final result = SettingsValidationResult(
+        const result = SettingsValidationResult(
           isValid: false,
           warnings: [
             SettingsWarning(
@@ -541,7 +541,7 @@ void main() {
       });
 
       test('should default to low severity', () {
-        final result = SettingsValidationResult(
+        const result = SettingsValidationResult(
           isValid: true,
           warnings: [
             SettingsWarning(

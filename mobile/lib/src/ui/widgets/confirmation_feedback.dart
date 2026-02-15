@@ -23,7 +23,7 @@ class ConfirmationFeedback {
       SnackBar(
         content: Row(
           children: [
-            Icon(
+            const Icon(
               Icons.check_circle,
               color: AppColors.onSuccess,
               size: 20,
@@ -42,7 +42,7 @@ class ConfirmationFeedback {
         backgroundColor: AppColors.success,
         duration: duration,
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: AppSpacing.buttonBorderRadius,
         ),
         margin: AppSpacing.paddingMD,
@@ -65,7 +65,7 @@ class ConfirmationFeedback {
       SnackBar(
         content: Row(
           children: [
-            Icon(
+            const Icon(
               Icons.error,
               color: AppColors.onError,
               size: 20,
@@ -84,7 +84,7 @@ class ConfirmationFeedback {
         backgroundColor: AppColors.error,
         duration: duration,
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: AppSpacing.buttonBorderRadius,
         ),
         margin: AppSpacing.paddingMD,
@@ -107,7 +107,7 @@ class ConfirmationFeedback {
       SnackBar(
         content: Row(
           children: [
-            Icon(
+            const Icon(
               Icons.warning,
               color: AppColors.onWarning,
               size: 20,
@@ -126,7 +126,7 @@ class ConfirmationFeedback {
         backgroundColor: AppColors.warning,
         duration: duration,
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: AppSpacing.buttonBorderRadius,
         ),
         margin: AppSpacing.paddingMD,
@@ -239,7 +239,7 @@ class _AnimatedConfirmationDialogState extends State<_AnimatedConfirmationDialog
           child: ScaleTransition(
             scale: _scaleAnimation,
             child: AlertDialog(
-              shape: RoundedRectangleBorder(
+              shape: const RoundedRectangleBorder(
                 borderRadius: AppSpacing.radiusLG,
               ),
               title: Row(

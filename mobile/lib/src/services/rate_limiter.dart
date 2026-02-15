@@ -36,25 +36,25 @@ class RateLimiter {
 
     // Check our local rate limits
     final now = DateTime.now();
-    final requestsInLastMinute = _getRequestsInWindow(Duration(minutes: 1));
-    final requestsInLastHour = _getRequestsInWindow(Duration(hours: 1));
+    final requestsInLastMinute = _getRequestsInWindow(const Duration(minutes: 1));
+    final requestsInLastHour = _getRequestsInWindow(const Duration(hours: 1));
 
     Duration? waitTime;
 
     // Check minute limit
     if (requestsInLastMinute >= maxRequestsPerMinute) {
       final oldestInMinute = _requestTimes
-          .where((time) => now.difference(time) <= Duration(minutes: 1))
+          .where((time) => now.difference(time) <= const Duration(minutes: 1))
           .reduce((a, b) => a.isBefore(b) ? a : b);
-      waitTime = Duration(minutes: 1) - now.difference(oldestInMinute);
+      waitTime = const Duration(minutes: 1) - now.difference(oldestInMinute);
     }
 
     // Check hour limit
     if (requestsInLastHour >= maxRequestsPerHour) {
       final oldestInHour = _requestTimes
-          .where((time) => now.difference(time) <= Duration(hours: 1))
+          .where((time) => now.difference(time) <= const Duration(hours: 1))
           .reduce((a, b) => a.isBefore(b) ? a : b);
-      final hourWait = Duration(hours: 1) - now.difference(oldestInHour);
+      final hourWait = const Duration(hours: 1) - now.difference(oldestInHour);
       waitTime = waitTime == null || hourWait > waitTime ? hourWait : waitTime;
     }
 
@@ -103,7 +103,7 @@ class RateLimiter {
 
   /// Clean up old request timestamps to prevent memory leaks
   Future<void> _cleanupOldRequests() async {
-    final cutoff = DateTime.now().subtract(Duration(hours: 2));
+    final cutoff = DateTime.now().subtract(const Duration(hours: 2));
     _requestTimes.removeWhere((time) => time.isBefore(cutoff));
   }
 
@@ -112,8 +112,8 @@ class RateLimiter {
     final now = DateTime.now();
     return {
       'service': serviceName,
-      'requests_last_minute': _getRequestsInWindow(Duration(minutes: 1)),
-      'requests_last_hour': _getRequestsInWindow(Duration(hours: 1)),
+      'requests_last_minute': _getRequestsInWindow(const Duration(minutes: 1)),
+      'requests_last_hour': _getRequestsInWindow(const Duration(hours: 1)),
       'max_per_minute': maxRequestsPerMinute,
       'max_per_hour': maxRequestsPerHour,
       'consecutive_rate_limits': _consecutiveRateLimits,

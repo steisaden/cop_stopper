@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 /// AppColors defines the complete color system for the Police Interaction Assistant app
@@ -9,7 +8,8 @@ class AppColors {
   AppColors._();
 
   // Primary palette - Figma design system colors
-  static const Color primary = Color(0xFF030213); // Very dark blue/black from Figma
+  static const Color primary =
+      Color(0xFF030213); // Very dark blue/black from Figma
   static const Color primaryVariant = Color(0xFF1a1a1a);
   static const Color onPrimary = Color(0xFFFFFFFF);
   static const Color primaryContainer = Color(0xFFF1F2F6); // Light blue-gray
@@ -28,7 +28,8 @@ class AppColors {
   static const Color successContainer = Color(0xFFE8F5E8);
   static const Color onSuccessContainer = Color(0xFF1B5E20);
 
-  static const Color warning = Color(0xFFEF6C00); // Orange 800 for good contrast
+  static const Color warning =
+      Color(0xFFEF6C00); // Orange 800 for good contrast
   static const Color onWarning = Color(0xFFFFFFFF);
   static const Color warningContainer = Color(0xFFFFF3E0);
   static const Color onWarningContainer = Color(0xFFE65100);
@@ -39,7 +40,8 @@ class AppColors {
   static const Color onErrorContainer = Color(0xFFB71C1C);
 
   // Recording specific colors
-  static const Color recording = Color(0xFFD32F2F); // Same as error for consistency
+  static const Color recording =
+      Color(0xFFD32F2F); // Same as error for consistency
   static const Color onRecording = Color(0xFFFFFFFF);
   static const Color recordingContainer = Color(0xFFFFEBEE);
   static const Color onRecordingContainer = Color(0xFFB71C1C);
@@ -47,8 +49,10 @@ class AppColors {
   // Surface colors for cards and backgrounds - Figma design system
   static const Color surface = Color(0xFFFFFFFF);
   static const Color onSurface = Color(0xFF030213);
-  static const Color surfaceVariant = Color(0xFFF3F3F5); // Input background from Figma - EXACT
-  static const Color onSurfaceVariant = Color(0xFF717182); // Muted foreground from Figma - EXACT
+  static const Color surfaceVariant =
+      Color(0xFFF3F3F5); // Input background from Figma - EXACT
+  static const Color onSurfaceVariant =
+      Color(0xFF717182); // Muted foreground from Figma - EXACT
   static const Color surfaceTint = primary;
 
   // Background colors - Figma design system
@@ -60,33 +64,45 @@ class AppColors {
   static const Color onCard = Color(0xFF030213);
 
   // Outline colors for borders and dividers - Figma design system
-  static const Color outline = Color(0x1A000000); // rgba(0, 0, 0, 0.1) from Figma
-  static const Color outlineVariant = Color(0xFFECECF0); // Muted color from Figma
+  static const Color outline =
+      Color(0x1A000000); // rgba(0, 0, 0, 0.1) from Figma
+  static const Color outlineVariant =
+      Color(0xFFECECF0); // Muted color from Figma
 
   // Dark theme colors - Figma design system (oklch values converted to RGB)
   static const Color darkPrimary = Color(0xFFFFFFFF); // White in dark mode
-  static const Color darkOnPrimary = Color(0xFF252525); // oklch(0.145 0 0) - EXACT Figma
-  static const Color darkPrimaryContainer = Color(0xFF454545); // oklch(0.269 0 0) - EXACT Figma
+  static const Color darkOnPrimary =
+      Color(0xFF252525); // oklch(0.145 0 0) - EXACT Figma
+  static const Color darkPrimaryContainer =
+      Color(0xFF454545); // oklch(0.269 0 0) - EXACT Figma
   static const Color darkOnPrimaryContainer = Color(0xFFFFFFFF);
 
-  static const Color darkSecondary = Color(0xFF454545); // oklch(0.269 0 0) - EXACT Figma
+  static const Color darkSecondary =
+      Color(0xFF454545); // oklch(0.269 0 0) - EXACT Figma
   static const Color darkOnSecondary = Color(0xFFFFFFFF);
-  static const Color darkSecondaryContainer = Color(0xFF343434); // oklch(0.205 0 0) - EXACT Figma
+  static const Color darkSecondaryContainer =
+      Color(0xFF343434); // oklch(0.205 0 0) - EXACT Figma
   static const Color darkOnSecondaryContainer = Color(0xFFFFFFFF);
 
-  static const Color darkSurface = Color(0xFF343434); // oklch(0.205 0 0) - EXACT Figma
+  static const Color darkSurface =
+      Color(0xFF343434); // oklch(0.205 0 0) - EXACT Figma
   static const Color darkOnSurface = Color(0xFFFFFFFF);
-  static const Color darkSurfaceVariant = Color(0xFF454545); // oklch(0.269 0 0) - EXACT Figma
+  static const Color darkSurfaceVariant =
+      Color(0xFF454545); // oklch(0.269 0 0) - EXACT Figma
   static const Color darkOnSurfaceVariant = Color(0xFFCAC4D0);
 
-  static const Color darkBackground = Color(0xFF252525); // oklch(0.145 0 0) - EXACT Figma
+  static const Color darkBackground =
+      Color(0xFF252525); // oklch(0.145 0 0) - EXACT Figma
   static const Color darkOnBackground = Color(0xFFFFFFFF);
 
-  static const Color darkCardBackground = Color(0xFF454545); // oklch(0.269 0 0) - EXACT Figma
+  static const Color darkCardBackground =
+      Color(0xFF454545); // oklch(0.269 0 0) - EXACT Figma
   static const Color darkOnCard = Color(0xFFFFFFFF);
 
-  static const Color darkOutline = Color(0xFF454545); // oklch(0.269 0 0) - EXACT Figma
-  static const Color darkOutlineVariant = Color(0xFF343434); // oklch(0.205 0 0) - EXACT Figma
+  static const Color darkOutline =
+      Color(0xFF454545); // oklch(0.269 0 0) - EXACT Figma
+  static const Color darkOutlineVariant =
+      Color(0xFF343434); // oklch(0.205 0 0) - EXACT Figma
 
   // Emergency and critical colors
   static const Color emergency = Color(0xFFD32F2F);
@@ -101,16 +117,84 @@ class AppColors {
   static const Color factCheckUnverified = Color(0xFF9E9E9E);
 
   // Glass morphism effect colors - Figma design system
-  static const Color glassMorphismBackground = Color(0xB3FFFFFF); // 70% white opacity
-  static const Color darkGlassMorphismBackground = Color(0xB31a1a1a); // 70% dark opacity
-  
+  static const Color glassMorphismBackground =
+      Color(0xB3FFFFFF); // 70% white opacity
+  static const Color darkGlassMorphismBackground =
+      Color(0xB31a1a1a); // 70% dark opacity
+
   // Additional Figma design system colors - EXACT VALUES
-  static const Color inputBackground = Color(0xFFF3F3F5); // #f3f3f5 - EXACT Figma input bg
-  static const Color switchBackground = Color(0xFFCBCED4); // #cbced4 - EXACT Figma switch bg
+  static const Color inputBackground =
+      Color(0xFFF3F3F5); // #f3f3f5 - EXACT Figma input bg
+  static const Color switchBackground =
+      Color(0xFFCBCED4); // #cbced4 - EXACT Figma switch bg
   static const Color muted = Color(0xFFECECF0); // #ececf0 - EXACT Figma muted
-  static const Color mutedForeground = Color(0xFF717182); // #717182 - EXACT Figma muted fg
+  static const Color mutedForeground =
+      Color(0xFF717182); // #717182 - EXACT Figma muted fg
   static const Color accent = Color(0xFFE9EBEF); // Accent color from Figma
-  static const Color accentForeground = Color(0xFF030213); // Accent foreground from Figma
+  static const Color accentForeground =
+      Color(0xFF030213); // Accent foreground from Figma
+
+  // ============================================
+  // Glass Design System Colors (Stitch Redesign)
+  // ============================================
+
+  /// Deep dark background for glass screens (design ref: #0a0a0a)
+  static const Color glassBackground = Color(0xFF0A0A0A);
+
+  /// Card/surface background for glass components (design ref: #1a1a1a)
+  static const Color glassCardBackground = Color(0xFF1A1A1A);
+
+  /// Card border color (design ref: gray-800 / #1f2937)
+  static const Color glassCardBorder = Color(0xFF1F2937);
+
+  /// Primary blue accent for glass components (design ref: blue-500)
+  static const Color glassPrimary = Color(0xFF3B82F6);
+
+  /// Recording active indicator (design ref: red-500)
+  static const Color glassRecording = Color(0xFFEF4444);
+
+  /// Success/secure indicator (green)
+  static const Color glassSuccess = Color(0xFF22C55E);
+
+  /// AI/assistant accent (purple)
+  static const Color glassAI = Color(0xFFA855F7);
+
+  /// Warning/complaint indicator (amber)
+  static const Color glassWarning = Color(0xFFF59E0B);
+
+  /// Muted text on glass surfaces
+  static const Color glassTextSecondary = Color(0xFF8B8B99);
+
+  // Glass Surface Colors
+  /// Base glass surface - rgba(255,255,255,0.03)
+  static const Color glassSurfaceBase = Color(0x08FFFFFF);
+
+  /// Floating glass surface - rgba(255,255,255,0.07)
+  static const Color glassSurfaceFloating = Color(0x12FFFFFF);
+
+  /// Inset glass surface - rgba(0,0,0,0.2)
+  static const Color glassSurfaceInset = Color(0x33000000);
+
+  /// Frosted glass surface - rgba(10,10,15,0.7)
+  static const Color glassSurfaceFrosted = Color(0xB30A0A0F);
+
+  /// Glass border - rgba(255,255,255,0.1)
+  static const Color glassBorder = Color(0x1AFFFFFF);
+
+  /// Subtle glass border - rgba(255,255,255,0.05)
+  static const Color glassBorderSubtle = Color(0x0DFFFFFF);
+
+  /// Glass shadow color
+  static const Color glassShadow = Color(0x4D000000);
+
+  /// Destructive/danger color for glass UI (bright red)
+  static const Color glassDestructive = Color(0xFFEF4444);
+
+  /// Secondary accent color (cyan/teal)
+  static const Color glassAccent = Color(0xFF06B6D4);
+
+  /// Muted text color for glass UI
+  static const Color glassTextMuted = Color(0xFF6B7280);
 
   /// Returns the appropriate color scheme for the given brightness
   static ColorScheme colorScheme(Brightness brightness) {

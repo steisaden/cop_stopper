@@ -333,7 +333,7 @@ class _CameraPreviewCardState extends State<CameraPreviewCard>
     }
 
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: AppColors.surfaceVariant,
         borderRadius: AppSpacing.cameraPreviewBorderRadius,
       ),
@@ -432,7 +432,7 @@ class _CameraPreviewCardState extends State<CameraPreviewCard>
     return Card(
       elevation: AppSpacing.elevationMedium,
       color: AppColors.cardBackground,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: AppSpacing.cameraPreviewBorderRadius,
       ),
       child: AspectRatio(

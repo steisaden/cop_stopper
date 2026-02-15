@@ -80,7 +80,7 @@ class _MainScreenState extends State<MainScreen> {
                           const SizedBox(width: AppSpacing.sm),
                           Consumer<OfflineService>(
                             builder: (context, offlineService, child) {
-                              return ConnectivityIndicator();
+                              return const ConnectivityIndicator();
                             },
                           ),
                         ],
@@ -89,7 +89,7 @@ class _MainScreenState extends State<MainScreen> {
                     // Battery indicator
                     Row(
                       children: [
-                        Icon(Icons.battery_std, size: 16, color: AppColors.mutedForeground),
+                        const Icon(Icons.battery_std, size: 16, color: AppColors.mutedForeground),
                         const SizedBox(width: AppSpacing.xs / 2),
                         Text(
                           '89%',
@@ -231,7 +231,7 @@ class _MainScreenState extends State<MainScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.warning_rounded,
                             color: Colors.white,
                             size: 24,
@@ -261,7 +261,7 @@ class _MainScreenState extends State<MainScreen> {
                         padding: const EdgeInsets.all(AppSpacing.sm),
                         child: Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.signal_cellular_alt,
                               size: 16,
                               color: AppColors.success, // Use accent color
@@ -297,7 +297,7 @@ class _MainScreenState extends State<MainScreen> {
                         padding: const EdgeInsets.all(AppSpacing.sm),
                         child: Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.location_on,
                               size: 16,
                               color: AppColors.success, // Use accent color

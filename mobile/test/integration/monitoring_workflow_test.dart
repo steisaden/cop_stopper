@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/src/blocs/monitoring/monitoring_bloc.dart';
-import 'package:mobile/src/blocs/monitoring/monitoring_event.dart';
 import 'package:mobile/src/blocs/monitoring/monitoring_state.dart';
-import 'package:mobile/src/models/fact_check_result_model.dart';
-import 'package:mobile/src/models/monitoring_session_model.dart';
 import 'package:mobile/src/ui/screens/monitor_screen.dart';
 
 void main() {

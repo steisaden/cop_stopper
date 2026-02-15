@@ -8,7 +8,7 @@ void main() {
     testWidgets('renders with default values', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: AccessibilitySettingsCard(
+          child: const AccessibilitySettingsCard(
             voiceCommands: false,
             textSize: 1.0,
             highContrast: false,
@@ -27,7 +27,7 @@ void main() {
     testWidgets('displays voice commands toggle correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: AccessibilitySettingsCard(
+          child: const AccessibilitySettingsCard(
             voiceCommands: false,
             textSize: 1.0,
             highContrast: false,
@@ -70,7 +70,7 @@ void main() {
     testWidgets('displays text size slider correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: AccessibilitySettingsCard(
+          child: const AccessibilitySettingsCard(
             voiceCommands: false,
             textSize: 1.0,
             highContrast: false,
@@ -106,7 +106,7 @@ void main() {
 
       // Find and interact with the slider
       final slider = find.byType(Slider);
-      await tester.drag(slider, Offset(100, 0));
+      await tester.drag(slider, const Offset(100, 0));
       await tester.pumpAndSettle();
 
       expect(textSizeValue, isNotNull);
@@ -145,7 +145,7 @@ void main() {
     testWidgets('displays text size preview', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: AccessibilitySettingsCard(
+          child: const AccessibilitySettingsCard(
             voiceCommands: false,
             textSize: 1.5,
             highContrast: false,
@@ -164,7 +164,7 @@ void main() {
     testWidgets('displays high contrast toggle correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: AccessibilitySettingsCard(
+          child: const AccessibilitySettingsCard(
             voiceCommands: false,
             textSize: 1.0,
             highContrast: false,
@@ -206,7 +206,7 @@ void main() {
     testWidgets('displays reduced motion toggle correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: AccessibilitySettingsCard(
+          child: const AccessibilitySettingsCard(
             voiceCommands: false,
             textSize: 1.0,
             highContrast: false,
@@ -224,7 +224,7 @@ void main() {
     testWidgets('displays screen reader support toggle correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: AccessibilitySettingsCard(
+          child: const AccessibilitySettingsCard(
             voiceCommands: false,
             textSize: 1.0,
             highContrast: false,
@@ -242,7 +242,7 @@ void main() {
     testWidgets('displays haptic feedback toggle correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: AccessibilitySettingsCard(
+          child: const AccessibilitySettingsCard(
             voiceCommands: false,
             textSize: 1.0,
             highContrast: false,
@@ -284,7 +284,7 @@ void main() {
     testWidgets('displays accessibility status correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: AccessibilitySettingsCard(
+          child: const AccessibilitySettingsCard(
             voiceCommands: false,
             textSize: 1.0,
             highContrast: false,
@@ -303,7 +303,7 @@ void main() {
     testWidgets('updates text size description with percentage', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: AccessibilitySettingsCard(
+          child: const AccessibilitySettingsCard(
             voiceCommands: false,
             textSize: 1.5,
             highContrast: false,
@@ -320,7 +320,7 @@ void main() {
     testWidgets('has proper accessibility semantics', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: AccessibilitySettingsCard(
+          child: const AccessibilitySettingsCard(
             voiceCommands: false,
             textSize: 1.0,
             highContrast: false,
@@ -348,10 +348,10 @@ void main() {
   group('Responsive Behavior Tests', () {
     testWidgets('adapts to different screen sizes', (WidgetTester tester) async {
       // Test mobile size
-      await tester.binding.setSurfaceSize(Size(400, 800));
+      await tester.binding.setSurfaceSize(const Size(400, 800));
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: AccessibilitySettingsCard(
+          child: const AccessibilitySettingsCard(
             voiceCommands: false,
             textSize: 1.0,
             highContrast: false,
@@ -365,7 +365,7 @@ void main() {
       expect(find.text('Accessibility'), findsOneWidget);
 
       // Test tablet size
-      await tester.binding.setSurfaceSize(Size(800, 1200));
+      await tester.binding.setSurfaceSize(const Size(800, 1200));
       await tester.pumpAndSettle();
 
       expect(find.text('Accessibility'), findsOneWidget);
@@ -377,7 +377,7 @@ void main() {
     testWidgets('maintains layout with extreme text sizes', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: AccessibilitySettingsCard(
+          child: const AccessibilitySettingsCard(
             voiceCommands: false,
             textSize: 2.0, // Maximum size
             highContrast: false,
@@ -399,7 +399,7 @@ void main() {
     testWidgets('text preview scales correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: AccessibilitySettingsCard(
+          child: const AccessibilitySettingsCard(
             voiceCommands: false,
             textSize: 1.5,
             highContrast: false,

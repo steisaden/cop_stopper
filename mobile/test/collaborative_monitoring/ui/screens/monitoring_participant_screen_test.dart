@@ -4,7 +4,7 @@ import 'package:mobile/src/collaborative_monitoring/ui/screens/monitoring_partic
 
 void main() {
   testWidgets('MonitoringParticipantScreen has a title and message', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: MonitoringParticipantScreen()));
+    await tester.pumpWidget(const MaterialApp(home: MonitoringParticipantScreen()));
     final titleFinder = find.text('Monitoring Participant');
     final messageFinder = find.text('Monitoring Participant Screen');
     expect(titleFinder, findsOneWidget);

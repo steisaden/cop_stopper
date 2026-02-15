@@ -22,6 +22,7 @@ class RecordingState extends Equatable {
   final String? lastSavedVideoPath;
   final List<CameraDescription> availableCameras;
   final int activeCameraIndex;
+  final String? recordingId;
 
   const RecordingState({
     this.cameraController,
@@ -43,6 +44,7 @@ class RecordingState extends Equatable {
     this.lastSavedVideoPath,
     this.availableCameras = const [],
     this.activeCameraIndex = 0,
+    this.recordingId,
   });
 
   /// Initial state
@@ -65,7 +67,8 @@ class RecordingState extends Equatable {
         lastSavedAudioPath = null,
         lastSavedVideoPath = null,
         availableCameras = const [],
-        activeCameraIndex = 0;
+        activeCameraIndex = 0,
+        recordingId = null;
 
   /// Copy state with optional parameter changes
   RecordingState copyWith({
@@ -89,6 +92,7 @@ class RecordingState extends Equatable {
     List<CameraDescription>? availableCameras,
     int? activeCameraIndex,
     bool clearError = false,
+    String? recordingId,
   }) {
     return RecordingState(
       cameraController: cameraController ?? this.cameraController,
@@ -102,7 +106,8 @@ class RecordingState extends Equatable {
       zoomLevel: zoomLevel ?? this.zoomLevel,
       availableStorageGB: availableStorageGB ?? this.availableStorageGB,
       isLowStorage: isLowStorage ?? this.isLowStorage,
-      showLowStorageWarning: showLowStorageWarning ?? this.showLowStorageWarning,
+      showLowStorageWarning:
+          showLowStorageWarning ?? this.showLowStorageWarning,
       errorMessage: clearError ? null : (errorMessage ?? this.errorMessage),
       errorCode: clearError ? null : (errorCode ?? this.errorCode),
       status: status ?? this.status,
@@ -110,20 +115,21 @@ class RecordingState extends Equatable {
       lastSavedVideoPath: lastSavedVideoPath ?? this.lastSavedVideoPath,
       availableCameras: availableCameras ?? this.availableCameras,
       activeCameraIndex: activeCameraIndex ?? this.activeCameraIndex,
+      recordingId: recordingId ?? this.recordingId,
     );
   }
 
   /// Get current camera description
   CameraDescription? get currentCamera {
-    if (availableCameras.isEmpty || activeCameraIndex >= availableCameras.length) {
+    if (availableCameras.isEmpty ||
+        activeCameraIndex >= availableCameras.length) {
       return null;
     }
     return availableCameras[activeCameraIndex];
   }
 
   /// Check if camera is initialized
-  bool get isCameraInitialized => 
-    cameraController?.value.isInitialized == true;
+  bool get isCameraInitialized => cameraController?.value.isInitialized == true;
 
   /// Check if there are multiple cameras available
   bool get hasMultipleCameras => availableCameras.length > 1;
@@ -134,7 +140,7 @@ class RecordingState extends Equatable {
       return '${availableStorageGB.toStringAsFixed(1)} GB free';
     } else {
       final mb = (availableStorageGB * 1024).round();
-      return '${mb} MB free';
+      return '$mb MB free';
     }
   }
 
@@ -150,26 +156,27 @@ class RecordingState extends Equatable {
 
   @override
   List<Object?> get props => [
-    cameraController,
-    isRecording,
-    isAudioOnly,
-    isFlashOn,
-    hasFlash,
-    isPaused,
-    recordingDuration,
-    audioLevel,
-    zoomLevel,
-    availableStorageGB,
-    isLowStorage,
-    showLowStorageWarning,
-    errorMessage,
-    errorCode,
-    status,
-    lastSavedAudioPath,
-    lastSavedVideoPath,
-    availableCameras,
-    activeCameraIndex,
-  ];
+        cameraController,
+        isRecording,
+        isAudioOnly,
+        isFlashOn,
+        hasFlash,
+        isPaused,
+        recordingDuration,
+        audioLevel,
+        zoomLevel,
+        availableStorageGB,
+        isLowStorage,
+        showLowStorageWarning,
+        errorMessage,
+        errorCode,
+        status,
+        lastSavedAudioPath,
+        lastSavedVideoPath,
+        availableCameras,
+        activeCameraIndex,
+        recordingId,
+      ];
 
   @override
   String toString() {

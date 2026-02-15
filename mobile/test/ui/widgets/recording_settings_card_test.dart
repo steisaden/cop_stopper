@@ -8,7 +8,7 @@ void main() {
     testWidgets('renders with default values', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: RecordingSettingsCard(
+          child: const RecordingSettingsCard(
             videoQuality: '1080p',
             audioBitrate: 128.0,
             fileFormat: 'MP4',
@@ -25,7 +25,7 @@ void main() {
     testWidgets('displays video quality options correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: RecordingSettingsCard(
+          child: const RecordingSettingsCard(
             videoQuality: '1080p',
             audioBitrate: 128.0,
             fileFormat: 'MP4',
@@ -61,7 +61,7 @@ void main() {
     testWidgets('displays audio bitrate slider correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: RecordingSettingsCard(
+          child: const RecordingSettingsCard(
             videoQuality: '1080p',
             audioBitrate: 128.0,
             fileFormat: 'MP4',
@@ -92,7 +92,7 @@ void main() {
 
       // Find and interact with the slider
       final slider = find.byType(Slider);
-      await tester.drag(slider, Offset(100, 0));
+      await tester.drag(slider, const Offset(100, 0));
       await tester.pumpAndSettle();
 
       expect(selectedBitrate, isNotNull);
@@ -102,7 +102,7 @@ void main() {
     testWidgets('displays file format options correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: RecordingSettingsCard(
+          child: const RecordingSettingsCard(
             videoQuality: '1080p',
             audioBitrate: 128.0,
             fileFormat: 'MP4',
@@ -138,7 +138,7 @@ void main() {
     testWidgets('displays auto-save toggle correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: RecordingSettingsCard(
+          child: const RecordingSettingsCard(
             videoQuality: '1080p',
             audioBitrate: 128.0,
             fileFormat: 'MP4',
@@ -177,7 +177,7 @@ void main() {
     testWidgets('updates quality description based on selection', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: RecordingSettingsCard(
+          child: const RecordingSettingsCard(
             videoQuality: '720p',
             audioBitrate: 128.0,
             fileFormat: 'MP4',
@@ -192,7 +192,7 @@ void main() {
     testWidgets('updates bitrate label based on value', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: RecordingSettingsCard(
+          child: const RecordingSettingsCard(
             videoQuality: '1080p',
             audioBitrate: 256.0,
             fileFormat: 'MP4',
@@ -207,7 +207,7 @@ void main() {
     testWidgets('has proper accessibility semantics', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: RecordingSettingsCard(
+          child: const RecordingSettingsCard(
             videoQuality: '1080p',
             audioBitrate: 128.0,
             fileFormat: 'MP4',
@@ -231,10 +231,10 @@ void main() {
   group('Responsive Behavior Tests', () {
     testWidgets('adapts to different screen sizes', (WidgetTester tester) async {
       // Test mobile size
-      await tester.binding.setSurfaceSize(Size(400, 800));
+      await tester.binding.setSurfaceSize(const Size(400, 800));
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: RecordingSettingsCard(
+          child: const RecordingSettingsCard(
             videoQuality: '1080p',
             audioBitrate: 128.0,
             fileFormat: 'MP4',
@@ -246,7 +246,7 @@ void main() {
       expect(find.text('Recording Settings'), findsOneWidget);
 
       // Test tablet size
-      await tester.binding.setSurfaceSize(Size(800, 1200));
+      await tester.binding.setSurfaceSize(const Size(800, 1200));
       await tester.pumpAndSettle();
 
       expect(find.text('Recording Settings'), findsOneWidget);
@@ -258,7 +258,7 @@ void main() {
     testWidgets('maintains layout with extreme values', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: RecordingSettingsCard(
+          child: const RecordingSettingsCard(
             videoQuality: '4K',
             audioBitrate: 320.0, // Maximum value
             fileFormat: 'AVI',

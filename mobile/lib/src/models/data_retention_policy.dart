@@ -14,15 +14,15 @@ class DataRetentionPolicy {
 
   /// Default policy for public records (longer retention allowed)
   factory DataRetentionPolicy.publicRecordsDefault() {
-    return DataRetentionPolicy(
+    return const DataRetentionPolicy(
       defaultRetentionPeriod: Duration(days: 365 * 2), // 2 years
       dataTypeRetentionPeriods: {
-        'officer_public_records': Duration(days: 365 * 3), // 3 years
-        'court_records': Duration(days: 365 * 5), // 5 years
-        'public_complaints': Duration(days: 365 * 3), // 3 years
-        'disciplinary_actions': Duration(days: 365 * 5), // 5 years
-        'search_logs': Duration(days: 90), // 90 days
-        'audit_logs': Duration(days: 365 * 7), // 7 years (compliance requirement)
+        'officer_public_records': const Duration(days: 365 * 3), // 3 years
+        'court_records': const Duration(days: 365 * 5), // 5 years
+        'public_complaints': const Duration(days: 365 * 3), // 3 years
+        'disciplinary_actions': const Duration(days: 365 * 5), // 5 years
+        'search_logs': const Duration(days: 90), // 90 days
+        'audit_logs': const Duration(days: 365 * 7), // 7 years (compliance requirement)
       },
       autoDeleteEnabled: true,
       warningPeriodBeforeDeletion: Duration(days: 30),
@@ -31,13 +31,13 @@ class DataRetentionPolicy {
 
   /// Strict policy for personal data (shorter retention)
   factory DataRetentionPolicy.personalDataStrict() {
-    return DataRetentionPolicy(
+    return const DataRetentionPolicy(
       defaultRetentionPeriod: Duration(days: 30),
       dataTypeRetentionPeriods: {
-        'user_searches': Duration(days: 7),
-        'user_preferences': Duration(days: 90),
-        'session_data': Duration(hours: 24),
-        'temporary_cache': Duration(hours: 1),
+        'user_searches': const Duration(days: 7),
+        'user_preferences': const Duration(days: 90),
+        'session_data': const Duration(hours: 24),
+        'temporary_cache': const Duration(hours: 1),
       },
       autoDeleteEnabled: true,
       warningPeriodBeforeDeletion: Duration(days: 3),

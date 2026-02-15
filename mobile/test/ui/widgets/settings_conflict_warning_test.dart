@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import '../../../lib/src/ui/widgets/settings_conflict_warning.dart';
-import '../../../lib/src/services/settings_validation_service.dart';
+import 'package:mobile/src/ui/widgets/settings_conflict_warning.dart';
+import 'package:mobile/src/services/settings_validation_service.dart';
 
 void main() {
   group('SettingsConflictWarning', () {
@@ -16,11 +16,11 @@ void main() {
         suggestions: [],
       );
 
-      resultWithConflicts = SettingsValidationResult(
+      resultWithConflicts = const SettingsValidationResult(
         isValid: false,
         warnings: [],
         conflicts: [
-          const SettingsConflict(
+          SettingsConflict(
             type: ConflictType.legalRequirement,
             message: 'Consent recording is required in California',
             affectedSetting: 'consentRecording',

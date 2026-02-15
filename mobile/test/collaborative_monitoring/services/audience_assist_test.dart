@@ -27,13 +27,21 @@ void main() {
 
       // Setup default mock behaviors
       when(mockScreenSharingService.startScreenSharing())
-          .thenAnswer((_) async {});
+          .thenAnswer((_) async {
+            return null;
+          });
       when(mockScreenSharingService.toggleAudienceAssist(any))
-          .thenAnswer((_) async {});
+          .thenAnswer((_) async {
+            return null;
+          });
       when(mockScreenSharingService.addParticipant(any))
-          .thenAnswer((_) async {});
+          .thenAnswer((_) async {
+            return null;
+          });
       when(mockScreenSharingService.removeParticipant(any))
-          .thenAnswer((_) async {});
+          .thenAnswer((_) async {
+            return null;
+          });
     });
 
     tearDown(() {

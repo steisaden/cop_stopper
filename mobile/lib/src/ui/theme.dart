@@ -49,13 +49,13 @@ class AppTheme {
       ),
 
       // Card Theme - Figma design system
-      cardTheme: CardThemeData(
+      cardTheme: const CardThemeData(
         color: AppColors.cardBackground,
         elevation: AppSpacing.elevationLow,
         shape: RoundedRectangleBorder(
           borderRadius: AppSpacing.cardBorderRadius,
         ),
-        margin: const EdgeInsets.all(AppSpacing.cardMargin),
+        margin: EdgeInsets.all(AppSpacing.cardMargin),
       ),
 
       // Elevated Button Theme
@@ -65,7 +65,7 @@ class AppTheme {
           foregroundColor: colorScheme.onPrimary,
           elevation: AppSpacing.elevationLow,
           padding: AppSpacing.paddingMD,
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
             borderRadius: AppSpacing.buttonBorderRadius,
           ),
           textStyle: AppTextStyles.labelLarge,
@@ -79,7 +79,7 @@ class AppTheme {
           foregroundColor: colorScheme.primary,
           side: BorderSide(color: colorScheme.outline),
           padding: AppSpacing.paddingMD,
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
             borderRadius: AppSpacing.buttonBorderRadius,
           ),
           textStyle: AppTextStyles.labelLarge,
@@ -92,7 +92,7 @@ class AppTheme {
         style: TextButton.styleFrom(
           foregroundColor: colorScheme.primary,
           padding: AppSpacing.paddingMD,
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
             borderRadius: AppSpacing.buttonBorderRadius,
           ),
           textStyle: AppTextStyles.labelLarge,
@@ -101,11 +101,11 @@ class AppTheme {
       ),
 
       // Floating Action Button Theme
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: AppColors.recording,
         foregroundColor: AppColors.onRecording,
         elevation: AppSpacing.elevationMedium,
-        shape: const CircleBorder(),
+        shape: CircleBorder(),
       ),
 
       // Input Decoration Theme
@@ -194,7 +194,7 @@ class AppTheme {
       dialogTheme: DialogThemeData(
         backgroundColor: colorScheme.surface,
         elevation: AppSpacing.elevationHigh,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: AppSpacing.radiusLG,
         ),
         titleTextStyle: AppTextStyles.headlineSmall.copyWith(
@@ -213,7 +213,7 @@ class AppTheme {
         ),
         actionTextColor: colorScheme.inversePrimary,
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: AppSpacing.buttonBorderRadius,
         ),
       ),
@@ -232,7 +232,7 @@ class AppTheme {
           color: colorScheme.onSurfaceVariant,
         ),
         side: BorderSide.none,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: AppSpacing.buttonBorderRadius,
         ),
       ),
@@ -274,13 +274,13 @@ class AppTheme {
       ),
 
       // Card Theme
-      cardTheme: CardThemeData(
+      cardTheme: const CardThemeData(
         color: AppColors.darkCardBackground,
         elevation: AppSpacing.elevationLow,
         shape: RoundedRectangleBorder(
           borderRadius: AppSpacing.cardBorderRadius,
         ),
-        margin: const EdgeInsets.all(AppSpacing.cardMargin),
+        margin: EdgeInsets.all(AppSpacing.cardMargin),
       ),
 
       // Elevated Button Theme
@@ -290,7 +290,7 @@ class AppTheme {
           foregroundColor: colorScheme.onPrimary,
           elevation: AppSpacing.elevationLow,
           padding: AppSpacing.paddingMD,
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
             borderRadius: AppSpacing.buttonBorderRadius,
           ),
           textStyle: AppTextStyles.labelLarge,
@@ -304,7 +304,7 @@ class AppTheme {
           foregroundColor: colorScheme.primary,
           side: BorderSide(color: colorScheme.outline),
           padding: AppSpacing.paddingMD,
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
             borderRadius: AppSpacing.buttonBorderRadius,
           ),
           textStyle: AppTextStyles.labelLarge,
@@ -317,7 +317,7 @@ class AppTheme {
         style: TextButton.styleFrom(
           foregroundColor: colorScheme.primary,
           padding: AppSpacing.paddingMD,
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
             borderRadius: AppSpacing.buttonBorderRadius,
           ),
           textStyle: AppTextStyles.labelLarge,
@@ -326,11 +326,11 @@ class AppTheme {
       ),
 
       // Floating Action Button Theme
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: AppColors.recording,
         foregroundColor: AppColors.onRecording,
         elevation: AppSpacing.elevationMedium,
-        shape: const CircleBorder(),
+        shape: CircleBorder(),
       ),
 
       // Input Decoration Theme
@@ -419,7 +419,7 @@ class AppTheme {
       dialogTheme: DialogThemeData(
         backgroundColor: colorScheme.surface,
         elevation: AppSpacing.elevationHigh,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: AppSpacing.radiusLG,
         ),
         titleTextStyle: AppTextStyles.headlineSmall.copyWith(
@@ -438,7 +438,7 @@ class AppTheme {
         ),
         actionTextColor: colorScheme.inversePrimary,
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: AppSpacing.buttonBorderRadius,
         ),
       ),
@@ -457,7 +457,7 @@ class AppTheme {
           color: colorScheme.onSurfaceVariant,
         ),
         side: BorderSide.none,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: AppSpacing.buttonBorderRadius,
         ),
       ),

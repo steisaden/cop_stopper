@@ -278,7 +278,7 @@ class ScreenSharingServiceImpl implements ScreenSharingService {
   }
 
   void _startNetworkQualityMonitoring() {
-    _networkQualityTimer = Timer.periodic(Duration(seconds: 5), (timer) async {
+    _networkQualityTimer = Timer.periodic(const Duration(seconds: 5), (timer) async {
       final qualityData = <String, dynamic>{};
       
       for (final entry in _peerConnections.entries) {
@@ -299,7 +299,7 @@ class ScreenSharingServiceImpl implements ScreenSharingService {
   }
 
   void _startBitrateAdjustment() {
-    _bitrateAdjustmentTimer = Timer.periodic(Duration(seconds: 10), (timer) async {
+    _bitrateAdjustmentTimer = Timer.periodic(const Duration(seconds: 10), (timer) async {
       await _adjustBitrateBasedOnNetworkConditions();
     });
   }

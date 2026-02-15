@@ -106,7 +106,7 @@ void main() {
         await service.addParticipant('participant_2');
 
         // Wait for bitrate adjustment
-        await Future.delayed(Duration(milliseconds: 100));
+        await Future.delayed(const Duration(milliseconds: 100));
 
         // Add more participants to trigger lower bitrate
         for (int i = 3; i <= 6; i++) {
@@ -173,7 +173,7 @@ void main() {
         await service.addParticipant('participant_1');
 
         // Wait for network quality monitoring to start
-        await Future.delayed(Duration(seconds: 1));
+        await Future.delayed(const Duration(seconds: 1));
 
         final qualityData = await service.onNetworkQualityChanged.first;
         expect(qualityData, containsKey('participantCount'));

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>App Settings - Cop Stopper</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              background: "#0a0a0f",
+              surface: "#1a1a24",
+              primary: "#3b82f6", 
+              accent: "#a855f7",
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .glass-base {
+                @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-lg;
+            }
+            .glass-inset {
+                @apply bg-black/20 backdrop-blur-lg border border-white/5 shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)];
+            }
+            .glass-frosted {
+                @apply bg-[#0a0a0f]/80 backdrop-blur-md border-b border-white/5;
+            }
+            .glass-floating {
+                @apply bg-white/10 backdrop-blur-2xl border border-white/20 shadow-xl shadow-black/40;
+            }
+        }input[type=range] {
+            @apply appearance-none bg-transparent cursor-pointer w-full h-2;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            @apply h-1 rounded-full bg-transparent;}
+        input[type=range]::-webkit-slider-thumb {
+            @apply appearance-none h-5 w-5 rounded-full bg-white -mt-2 shadow-[0_0_12px_rgba(168,85,247,0.8)] border-2 border-purple-500 transition-transform hover:scale-110;
+        }
+        input[type=range]:focus::-webkit-slider-thumb {
+            @apply ring-2 ring-purple-500/50;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-white font-sans antialiased min-h-screen selection:bg-purple-500/30">
+<div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+<div class="absolute -top-[10%] -left-[10%] w-[60%] h-[40%] rounded-full bg-blue-900/10 blur-[100px]"></div>
+<div class="absolute top-[30%] -right-[10%] w-[50%] h-[40%] rounded-full bg-purple-900/10 blur-[120px]"></div>
+<div class="absolute bottom-0 left-[20%] w-[60%] h-[30%] rounded-full bg-indigo-900/10 blur-[100px]"></div>
+</div>
+<div class="relative z-10 flex flex-col min-h-screen w-full max-w-md mx-auto">
+<header class="glass-frosted flex items-center justify-between px-5 py-4 sticky top-0 z-50">
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-white/5 transition-colors text-white/90">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="text-[17px] font-semibold tracking-tight text-white">Settings</h1>
+<div class="w-10"></div>
+</header>
+<main class="flex-1 px-5 pt-6 pb-12 space-y-8">
+<section class="glass-base rounded-2xl p-4 flex items-center gap-4">
+<div class="relative shrink-0">
+<div class="w-14 h-14 rounded-full bg-cover bg-center ring-2 ring-white/10" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCYTv1L1Ve0VSMRFyPIyteijCmo7FjBb96IgP_j21j__hGxUE5GZFTP8fHIEWbHFOeG1PUSg-43VEoHxAhR67tbcDmqlfpdq9GUS5NdWwU3SPwVmJB9aIDfEgj0RkQMn-C2sU0ji6BxfPtpj-RNCEiTHcbPAfcQW4jJq_i1TX6M1ODkrejReiDwnrfdRQ9MzfI0HCL2ipXHTmGdmGaoTESXglu9gHV29hQH_X0j4cQubxYMvLKbkrHBPDN9cawCh6HEDZiUIQZi22DO");'></div>
+<div class="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-emerald-500 border-[3px] border-[#1a1a24] rounded-full"></div>
+</div>
+<div class="flex-1 min-w-0">
+<h2 class="text-base font-semibold truncate text-white">Alex Doe</h2>
+<p class="text-xs text-white/50 truncate">Premium Member</p>
+</div>
+<button class="px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/5 transition-colors">
+<span class="text-xs font-medium text-white/80">Edit</span>
+</button>
+</section>
+<section class="space-y-3">
+<h3 class="text-xs font-semibold text-white/40 uppercase tracking-widest pl-2">Recording</h3>
+<div class="glass-inset rounded-2xl overflow-hidden divide-y divide-white/5">
+<div class="flex items-center justify-between p-4 active:bg-white/5 transition-colors cursor-pointer group">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400">
+<span class="material-symbols-outlined text-lg">hd</span>
+</div>
+<span class="text-sm font-medium text-white/90">Video Quality</span>
+</div>
+<div class="flex items-center gap-2 text-white/50 group-hover:text-white/70">
+<span class="text-xs font-medium">1080p</span>
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center text-red-400">
+<span class="material-symbols-outlined text-lg">visibility_off</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-medium text-white/90">Stealth Mode</span>
+<span class="text-[10px] text-white/40">Dim screen while recording</span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-10 h-6 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
+</label>
+</div>
+</div>
+</section>
+<section class="relative">
+<div class="absolute -inset-[1px] bg-gradient-to-br from-purple-500/30 to-blue-500/10 rounded-2xl blur-sm opacity-50"></div>
+<div class="glass-base relative rounded-2xl p-5 space-y-6 overflow-hidden">
+<div class="flex items-start justify-between">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-purple-400">graphic_eq</span>
+<h3 class="text-lg font-bold text-white tracking-tight">Whisper AI</h3>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">PRO</span>
+</div>
+<p class="text-xs text-white/50 leading-relaxed max-w-[200px]">On-device transcription powered by OpenAI.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer mt-1">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-10 h-6 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600 shadow-lg shadow-purple-500/20"></div>
+</label>
+</div>
+<div class="flex items-center justify-between py-2 border-t border-dashed border-white/10">
+<span class="text-sm font-medium text-white/70">Language</span>
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 transition-colors border border-white/5">
+<span class="text-xs text-white">English (US)</span>
+<span class="material-symbols-outlined text-sm text-white/50">expand_more</span>
+</button>
+</div>
+<div class="space-y-4 pt-2">
+<div class="flex justify-between items-end">
+<span class="text-sm font-medium text-white/70">Model Size</span>
+<span class="text-xs font-bold text-purple-400">Medium</span>
+</div>
+<div class="relative w-full h-4 flex items-center">
+<div class="absolute w-full h-1 bg-white/10 rounded-full"></div>
+<div class="absolute h-1 bg-gradient-to-r from-purple-600 to-purple-400 rounded-full" style="width: 60%"></div>
+<input class="relative z-10 w-full focus:outline-none" max="100" min="1" type="range" value="60"/>
+</div>
+<div class="flex justify-between text-[10px] text-white/30 font-medium uppercase tracking-wider">
+<span>Tiny</span>
+<span>Small</span>
+<span>Medium</span>
+<span>Large</span>
+</div>
+</div>
+<button class="w-full mt-4 glass-floating rounded-xl py-3 flex items-center justify-center gap-3 group active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined text-purple-300 group-hover:text-purple-200 transition-colors">download</span>
+<div class="flex flex-col items-start leading-none">
+<span class="text-sm font-semibold text-white group-hover:text-white transition-colors">Download Model</span>
+<span class="text-[10px] text-purple-300/70">Requires 1.5 GB</span>
+</div>
+</button>
+</div>
+</section>
+<section class="space-y-3">
+<h3 class="text-xs font-semibold text-white/40 uppercase tracking-widest pl-2">Privacy &amp; Security</h3>
+<div class="glass-inset rounded-2xl overflow-hidden divide-y divide-white/5">
+<div class="flex items-center justify-between p-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+<span class="material-symbols-outlined text-lg">fingerprint</span>
+</div>
+<span class="text-sm font-medium text-white/90">Biometric Lock</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-10 h-6 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
+</label>
+</div>
+<div class="flex items-center justify-between p-4 active:bg-white/5 transition-colors cursor-pointer group">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-400">
+<span class="material-symbols-outlined text-lg">database</span>
+</div>
+<span class="text-sm font-medium text-white/90">Storage Location</span>
+</div>
+<div class="flex items-center gap-2 text-white/50 group-hover:text-white/70">
+<span class="text-xs font-medium">Local Only</span>
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</div>
+</div>
+</div>
+</section>
+<section class="space-y-3">
+<h3 class="text-xs font-semibold text-white/40 uppercase tracking-widest pl-2">Legal &amp; Support</h3>
+<div class="glass-inset rounded-2xl overflow-hidden divide-y divide-white/5">
+<a class="flex items-center justify-between p-4 active:bg-white/5 transition-colors group" href="#">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-white/70">
+<span class="material-symbols-outlined text-lg">gavel</span>
+</div>
+<span class="text-sm font-medium text-white/90">Legal Rights Guide</span>
+</div>
+<span class="material-symbols-outlined text-white/30 group-hover:text-white/50 text-lg">open_in_new</span>
+</a>
+<a class="flex items-center justify-between p-4 active:bg-white/5 transition-colors group" href="#">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-white/70">
+<span class="material-symbols-outlined text-lg">help</span>
+</div>
+<span class="text-sm font-medium text-white/90">Help Center</span>
+</div>
+<span class="material-symbols-outlined text-white/30 group-hover:text-white/50 text-lg">chevron_right</span>
+</a>
+</div>
+</section>
+<div class="text-center pt-4">
+<p class="text-[10px] text-white/20 font-medium">Cop Stopper v3.0 • Build 942</p>
+</div>
+</main>
+</div>
+<script>
+        // Simple script to update the visual slider fill
+        const slider = document.querySelector('input[type=range]');
+        const track = slider.previousElementSibling; // The visual filled track
+        const updateSliderFill = () => {
+            const value = slider.value;
+            track.style.width = value + '%';
+        };
+        slider.addEventListener('input', updateSliderFill);
+    </script>
+
+</body></html>

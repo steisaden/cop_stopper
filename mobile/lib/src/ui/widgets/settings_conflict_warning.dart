@@ -227,7 +227,7 @@ class _SettingsConflictWarningState extends State<SettingsConflictWarning>
       children: [
         Row(
           children: [
-            Icon(
+            const Icon(
               Icons.warning,
               color: Colors.orange,
               size: 16,

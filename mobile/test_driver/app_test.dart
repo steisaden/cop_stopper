@@ -68,7 +68,7 @@ void main() {
       }
 
       // Test 6: Accessibility features
-      await tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
         const MethodChannel('flutter/accessibility'),
         (MethodCall methodCall) async {
           return null;

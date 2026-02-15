@@ -1,12 +1,20 @@
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:local_auth/local_auth.dart';
 import '../app_spacing.dart';
 import '../app_text_styles.dart';
 import '../app_colors.dart';
 import '../components/shadcn_card.dart';
 import '../components/shadcn_button.dart';
+import '../../services/encryption_service.dart';
+import '../../services/document_storage_service.dart';
 
-/// Documents screen for secure document storage with encryption
+/// Documents screen for secure document storage with AES-256-GCM encryption.
+/// All documents are encrypted at rest with biometric authentication required.
 class DocumentsScreen extends StatefulWidget {
   const DocumentsScreen({Key? key}) : super(key: key);
 
@@ -15,9 +23,39 @@ class DocumentsScreen extends StatefulWidget {
 }
 
 class _DocumentsScreenState extends State<DocumentsScreen> {
-  final List<SecureDocument> _documents = [];
+  List<SecureDocumentMetadata> _documents = [];
   bool _isUploading = false;
-  
+
+  late final EncryptionService _encryptionService;
+  late final DocumentStorageService _storageService;
+  final LocalAuthentication _localAuth = LocalAuthentication();
+  final ImagePicker _imagePicker = ImagePicker();
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeServices();
+  }
+
+  Future<void> _initializeServices() async {
+    _encryptionService = EncryptionService();
+    _storageService =
+        DocumentStorageService(encryptionService: _encryptionService);
+    await _storageService.initialize();
+    await _loadDocuments();
+  }
+
+  Future<void> _loadDocuments() async {
+    try {
+      final docs = await _storageService.getAllDocuments();
+      setState(() {
+        _documents = docs;
+      });
+    } catch (e) {
+      // Error loading documents, keep empty list
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +110,8 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
                     padding: const EdgeInsets.all(AppSpacing.sm),
                     decoration: BoxDecoration(
                       color: const Color(0xFFE8F5E8), // Light green background
-                      borderRadius: BorderRadius.circular(AppSpacing.figmaRadius),
+                      borderRadius:
+                          BorderRadius.circular(AppSpacing.figmaRadius),
                       border: Border.all(color: const Color(0xFFC8E6C9)),
                     ),
                     child: Row(
@@ -97,26 +136,29 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
                 ],
               ),
             ),
-            
+
             // Document list or empty state
             Expanded(
               child: _documents.isEmpty
                   ? _buildEmptyState()
                   : _buildDocumentList(),
             ),
-            
+
             // Upload button - Figma design
             Container(
               padding: const EdgeInsets.all(AppSpacing.md),
               child: ShadcnButton.primary(
-                text: _isUploading ? 'Encrypting Document...' : 'Upload Secure Document',
+                text: _isUploading
+                    ? 'Encrypting Document...'
+                    : 'Upload Secure Document',
                 leadingIcon: _isUploading
                     ? const SizedBox(
                         width: 16,
                         height: 16,
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
-                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white),
                         ),
                       )
                     : const Icon(Icons.add_photo_alternate, size: 16),
@@ -129,7 +171,7 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
       ),
     );
   }
-  
+
   Widget _buildEmptyState() {
     return Center(
       child: Padding(
@@ -165,7 +207,7 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
       ),
     );
   }
-  
+
   Widget _buildSecurityFeatures() {
     final features = [
       {'icon': Icons.enhanced_encryption, 'text': 'AES-256 Encryption'},
@@ -173,7 +215,7 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
       {'icon': Icons.phone_android, 'text': 'Local Storage Only'},
       {'icon': Icons.auto_delete, 'text': 'Auto-Delete Option'},
     ];
-    
+
     return Column(
       children: [
         Text(
@@ -187,38 +229,43 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
         Wrap(
           spacing: AppSpacing.md,
           runSpacing: AppSpacing.sm,
-          children: features.map((feature) => Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.sm,
-              vertical: AppSpacing.xs,
-            ),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  feature['icon'] as IconData,
-                  size: 16,
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                ),
-                const SizedBox(width: 4),
-                Text(
-                  feature['text'] as String,
-                  style: AppTextStyles.labelSmall.copyWith(
-                    color: Theme.of(context).colorScheme.onPrimaryContainer,
-                  ),
-                ),
-              ],
-            ),
-          )).toList(),
+          children: features
+              .map((feature) => Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.sm,
+                      vertical: AppSpacing.xs,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          feature['icon'] as IconData,
+                          size: 16,
+                          color:
+                              Theme.of(context).colorScheme.onPrimaryContainer,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          feature['text'] as String,
+                          style: AppTextStyles.labelSmall.copyWith(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ))
+              .toList(),
         ),
       ],
     );
   }
-  
+
   Widget _buildDocumentList() {
     return ListView.builder(
       padding: const EdgeInsets.all(AppSpacing.md),
@@ -264,7 +311,8 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
                           vertical: AppSpacing.xs / 2,
                         ),
                         decoration: BoxDecoration(
-                          color: AppColors.accent.withOpacity(0.1), // Use accent color with opacity
+                          color: AppColors.accent.withOpacity(
+                              0.1), // Use accent color with opacity
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
@@ -287,7 +335,7 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
                       ),
                       const SizedBox(width: AppSpacing.xs / 2),
                       Text(
-                        '${document.type} • ${document.encryptionMethod}',
+                        '${document.type} • AES-256-GCM • ${document.formattedSize}',
                         style: AppTextStyles.bodySmall.copyWith(
                           color: AppColors.mutedForeground,
                         ),
@@ -334,7 +382,7 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
       },
     );
   }
-  
+
   void _showUploadOptions() {
     showModalBottomSheet(
       context: context,
@@ -360,7 +408,7 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
               style: AppTextStyles.titleLarge,
             ),
             AppSpacing.verticalSpaceMD,
-            
+
             // Security reminder
             Container(
               padding: const EdgeInsets.all(AppSpacing.md),
@@ -388,9 +436,9 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
                 ],
               ),
             ),
-            
+
             AppSpacing.verticalSpaceMD,
-            
+
             // Upload options
             ListTile(
               leading: const Icon(Icons.camera_alt),
@@ -419,19 +467,19 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
                 _uploadDocument('file');
               },
             ),
-            
+
             AppSpacing.verticalSpaceMD,
           ],
         ),
       ),
     );
   }
-  
+
   void _uploadDocument(String source) async {
     setState(() {
       _isUploading = true;
     });
-    
+
     try {
       // Show biometric authentication first
       final isAuthenticated = await _authenticateUser();
@@ -441,7 +489,58 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
         });
         return;
       }
-      
+
+      // Pick file based on source
+      Uint8List? fileData;
+      String mimeType = 'image/jpeg';
+
+      if (source == 'camera') {
+        final XFile? photo = await _imagePicker.pickImage(
+          source: ImageSource.camera,
+          imageQuality: 85,
+        );
+        if (photo == null) {
+          setState(() => _isUploading = false);
+          return;
+        }
+        fileData = await photo.readAsBytes();
+        mimeType = photo.mimeType ?? 'image/jpeg';
+      } else if (source == 'gallery') {
+        final XFile? photo = await _imagePicker.pickImage(
+          source: ImageSource.gallery,
+          imageQuality: 85,
+        );
+        if (photo == null) {
+          setState(() => _isUploading = false);
+          return;
+        }
+        fileData = await photo.readAsBytes();
+        mimeType = photo.mimeType ?? 'image/jpeg';
+      } else if (source == 'file') {
+        final FilePickerResult? result = await FilePicker.platform.pickFiles(
+          type: FileType.custom,
+          allowedExtensions: ['pdf', 'jpg', 'jpeg', 'png'],
+        );
+        if (result == null || result.files.isEmpty) {
+          setState(() => _isUploading = false);
+          return;
+        }
+        final file = result.files.first;
+        if (file.bytes != null) {
+          fileData = file.bytes!;
+        } else if (file.path != null) {
+          fileData = await File(file.path!).readAsBytes();
+        }
+        mimeType = file.extension == 'pdf'
+            ? 'application/pdf'
+            : 'image/${file.extension}';
+      }
+
+      if (fileData == null) {
+        setState(() => _isUploading = false);
+        return;
+      }
+
       // Show document type selection
       final documentType = await _showDocumentTypeDialog();
       if (documentType == null) {
@@ -450,7 +549,7 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
         });
         return;
       }
-      
+
       // Show document name input
       final documentName = await _showDocumentNameDialog(documentType);
       if (documentName == null) {
@@ -459,33 +558,27 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
         });
         return;
       }
-      
-      // Simulate file selection and processing
-      await Future.delayed(const Duration(milliseconds: 500));
-      
+
       // Show encryption progress
-      await _showEncryptionProgress();
-      
-      // Add document to list
-      final newDocument = SecureDocument(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
+      _showEncryptionProgress();
+
+      // Store document with real AES-256-GCM encryption
+      final newDocument = await _storageService.storeDocument(
         name: documentName,
         type: documentType,
-        uploadDate: DateTime.now(),
+        fileData: fileData,
+        mimeType: mimeType,
         expirationDate: _getDefaultExpirationDate(documentType),
-        isEncrypted: true,
-        fileSize: '2.4 MB',
-        encryptionMethod: 'AES-256-GCM',
       );
-      
+
       setState(() {
         _documents.add(newDocument);
         _isUploading = false;
       });
-      
+
       // Close encryption dialog
       Navigator.pop(context);
-      
+
       // Show success message with security details
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -502,7 +595,7 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
               ),
               const SizedBox(height: 4),
               Text(
-                '✓ AES-256 encrypted  ✓ Local storage only  ✓ Biometric protected',
+                '✓ AES-256-GCM encrypted  ✓ Local storage only  ✓ Biometric protected',
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.green.shade100,
@@ -515,14 +608,17 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
           behavior: SnackBarBehavior.floating,
         ),
       );
-      
+
       HapticFeedback.lightImpact();
-      
     } catch (e) {
+      // Close any open dialogs
+      if (Navigator.canPop(context)) {
+        Navigator.pop(context);
+      }
       setState(() {
         _isUploading = false;
       });
-      
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Row(
@@ -538,66 +634,47 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
       );
     }
   }
-  
+
   Future<bool> _authenticateUser() async {
-    final result = await showDialog<bool>(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => AlertDialog(
-        title: const Row(
-          children: [
-            Icon(Icons.fingerprint, color: Colors.blue),
-            SizedBox(width: 8),
-            Text('Biometric Authentication'),
-          ],
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text('Please authenticate to upload sensitive documents'),
-            const SizedBox(height: 16),
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.blue.shade50,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Column(
-                children: [
-                  Icon(
-                    Icons.fingerprint,
-                    size: 48,
-                    color: Colors.blue.shade600,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Touch sensor or use Face ID',
-                    style: TextStyle(color: Colors.blue.shade700),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+    try {
+      // Check if biometric authentication is available
+      final canAuthenticateWithBiometrics = await _localAuth.canCheckBiometrics;
+      final canAuthenticate =
+          canAuthenticateWithBiometrics || await _localAuth.isDeviceSupported();
+
+      if (!canAuthenticate) {
+        // Fallback: show dialog if biometrics not available
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content:
+                Text('Biometric authentication not available on this device'),
+            backgroundColor: Colors.orange,
           ),
-          ElevatedButton(
-            onPressed: () async {
-              // Simulate biometric authentication
-              await Future.delayed(const Duration(seconds: 1));
-              Navigator.pop(context, true);
-            },
-            child: const Text('Authenticate'),
-          ),
-        ],
-      ),
-    );
-    return result ?? false;
+        );
+        return false;
+      }
+
+      // Perform biometric authentication
+      final didAuthenticate = await _localAuth.authenticate(
+        localizedReason: 'Authenticate to access secure documents',
+        options: const AuthenticationOptions(
+          stickyAuth: true,
+          biometricOnly: true,
+        ),
+      );
+
+      return didAuthenticate;
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Authentication error: ${e.toString()}'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return false;
+    }
   }
-  
+
   Future<String?> _showDocumentTypeDialog() async {
     return showDialog<String>(
       context: context,
@@ -612,19 +689,21 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
             'Vehicle Registration',
             'Passport',
             'Other Document',
-          ].map((type) => ListTile(
-            leading: Icon(_getDocumentIcon(type)),
-            title: Text(type),
-            onTap: () => Navigator.pop(context, type),
-          )).toList(),
+          ]
+              .map((type) => ListTile(
+                    leading: Icon(_getDocumentIcon(type)),
+                    title: Text(type),
+                    onTap: () => Navigator.pop(context, type),
+                  ))
+              .toList(),
         ),
       ),
     );
   }
-  
+
   Future<String?> _showDocumentNameDialog(String type) async {
     final controller = TextEditingController(text: type);
-    
+
     return showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
@@ -661,7 +740,7 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
       ),
     );
   }
-  
+
   Future<void> _showEncryptionProgress() async {
     showDialog(
       context: context,
@@ -685,12 +764,12 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
         ),
       ),
     );
-    
+
     // Simulate encryption time
     await Future.delayed(const Duration(seconds: 2));
   }
-  
-  void _handleDocumentAction(String action, SecureDocument document) {
+
+  void _handleDocumentAction(String action, SecureDocumentMetadata document) {
     switch (action) {
       case 'view':
         _viewDocument(document);
@@ -703,85 +782,109 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
         break;
     }
   }
-  
-  void _viewDocument(SecureDocument document) async {
+
+  void _viewDocument(SecureDocumentMetadata document) async {
     // Require biometric authentication to view
     final isAuthenticated = await _authenticateUser();
     if (!isAuthenticated) return;
-    
+
+    // Show loading while decrypting
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Row(
-          children: [
-            Icon(_getDocumentIcon(document.type)),
-            const SizedBox(width: 8),
-            Expanded(child: Text(document.name)),
-          ],
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildDocumentDetail('Type', document.type),
-            _buildDocumentDetail('Uploaded', _formatDate(document.uploadDate)),
-            if (document.expirationDate != null)
-              _buildDocumentDetail('Expires', _formatDate(document.expirationDate!)),
-            _buildDocumentDetail('Size', document.fileSize),
-            _buildDocumentDetail('Encryption', document.encryptionMethod),
-            const SizedBox(height: 16),
-            Container(
-              width: double.infinity,
-              height: 200,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade100,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.grey.shade300),
-              ),
-              child: const Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.description, size: 48, color: Colors.grey),
-                    SizedBox(height: 8),
-                    Text(
-                      'Document Preview',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                    Text(
-                      '(Decrypted view would appear here)',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey,
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                  ],
+      barrierDismissible: false,
+      builder: (context) => const Center(child: CircularProgressIndicator()),
+    );
+
+    try {
+      // Decrypt the actual document
+      final decryptedData = await _storageService.retrieveDocument(document.id);
+      Navigator.pop(context); // Close loading
+
+      if (decryptedData == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Failed to decrypt document')),
+        );
+        return;
+      }
+
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Row(
+            children: [
+              Icon(_getDocumentIcon(document.type)),
+              const SizedBox(width: 8),
+              Expanded(child: Text(document.name)),
+            ],
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildDocumentDetail('Type', document.type),
+              _buildDocumentDetail(
+                  'Uploaded', _formatDate(document.uploadDate)),
+              if (document.expirationDate != null)
+                _buildDocumentDetail(
+                    'Expires', _formatDate(document.expirationDate!)),
+              _buildDocumentDetail('Size', document.formattedSize),
+              _buildDocumentDetail('Encryption', 'AES-256-GCM'),
+              const SizedBox(height: 16),
+              // Show actual decrypted image
+              Container(
+                width: double.infinity,
+                height: 200,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.grey.shade300),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: document.mimeType.startsWith('image/')
+                      ? Image.memory(
+                          decryptedData,
+                          fit: BoxFit.contain,
+                        )
+                      : const Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.description,
+                                  size: 48, color: Colors.grey),
+                              SizedBox(height: 8),
+                              Text('PDF Document',
+                                  style: TextStyle(color: Colors.grey)),
+                            ],
+                          ),
+                        ),
                 ),
               ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Close'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+                _shareDocument(document);
+              },
+              child: const Text('Quick Share'),
             ),
           ],
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Close'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-              _shareDocument(document);
-            },
-            child: const Text('Quick Share'),
-          ),
-        ],
-      ),
-    );
+      );
+    } catch (e) {
+      Navigator.pop(context); // Close loading
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Decryption failed: $e')),
+      );
+    }
   }
-  
+
   Widget _buildDocumentDetail(String label, String value) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
@@ -805,8 +908,8 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
       ),
     );
   }
-  
-  void _shareDocument(SecureDocument document) {
+
+  void _shareDocument(SecureDocumentMetadata document) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -870,8 +973,8 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
       ),
     );
   }
-  
-  void _deleteDocument(SecureDocument document) {
+
+  void _deleteDocument(SecureDocumentMetadata document) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -886,7 +989,7 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Permanently delete \"${document.name}\"?'),
+            Text('Permanently delete "${document.name}"?'),
             const SizedBox(height: 12),
             Container(
               padding: const EdgeInsets.all(8),
@@ -896,7 +999,8 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
               ),
               child: Row(
                 children: [
-                  Icon(Icons.info_outline, size: 16, color: Colors.red.shade700),
+                  Icon(Icons.info_outline,
+                      size: 16, color: Colors.red.shade700),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
@@ -918,11 +1022,13 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
             child: const Text('Cancel'),
           ),
           ElevatedButton(
-            onPressed: () {
-              setState(() {
-                _documents.remove(document);
-              });
+            onPressed: () async {
               Navigator.pop(context);
+              // Securely delete with overwrite
+              await _storageService.deleteDocument(document.id);
+              setState(() {
+                _documents.removeWhere((d) => d.id == document.id);
+              });
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: const Row(
@@ -946,7 +1052,7 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
       ),
     );
   }
-  
+
   Color _getDocumentColor(String type) {
     switch (type.toLowerCase()) {
       case 'driver\'s license':
@@ -963,7 +1069,7 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
         return Colors.grey.shade600;
     }
   }
-  
+
   IconData _getDocumentIcon(String type) {
     switch (type.toLowerCase()) {
       case 'driver\'s license':
@@ -980,17 +1086,17 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
         return Icons.description;
     }
   }
-  
+
   String _formatDate(DateTime date) {
     return '${date.month}/${date.day}/${date.year}';
   }
-  
+
   bool _isExpiringSoon(DateTime expirationDate) {
     final now = DateTime.now();
     final difference = expirationDate.difference(now).inDays;
     return difference <= 30 && difference >= 0;
   }
-  
+
   DateTime? _getDefaultExpirationDate(String type) {
     switch (type.toLowerCase()) {
       case 'driver\'s license':
@@ -1018,7 +1124,7 @@ class SecureDocument {
   final bool isEncrypted;
   final String fileSize;
   final String encryptionMethod;
-  
+
   SecureDocument({
     required this.id,
     required this.name,

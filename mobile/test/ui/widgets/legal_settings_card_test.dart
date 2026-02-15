@@ -8,7 +8,7 @@ void main() {
     testWidgets('renders with default values', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: LegalSettingsCard(
+          child: const LegalSettingsCard(
             jurisdiction: 'Auto-detect',
             consentRecording: true,
             notificationsEnabled: true,
@@ -26,7 +26,7 @@ void main() {
     testWidgets('displays jurisdiction dropdown correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: LegalSettingsCard(
+          child: const LegalSettingsCard(
             jurisdiction: 'Auto-detect',
             consentRecording: true,
             notificationsEnabled: true,
@@ -64,7 +64,7 @@ void main() {
     testWidgets('shows two-party consent warning for California', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: LegalSettingsCard(
+          child: const LegalSettingsCard(
             jurisdiction: 'California',
             consentRecording: true,
             notificationsEnabled: true,
@@ -81,7 +81,7 @@ void main() {
     testWidgets('does not show warning for one-party consent states', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: LegalSettingsCard(
+          child: const LegalSettingsCard(
             jurisdiction: 'Texas',
             consentRecording: true,
             notificationsEnabled: true,
@@ -98,7 +98,7 @@ void main() {
     testWidgets('displays consent recording toggle correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: LegalSettingsCard(
+          child: const LegalSettingsCard(
             jurisdiction: 'Auto-detect',
             consentRecording: true,
             notificationsEnabled: true,
@@ -139,7 +139,7 @@ void main() {
     testWidgets('displays notifications toggle correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: LegalSettingsCard(
+          child: const LegalSettingsCard(
             jurisdiction: 'Auto-detect',
             consentRecording: true,
             notificationsEnabled: true,
@@ -179,7 +179,7 @@ void main() {
     testWidgets('displays rights reminders toggle correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: LegalSettingsCard(
+          child: const LegalSettingsCard(
             jurisdiction: 'Auto-detect',
             consentRecording: true,
             notificationsEnabled: true,
@@ -196,7 +196,7 @@ void main() {
     testWidgets('displays legal hotline access toggle correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: LegalSettingsCard(
+          child: const LegalSettingsCard(
             jurisdiction: 'Auto-detect',
             consentRecording: true,
             notificationsEnabled: true,
@@ -213,7 +213,7 @@ void main() {
     testWidgets('displays legal disclaimer', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: LegalSettingsCard(
+          child: const LegalSettingsCard(
             jurisdiction: 'Auto-detect',
             consentRecording: true,
             notificationsEnabled: true,
@@ -279,7 +279,7 @@ void main() {
     testWidgets('has proper accessibility semantics', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: LegalSettingsCard(
+          child: const LegalSettingsCard(
             jurisdiction: 'Auto-detect',
             consentRecording: true,
             notificationsEnabled: true,
@@ -304,10 +304,10 @@ void main() {
   group('Responsive Behavior Tests', () {
     testWidgets('adapts to different screen sizes', (WidgetTester tester) async {
       // Test mobile size
-      await tester.binding.setSurfaceSize(Size(400, 1200));
+      await tester.binding.setSurfaceSize(const Size(400, 1200));
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: LegalSettingsCard(
+          child: const LegalSettingsCard(
             jurisdiction: 'California',
             consentRecording: true,
             notificationsEnabled: true,
@@ -321,7 +321,7 @@ void main() {
       expect(find.textContaining('Two-party consent required'), findsOneWidget);
 
       // Test tablet size
-      await tester.binding.setSurfaceSize(Size(800, 1400));
+      await tester.binding.setSurfaceSize(const Size(800, 1400));
       await tester.pumpAndSettle();
 
       expect(find.text('Legal Settings'), findsOneWidget);
@@ -333,7 +333,7 @@ void main() {
     testWidgets('maintains layout with warning messages', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: LegalSettingsCard(
+          child: const LegalSettingsCard(
             jurisdiction: 'California',
             consentRecording: true,
             notificationsEnabled: true,

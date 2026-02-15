@@ -8,7 +8,7 @@ void main() {
     testWidgets('renders with default values', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: CustomSlider(
+          child: const CustomSlider(
             value: 50.0,
             min: 0.0,
             max: 100.0,
@@ -23,7 +23,7 @@ void main() {
     testWidgets('displays min and max values', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: CustomSlider(
+          child: const CustomSlider(
             value: 50.0,
             min: 0.0,
             max: 100.0,
@@ -38,7 +38,7 @@ void main() {
     testWidgets('displays current value', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: CustomSlider(
+          child: const CustomSlider(
             value: 75.0,
             min: 0.0,
             max: 100.0,
@@ -116,7 +116,7 @@ void main() {
     testWidgets('handles divisions correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: CustomSlider(
+          child: const CustomSlider(
             value: 5.0,
             min: 0.0,
             max: 10.0,
@@ -163,7 +163,7 @@ void main() {
     testWidgets('animates scale during interaction', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: CustomSlider(
+          child: const CustomSlider(
             value: 50.0,
             min: 0.0,
             max: 100.0,

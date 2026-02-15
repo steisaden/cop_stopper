@@ -15,7 +15,7 @@ class OfficerRecordsServiceImpl implements OfficerRecordsService {
   final ApiService _apiService;
   final Map<String, OfficerProfile> _profileCache = {};
   final Map<String, DateTime> _cacheTimestamps = {};
-  final Duration _cacheExpiry = Duration(minutes: 15);
+  static const Duration _cacheExpiry = Duration(minutes: 15);
 
   OfficerRecordsServiceImpl(this._apiService);
 
@@ -27,17 +27,17 @@ class OfficerRecordsServiceImpl implements OfficerRecordsService {
 
     try {
       // The backend returns the full officer object at /officers/:id
-      // Note: The backend uses badgeNumber as the ID in some cases of the mock DB, 
+      // Note: The backend uses badgeNumber as the ID in some cases of the mock DB,
       // ensuring we pass the right ID.
       final response = await _apiService.get('/officers/$officerId');
-      
+
       if (response['success'] == true && response['officer'] != null) {
         final officerData = response['officer'];
         final profile = _mapBackendOfficerToProfile(officerData);
-        
+
         _profileCache[officerId] = profile;
         _cacheTimestamps[officerId] = DateTime.now();
-        
+
         return profile;
       } else {
         throw Exception(response['error'] ?? 'Officer not found');
@@ -49,45 +49,46 @@ class OfficerRecordsServiceImpl implements OfficerRecordsService {
 
   OfficerProfile _mapBackendOfficerToProfile(Map<String, dynamic> data) {
     // Parse complaints
-    final complaints = (data['complaints'] as List<dynamic>? ?? [])
-        .map((c) {
-          final dateString = c['date'] as String? ?? c['dateReported'] as String?;
-          final parsedDate = DateTime.tryParse(dateString ?? '') ?? DateTime.now();
-          final reportedDate =
-              DateTime.tryParse(c['dateReported'] as String? ?? dateString ?? '') ?? parsedDate;
-          return ComplaintRecord(
-            id: (c['id'] ?? c['caseNumber'] ?? 'Unknown').toString(),
-            date: parsedDate,
-            description: c['description'] ?? '',
-            status: c['status'] ?? 'Unknown',
-            caseNumber: (c['caseNumber'] ?? c['id'] ?? 'Unknown').toString(),
-            dateReported: reportedDate,
-          );
-        })
-        .toList();
+    final complaints = (data['complaints'] as List<dynamic>? ?? []).map((c) {
+      final dateString = c['date'] as String? ?? c['dateReported'] as String?;
+      final parsedDate = DateTime.tryParse(dateString ?? '') ?? DateTime.now();
+      final reportedDate =
+          DateTime.tryParse(c['dateReported'] as String? ?? dateString ?? '') ??
+              parsedDate;
+      return ComplaintRecord(
+        id: (c['id'] ?? c['caseNumber'] ?? 'Unknown').toString(),
+        date: parsedDate,
+        description: c['description'] ?? '',
+        status: c['status'] ?? 'Unknown',
+        caseNumber: (c['caseNumber'] ?? c['id'] ?? 'Unknown').toString(),
+        dateReported: reportedDate,
+      );
+    }).toList();
 
     // Parse commendations
-    final commendations = (data['commendations'] as List<dynamic>? ?? [])
-        .map((c) {
-          final dateString = c['date'] as String? ?? c['dateAwarded'] as String?;
-          final parsedDate = DateTime.tryParse(dateString ?? '') ?? DateTime.now();
-          final awardedDate =
-              DateTime.tryParse(c['dateAwarded'] as String? ?? dateString ?? '') ?? parsedDate;
-          return Commendation(
-            id: (c['id'] ?? 'Unknown').toString(),
-            date: parsedDate,
-            description: c['description'] ?? '',
-            type: c['type'] ?? 'Unknown',
-            dateAwarded: awardedDate,
-          );
-        })
-        .toList();
+    final commendations =
+        (data['commendations'] as List<dynamic>? ?? []).map((c) {
+      final dateString = c['date'] as String? ?? c['dateAwarded'] as String?;
+      final parsedDate = DateTime.tryParse(dateString ?? '') ?? DateTime.now();
+      final awardedDate =
+          DateTime.tryParse(c['dateAwarded'] as String? ?? dateString ?? '') ??
+              parsedDate;
+      return Commendation(
+        id: (c['id'] ?? 'Unknown').toString(),
+        date: parsedDate,
+        description: c['description'] ?? '',
+        type: c['type'] ?? 'Unknown',
+        dateAwarded: awardedDate,
+      );
+    }).toList();
 
     // Mock timeline generation from years of service if no explicit events
-    final careerEvents = <CareerTimelineEvent>[]; // Backend doesn't return explicit timeline events yet
-    
+    final careerEvents =
+        <CareerTimelineEvent>[]; // Backend doesn't return explicit timeline events yet
+
     // Disciplinary actions - currently mapped from complaints outcome
-    final disciplinaryActions = <DisciplinaryAction>[]; // Backend folds this into complaints
+    final disciplinaryActions =
+        <DisciplinaryAction>[]; // Backend folds this into complaints
 
     return OfficerProfile(
       id: data['badgeNumber'] ?? 'Unknown', // Using badge as ID for simplicity
@@ -99,22 +100,24 @@ class OfficerRecordsServiceImpl implements OfficerRecordsService {
       commendations: commendations,
       careerTimeline: CareerTimeline(events: careerEvents),
       communityRating: CommunityRating(
-         officerId: data['badgeNumber'] ?? 'Unknown',
-         averageRating: 0.0,
-         totalRatings: 0,
-         ratingBreakdown: {},
-         recentComments: []
-      ),
+          officerId: data['badgeNumber'] ?? 'Unknown',
+          averageRating: 0.0,
+          totalRatings: 0,
+          ratingBreakdown: {},
+          recentComments: []),
     );
   }
 
-  Future<List<String>> searchOfficersByName(String name, {String? jurisdiction}) async {
+  @override
+  Future<List<String>> searchOfficersByName(String name,
+      {String? jurisdiction}) async {
     try {
-      final response = await _apiService.get('/officers/search?name=$name${jurisdiction != null ? '&department=$jurisdiction' : ''}');
-      
+      final response = await _apiService.get(
+          '/officers/search?name=$name${jurisdiction != null ? '&department=$jurisdiction' : ''}');
+
       if (response['success'] == true) {
-         final results = response['results'] as List<dynamic>;
-         return results.map((o) => o['badgeNumber'] as String).toList();
+        final results = response['results'] as List<dynamic>;
+        return results.map((o) => o['badgeNumber'] as String).toList();
       }
       return [];
     } catch (e) {
@@ -122,13 +125,16 @@ class OfficerRecordsServiceImpl implements OfficerRecordsService {
     }
   }
 
-  Future<List<String>> searchOfficersByBadge(String badgeNumber, {String? jurisdiction}) async {
+  @override
+  Future<List<String>> searchOfficersByBadge(String badgeNumber,
+      {String? jurisdiction}) async {
     try {
-      final response = await _apiService.get('/officers/search?badge=$badgeNumber${jurisdiction != null ? '&department=$jurisdiction' : ''}');
-      
+      final response = await _apiService.get(
+          '/officers/search?badge=$badgeNumber${jurisdiction != null ? '&department=$jurisdiction' : ''}');
+
       if (response['success'] == true) {
-         final results = response['results'] as List<dynamic>;
-         return results.map((o) => o['badgeNumber'] as String).toList();
+        final results = response['results'] as List<dynamic>;
+        return results.map((o) => o['badgeNumber'] as String).toList();
       }
       return [];
     } catch (e) {
@@ -137,13 +143,14 @@ class OfficerRecordsServiceImpl implements OfficerRecordsService {
   }
 
   // Other methods left as stubs or simplified since backend support might be limited
-  
+
   Future<List<ComplaintRecord>> getComplaintHistory(String officerId) async {
     final profile = await getOfficer(officerId);
     return profile.complaintRecords;
   }
 
-  Future<List<DisciplinaryAction>> getDisciplinaryActions(String officerId) async {
+  Future<List<DisciplinaryAction>> getDisciplinaryActions(
+      String officerId) async {
     final profile = await getOfficer(officerId);
     return profile.disciplinaryActions;
   }
@@ -176,8 +183,8 @@ class OfficerRecordsServiceImpl implements OfficerRecordsService {
     // Backend support incomplete for specific officer subscription
     // calling generic register
     await _apiService.post('/officers/notifications/register', {
-        'deviceToken': 'current_device_token', 
-        'platform': 'android' // detect
+      'deviceToken': 'current_device_token',
+      'platform': 'android' // detect
     });
   }
 
@@ -198,13 +205,14 @@ class OfficerRecordsServiceImpl implements OfficerRecordsService {
     _cacheTimestamps.clear();
   }
 
+  @override
   Future<OfficerProfile> createOfficer({
     required String name,
     String? badgeNumber,
     String? department,
   }) async {
-     // Backend doesn't support creating officers explicitly yet
-     // Returning a dummy profile
+    // Backend doesn't support creating officers explicitly yet
+    // Returning a dummy profile
     return OfficerProfile(
       id: 'temp-id',
       name: name,
@@ -213,7 +221,7 @@ class OfficerRecordsServiceImpl implements OfficerRecordsService {
       complaintRecords: [],
       disciplinaryActions: [],
       commendations: [],
-      careerTimeline: CareerTimeline(events: []),
+      careerTimeline: const CareerTimeline(events: []),
       communityRating: CommunityRating(
         officerId: 'temp-id',
         averageRating: 0,
@@ -228,7 +236,7 @@ class OfficerRecordsServiceImpl implements OfficerRecordsService {
 
   @override
   Future<void> addEncounter(String officerId, Encounter encounter) async {
-     await _apiService.post('/officers/interaction', {
+    await _apiService.post('/officers/interaction', {
       'badgeNumber': officerId,
       'interactionType': 'traffic_stop', // map from encounter
       'description': encounter.description,

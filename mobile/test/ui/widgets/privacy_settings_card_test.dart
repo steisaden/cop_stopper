@@ -8,7 +8,7 @@ void main() {
     testWidgets('renders with default values', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: PrivacySettingsCard(
+          child: const PrivacySettingsCard(
             dataSharing: false,
             cloudBackup: true,
             analyticsSharing: false,
@@ -26,7 +26,7 @@ void main() {
     testWidgets('displays data sharing toggle correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: PrivacySettingsCard(
+          child: const PrivacySettingsCard(
             dataSharing: false,
             cloudBackup: true,
             analyticsSharing: false,
@@ -69,7 +69,7 @@ void main() {
     testWidgets('displays cloud backup toggle correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: PrivacySettingsCard(
+          child: const PrivacySettingsCard(
             dataSharing: false,
             cloudBackup: true,
             analyticsSharing: false,
@@ -109,7 +109,7 @@ void main() {
     testWidgets('displays auto-delete dropdown correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: PrivacySettingsCard(
+          child: const PrivacySettingsCard(
             dataSharing: false,
             cloudBackup: true,
             analyticsSharing: false,
@@ -147,7 +147,7 @@ void main() {
     testWidgets('displays encryption status correctly when enabled', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: PrivacySettingsCard(
+          child: const PrivacySettingsCard(
             dataSharing: false,
             cloudBackup: true,
             analyticsSharing: false,
@@ -165,7 +165,7 @@ void main() {
     testWidgets('displays encryption status correctly when disabled', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: PrivacySettingsCard(
+          child: const PrivacySettingsCard(
             dataSharing: false,
             cloudBackup: true,
             analyticsSharing: false,
@@ -238,7 +238,7 @@ void main() {
     testWidgets('has proper accessibility semantics', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: PrivacySettingsCard(
+          child: const PrivacySettingsCard(
             dataSharing: false,
             cloudBackup: true,
             analyticsSharing: false,
@@ -262,10 +262,10 @@ void main() {
   group('Responsive Behavior Tests', () {
     testWidgets('adapts to different screen sizes', (WidgetTester tester) async {
       // Test mobile size
-      await tester.binding.setSurfaceSize(Size(400, 800));
+      await tester.binding.setSurfaceSize(const Size(400, 800));
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: PrivacySettingsCard(
+          child: const PrivacySettingsCard(
             dataSharing: false,
             cloudBackup: true,
             analyticsSharing: false,
@@ -278,7 +278,7 @@ void main() {
       expect(find.text('Privacy Settings'), findsOneWidget);
 
       // Test tablet size
-      await tester.binding.setSurfaceSize(Size(800, 1200));
+      await tester.binding.setSurfaceSize(const Size(800, 1200));
       await tester.pumpAndSettle();
 
       expect(find.text('Privacy Settings'), findsOneWidget);
@@ -290,7 +290,7 @@ void main() {
     testWidgets('maintains layout with long descriptions', (WidgetTester tester) async {
       await tester.pumpWidget(
         TestHelpers.createTestApp(
-          child: PrivacySettingsCard(
+          child: const PrivacySettingsCard(
             dataSharing: false,
             cloudBackup: true,
             analyticsSharing: false,

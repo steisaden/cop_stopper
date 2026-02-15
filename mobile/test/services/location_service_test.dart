@@ -127,7 +127,7 @@ void main() {
 
     group('LocationException', () {
       test('should create exception with message', () {
-        final exception = LocationException('Test error');
+        const exception = LocationException('Test error');
         
         expect(exception.message, 'Test error');
         expect(exception.code, isNull);
@@ -135,7 +135,7 @@ void main() {
       });
 
       test('should create exception with message and code', () {
-        final exception = LocationException('Test error', code: 'TEST_CODE');
+        const exception = LocationException('Test error', code: 'TEST_CODE');
         
         expect(exception.message, 'Test error');
         expect(exception.code, 'TEST_CODE');
@@ -147,7 +147,7 @@ void main() {
   group('LocationPermissionService', () {
     group('LocationPermissionResult', () {
       test('should create permission result', () {
-        final result = LocationPermissionResult(
+        const result = LocationPermissionResult(
           granted: true,
           message: 'Permission granted',
         );
@@ -159,7 +159,7 @@ void main() {
       });
 
       test('should create permission result with action', () {
-        final result = LocationPermissionResult(
+        const result = LocationPermissionResult(
           granted: false,
           shouldShowRationale: true,
           message: 'Permission denied',

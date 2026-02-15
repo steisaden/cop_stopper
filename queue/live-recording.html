@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Live Recording Session - Cop Stopper</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#197fe6",
+                        "danger": "#e63946",
+                        "background-dark": "#0a0a0f",
+                        "glass-border": "rgba(255, 255, 255, 0.1)",
+                        "glass-surface": "rgba(255, 255, 255, 0.05)",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "3xl": "1.5rem", "full": "9999px"},
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'sound-wave': 'wave 1s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        wave: {
+                            '0%, 100%': { height: '20%' },
+                            '50%': { height: '100%' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+<style>.no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }.no-scrollbar {
+            -ms-overflow-style: none;scrollbar-width: none;}
+        .glass-base {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-floating {
+            background: rgba(30, 30, 35, 0.4);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+        .glass-frosted {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-inset {
+            background: rgba(0, 0, 0, 0.2);
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+        }
+        .stop-glow {
+            box-shadow: 0 0 30px rgba(230, 57, 70, 0.4);
+        }
+        .active-dot-shadow {
+            box-shadow: 0 0 10px rgba(230, 57, 70, 0.6);
+        }
+        .mask-linear-fade {
+            mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-dark font-display antialiased text-white h-screen overflow-hidden selection:bg-red-500/30">
+<div class="absolute top-14 right-4 z-50">
+<button class="flex items-center justify-center size-10 rounded-full bg-red-600/20 border border-red-500/50 hover:bg-red-600/40 transition-colors animate-pulse">
+<span class="material-symbols-outlined text-red-500" style="font-size: 20px;">e911_emergency</span>
+</button>
+</div>
+<div class="relative flex h-full w-full flex-col">
+<div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+<div class="absolute top-[-10%] left-[10%] w-[300px] h-[300px] bg-blue-600/5 rounded-full blur-[80px]"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[400px] h-[400px] bg-red-900/10 rounded-full blur-[100px]"></div>
+</div>
+<div class="glass-frosted relative z-10 w-full pt-14 pb-6 px-6 flex flex-col items-center justify-center gap-2">
+<div class="flex items-center gap-3 mb-1">
+<div class="size-3 rounded-full bg-[#e63946] active-dot-shadow animate-pulse"></div>
+<span class="text-xs font-bold uppercase tracking-[0.2em] text-red-500/90">Recording Live</span>
+</div>
+<div class="font-display tabular-nums tracking-tighter">
+<span class="text-6xl font-bold text-white drop-shadow-lg">00:00:14</span>
+</div>
+</div>
+<div class="flex-1 flex flex-col relative z-10 overflow-hidden px-4 pt-6 pb-2">
+<div class="glass-inset w-full h-24 mb-6 flex items-center justify-center gap-1.5 px-8 overflow-hidden">
+<div class="w-1 bg-white/40 rounded-full h-4 animate-[wave_1.2s_ease-in-out_infinite]"></div>
+<div class="w-1 bg-white/60 rounded-full h-8 animate-[wave_0.8s_ease-in-out_infinite_0.1s]"></div>
+<div class="w-1 bg-white/80 rounded-full h-12 animate-[wave_1.1s_ease-in-out_infinite_0.2s]"></div>
+<div class="w-1 bg-[#e63946] rounded-full h-16 animate-[wave_0.9s_ease-in-out_infinite_0.3s]"></div>
+<div class="w-1 bg-white/80 rounded-full h-10 animate-[wave_1.3s_ease-in-out_infinite_0.4s]"></div>
+<div class="w-1 bg-white/60 rounded-full h-6 animate-[wave_0.7s_ease-in-out_infinite_0.5s]"></div>
+<div class="w-1 bg-white/40 rounded-full h-4 animate-[wave_1.0s_ease-in-out_infinite_0.6s]"></div>
+<div class="w-1 bg-white/30 rounded-full h-3 animate-[wave_1.4s_ease-in-out_infinite_0.7s]"></div>
+<div class="w-1 bg-white/60 rounded-full h-8 animate-[wave_0.8s_ease-in-out_infinite_0.1s]"></div>
+<div class="w-1 bg-white/80 rounded-full h-12 animate-[wave_1.1s_ease-in-out_infinite_0.2s]"></div>
+<div class="w-1 bg-[#e63946] rounded-full h-16 animate-[wave_0.9s_ease-in-out_infinite_0.3s]"></div>
+<div class="w-1 bg-white/80 rounded-full h-10 animate-[wave_1.3s_ease-in-out_infinite_0.4s]"></div>
+<div class="w-1 bg-white/40 rounded-full h-4 animate-[wave_1.2s_ease-in-out_infinite]"></div>
+<div class="w-1 bg-white/60 rounded-full h-8 animate-[wave_0.8s_ease-in-out_infinite_0.1s]"></div>
+<div class="w-1 bg-white/80 rounded-full h-12 animate-[wave_1.1s_ease-in-out_infinite_0.2s]"></div>
+<div class="w-1 bg-[#e63946] rounded-full h-16 animate-[wave_0.9s_ease-in-out_infinite_0.3s]"></div>
+<div class="w-1 bg-white/80 rounded-full h-10 animate-[wave_1.3s_ease-in-out_infinite_0.4s]"></div>
+</div>
+<div class="glass-base flex-1 rounded-3xl p-5 flex flex-col min-h-0 relative overflow-hidden mb-4">
+<div class="absolute top-0 left-0 w-full h-8 bg-gradient-to-b from-[#16161c] to-transparent z-10 pointer-events-none opacity-50"></div>
+<div class="flex items-center justify-between mb-4 px-1">
+<span class="text-xs font-semibold text-white/50 uppercase tracking-widest">Transcript</span>
+<span class="text-[10px] bg-white/10 px-2 py-0.5 rounded text-white/70">Auto-scrolling</span>
+</div>
+<div class="flex-1 overflow-y-auto pr-2 space-y-4 no-scrollbar">
+<div class="flex flex-col gap-1 opacity-60">
+<span class="text-[10px] font-mono text-white/40">00:00:02</span>
+<p class="text-sm font-light text-white leading-relaxed">Officer: Step out of the vehicle, please.</p>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-[10px] font-mono text-[#e63946]/80">00:00:05</span>
+<p class="text-base font-medium text-white leading-relaxed pl-3 border-l-2 border-[#e63946]">User: Am I being detained or am I free to go?</p>
+</div>
+<div class="flex flex-col gap-1 opacity-80">
+<span class="text-[10px] font-mono text-white/40">00:00:08</span>
+<p class="text-sm font-light text-white leading-relaxed">Officer: Just answer the question.</p>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-[10px] font-mono text-[#e63946]/80">00:00:12</span>
+<p class="text-base font-medium text-white leading-relaxed pl-3 border-l-2 border-[#e63946]">User: I am invoking my right to remain silent.</p>
+</div>
+<div class="h-8"></div> 
+</div>
+<div class="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-[#16161c] via-[#16161c]/80 to-transparent z-10 pointer-events-none"></div>
+</div>
+</div>
+<div class="relative z-20 w-full mb-3 px-4">
+<div class="flex gap-3 overflow-x-auto pb-2 no-scrollbar w-full snap-x">
+<button class="snap-start shrink-0 glass-floating rounded-full px-4 py-2.5 flex items-center gap-2 group hover:bg-white/10 active:bg-[#e63946] active:border-[#e63946] transition-all">
+<span class="material-symbols-outlined text-[18px] text-white/90">gavel</span>
+<span class="text-xs font-semibold text-white/90">No Consent</span>
+</button>
+<button class="snap-start shrink-0 glass-floating rounded-full px-4 py-2.5 flex items-center gap-2 group hover:bg-white/10 active:bg-[#e63946] active:border-[#e63946] transition-all">
+<span class="material-symbols-outlined text-[18px] text-white/90">help</span>
+<span class="text-xs font-semibold text-white/90">Am I Detained?</span>
+</button>
+<button class="snap-start shrink-0 glass-floating rounded-full px-4 py-2.5 flex items-center gap-2 group hover:bg-white/10 active:bg-[#e63946] active:border-[#e63946] transition-all">
+<span class="material-symbols-outlined text-[18px] text-white/90">gavel</span>
+<span class="text-xs font-semibold text-white/90">Need Lawyer</span>
+</button>
+<button class="snap-start shrink-0 glass-floating rounded-full px-4 py-2.5 flex items-center gap-2 group hover:bg-white/10 active:bg-[#e63946] active:border-[#e63946] transition-all">
+<span class="material-symbols-outlined text-[18px] text-white/90">mic_off</span>
+<span class="text-xs font-semibold text-white/90">Silent</span>
+</button>
+</div>
+</div>
+<div class="relative z-30 px-6 pb-8 pt-4 glass-floating rounded-t-[2rem] mx-2 mb-2">
+<div class="flex items-center justify-between gap-6">
+<button class="flex flex-col items-center justify-center gap-1 size-14 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-white/70" style="font-size: 24px;">flag</span>
+</button>
+<button class="flex-1 h-20 rounded-2xl bg-[#e63946] hover:bg-red-600 text-white font-bold stop-glow transition-all active:scale-[0.98] flex items-center justify-center gap-3 group relative overflow-hidden">
+<span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></span>
+<div class="size-5 bg-white rounded-sm shadow-sm"></div>
+<span class="text-xl tracking-wide font-extrabold">STOP</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 size-14 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-white/70" style="font-size: 28px;">pause</span>
+</button>
+</div>
+<div class="w-12 h-1 bg-white/20 rounded-full mx-auto mt-4"></div>
+</div>
+</div>
+
+</body></html>
